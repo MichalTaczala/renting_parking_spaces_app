@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "330981707235",
+    "project_id": "garage-app-44057",
+    "storage_bucket": "garage-app-44057.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330981707235:android:3664ff72d0a48a0e8be4d6",
+        "android_client_info": {
+          "package_name": "com.example.mobile_parking_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "330981707235-cnar0hcuuaedudkgdlemtkh2dmfm3dns.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mobile_parking_app",
+            "certificate_hash": "35a67cc9142872887bc5c91bbca79716cfcfbca4"
+          }
+        },
+        {
+          "client_id": "330981707235-9acriae296luuusj9ddjspga01unbqgt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9FSNsTTDYmXopXN7Uhi484cSMK-MV0M4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "330981707235-9acriae296luuusj9ddjspga01unbqgt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "330981707235-htk30v2olgg3gietlm12p2bd3rlss76n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mobileParkingApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
