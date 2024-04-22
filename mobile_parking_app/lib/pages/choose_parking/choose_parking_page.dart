@@ -56,8 +56,20 @@ class _ChooseParkingPageState extends State<ChooseParkingPage> {
                 fontSize: 60,
               ),
             ),
-            const GarageTile(
-                address: "a", cost: "a", dateRange: "a", imagelink: "a"),
+            Expanded(
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return const GarageTile(
+                    address: "a",
+                    cost: "a",
+                    dateRange: "a",
+                    imagelink: "a",
+                  );
+                },
+                padding: EdgeInsets.zero,
+                itemCount: 20,
+              ),
+            ),
           ],
         ),
       ),

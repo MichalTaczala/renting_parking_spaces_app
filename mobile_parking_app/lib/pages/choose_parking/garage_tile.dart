@@ -10,39 +10,42 @@ class GarageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(30),
-          child: Image.asset("assets/images/garage.jpeg"),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(top: 10.0),
-          child: Text(
-            "ul. Marokańska, Praga południe",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(30),
+            child: Image.asset("assets/images/garage.jpeg"),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(top: 10.0),
+            child: Text(
+              "ul. Marokańska, Praga południe",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-        ),
-        const Text(
-          "2,3 km away",
-          style: TextStyle(fontSize: 16),
-        ),
-        const Text(
-          "Apr. 19-24",
-          style: TextStyle(fontSize: 16),
-        ),
-        const Text(
-          "10 zł/h",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
+          const Text(
+            "2,3 km away",
+            style: TextStyle(fontSize: 16),
           ),
-        ),
-      ],
+          const Text(
+            "Apr. 19-24",
+            style: TextStyle(fontSize: 16),
+          ),
+          const Text(
+            "10 zł/h",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

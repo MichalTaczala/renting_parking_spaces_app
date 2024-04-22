@@ -7,6 +7,7 @@ import 'package:mobile_parking_app/cubits/authentication_cubit/authentication_st
 import 'package:mobile_parking_app/firebase_options.dart';
 import 'package:mobile_parking_app/pages/choose_parking/choose_parking_page.dart';
 import 'package:mobile_parking_app/pages/log_in/log_in_page.dart';
+import 'package:mobile_parking_app/pages/parking_details/parking_details_page.dart';
 import 'package:mobile_parking_app/repositories/firebase_user_repo.dart';
 import 'package:mobile_parking_app/theme.dart';
 
@@ -36,15 +37,17 @@ class MainApp extends StatelessWidget {
             // if (state.status == AuthenticationStatus.unauthenticated) {
             //   Navigator.of(context).pushReplacementNamed("/logIn");
             // }
-            
           },
-          child: MaterialApp(
-            theme: mainTheme,
-            initialRoute: "/logIn",
-            routes: {
-              "/home": (context) =>  const ChooseParkingPage(),
-              "/logIn": (context) => const LogInPage(),
-            },
+          child: SafeArea(
+            child: MaterialApp(
+              theme: mainTheme,
+              initialRoute: "/parkingDetails",
+              routes: {
+                "/home": (context) => const ChooseParkingPage(),
+                "/logIn": (context) => const LogInPage(),
+                "/parkingDetails": (context) => const ParkingDetailsPage(),
+              },
+            ),
           ),
         ),
       ),
