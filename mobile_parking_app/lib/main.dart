@@ -30,19 +30,19 @@ class MainApp extends StatelessWidget {
             AuthenticationCubit(context.read<FirebaseUserRepo>()),
         child: BlocListener<AuthenticationCubit, AuthenticationState>(
           listener: (context, state) {
-            if (state.status == AuthenticationStatus.authenticated) {
-              Navigator.of(context).pushReplacementNamed("/home");
-            }
-            if (state.status == AuthenticationStatus.unauthenticated) {
-              Navigator.of(context).pushReplacementNamed("/logIn");
-            }
+            // if (state.status == AuthenticationStatus.authenticated) {
+            //   Navigator.of(context).pushReplacementNamed("/home");
+            // }
+            // if (state.status == AuthenticationStatus.unauthenticated) {
+            //   Navigator.of(context).pushReplacementNamed("/logIn");
+            // }
             
           },
           child: MaterialApp(
             theme: mainTheme,
             initialRoute: "/logIn",
             routes: {
-              "/home": (context) => const ChooseParkingPage(),
+              "/home": (context) =>  const ChooseParkingPage(),
               "/logIn": (context) => const LogInPage(),
             },
           ),

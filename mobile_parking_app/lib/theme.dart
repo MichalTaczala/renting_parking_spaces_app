@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 final mainTheme = ThemeData(
+  visualDensity: VisualDensity.adaptivePlatformDensity,
   primaryColor: Colors.blue,
   primaryTextTheme: const TextTheme(),
   buttonTheme: const ButtonThemeData(

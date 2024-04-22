@@ -19,56 +19,84 @@ class LogInPage extends StatelessWidget {
           body: Container(
             width: double.maxFinite,
             height: double.maxFinite,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.5),
+                  BlendMode.darken,
+                ),
                 fit: BoxFit.cover,
-                image: AssetImage(
+                image: const AssetImage(
                   "assets/images/car_in_garage.jpg",
                 ),
               ),
             ),
-            child: Column(
-              children: [
-                const Spacer(),
-                Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 20,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 100,
                   ),
-                  child: ElevatedButton(
-                    // style: const ButtonStyle(
-                    //   backgroundColor: MaterialStateProperty.all(Colors.white),
-                    //   padding: MaterialStateProperty.all(
-                    //     const EdgeInsets.symmetric(
-                    //       vertical: 10,
-                    //       horizontal: 20,
-                    //     ),
-                    //   ),
-                    //   shape: MaterialStateProperty.all(
-                    //     RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(10),
-                    //     ),
-                    //   ),
-                    // ),
+                  const Text(
+                    "ParkNest",
+                    style: TextStyle(
+                        fontSize: 60,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const Spacer(),
+                  const Text(
+                    "Find the Perfect Spot for Your Wheels!",
+                    style: TextStyle(
+                      fontSize: 50,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        Colors.white.withOpacity(
+                          0.8,
+                        ),
+                      ),
+                    ),
                     onPressed: context.read<AuthenticationCubit>().logIn,
                     child: Row(
                       children: [
-                        Image.asset(
-                          "assets/images/google_logo.png",
-                          fit: BoxFit.scaleDown,
+                        Container(
                           width: 40,
+                          height: 40,
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                "assets/images/google_logo.png",
+                              ),
+                            ),
+                          ),
+                          // child: Image.asset(
+                          //   "assets/images/google_logo.png",
+                          //   fit: BoxFit.scaleDown,
+                          //   width: 40,
+                          // ),
                         ),
-                        Text(
+                        const Spacer(),
+                        const Text(
                           "Sign in with google",
-                          style: Theme.of(context).textTheme.bodyLarge,
+                          style: TextStyle(fontSize: 20, color: Colors.black),
                         ),
+                        const Spacer(),
                       ],
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 100,
-                ),
-              ],
+                  const SizedBox(
+                    height: 40,
+                  ),
+                ],
+              ),
             ),
           ),
         );
