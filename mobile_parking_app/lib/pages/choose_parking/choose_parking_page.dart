@@ -59,11 +59,15 @@ class _ChooseParkingPageState extends State<ChooseParkingPage> {
             Expanded(
               child: ListView.builder(
                 itemBuilder: (context, index) {
-                  return const GarageTile(
-                    address: "a",
-                    cost: "a",
-                    dateRange: "a",
-                    imagelink: "a",
+                  return InkWell(
+                    onTap: () =>
+                        Navigator.of(context).pushNamed("/parkingDetails"),
+                    child: const GarageTile(
+                      address: "a",
+                      cost: "a",
+                      dateRange: "a",
+                      imagelink: "a",
+                    ),
                   );
                 },
                 padding: EdgeInsets.zero,

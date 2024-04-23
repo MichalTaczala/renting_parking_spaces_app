@@ -41,7 +41,7 @@ class MainApp extends StatelessWidget {
           child: SafeArea(
             child: MaterialApp(
               theme: mainTheme,
-              initialRoute: "/parkingDetails",
+              initialRoute: "/logIn",
               routes: {
                 "/home": (context) => const ChooseParkingPage(),
                 "/logIn": (context) => const LogInPage(),
