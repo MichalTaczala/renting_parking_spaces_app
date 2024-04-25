@@ -21,7 +21,7 @@ jobs:
       env:
         PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
       run: |
-        echo 'projectId = "$(GCP_PROJECT_ID)"' >  ${{ github.workspace }}/terraform_conf/values.tfvars
+        echo "projectId = \"$GCP_PROJECT_ID\"" >  ${{ github.workspace }}/terraform_conf/values.tfvars
 
     - name: Create SA kay
       env:
