@@ -17,6 +17,12 @@ jobs:
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v1
 
+    - name: Add tf vars
+      env:
+        PROJECT_ID: ${{ GCP_PROJECT_ID }}
+      run: |
+        echo 'projectId = "$GCP_PROJECT_ID"' > renting_parking_spaces_app/terraform_conf/values.tfvars
+
     - name: Create SA kay
       env:
         GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
