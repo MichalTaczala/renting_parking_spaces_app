@@ -1,10 +1,16 @@
-resource "google_storage_bucket" "flask_application_needed_files_v1432423" {
-  name     = "flask-app-files-v2"
+resource "google_storage_bucket" "backend_bucket" {
+  name     = "backend_code"
   location = "US"
 }
 
-resource "google_storage_bucket_object" "python_file" {
+resource "google_storage_bucket_object" "python_files" {
   name   = "zip_flask_files.zip"
-  bucket = google_storage_bucket.flask_application_needed_files_v1432423.name
-  source = "${path.module}/../backend_flask/run_files.zip"
+  bucket = google_storage_bucket.backend_bucket.name
+  source = "${path.module}/../backend_flask/flask_files.zip"
+}
+
+resource "google_storage_bucket_object" "go_stripe_files" {
+  name   = "zip_go_files.zip"
+  bucket = google_storage_bucket.backend_bucket.name
+  source = "${path.module}/../stripe_api/go_stripe_files.zip"
 }
