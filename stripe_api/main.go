@@ -15,6 +15,9 @@ func main() {
 	envFile, _ := godotenv.Read(".env")
 	stripe.Key = envFile["STRIPE_PRIVATE_KEY"]
 	var tokenStripe string
+	router.GET("/", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"message": "Hello, World!"})
+	})
 	router.POST("/create-token", func(c *gin.Context) {
 		var request struct {
 			Token string `json:"token"`

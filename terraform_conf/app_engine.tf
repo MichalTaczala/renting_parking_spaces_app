@@ -39,13 +39,16 @@ resource "google_app_engine_standard_app_version" "go_service" {
   runtime    = "go121"
 
   entrypoint {
-    shell = "go run main.go"
+    shell = "main"
   }
 
   deployment {
     zip {
       source_url = "https://storage.googleapis.com/${google_storage_bucket.backend_bucket.name}/zip_go_files.zip"
     }
+  }
+  env_variables = {
+    "PORT" = "8080"
   }
   automatic_scaling {
     max_concurrent_requests = 10
