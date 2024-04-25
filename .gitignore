@@ -9,3 +9,4 @@ crash.log
 
 .terraform.lock.hcl
 *.tfvars
+key_app.json
