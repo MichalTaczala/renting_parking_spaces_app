@@ -1,7 +1,0 @@
-runtime: go121
-entrypoint: go run .
-
-handlers:
-  - url: /.*
-    script: auto
-    secure: always
