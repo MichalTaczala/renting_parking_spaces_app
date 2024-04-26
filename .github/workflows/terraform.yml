@@ -1,0 +1,40 @@
+name: 'Deploy Terraform to GCP'
+
+on:
+  push:
+    branches:
+      - main  # Set to your default branch
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Add tf vars
+      env:
+        PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      run: |
+        echo "projectId = \"$PROJECT_ID\"" >  ${{ github.workspace }}/terraform_conf/values.tfvars
+
+    - name: Create SA kay
+      env:
+        GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+      run: |
+        echo "$GCP_SA_KEY" > ${{ github.workspace }}/terraform_conf/key_app.json
+
+    - name: Initialize Terraform
+      run: terraform -chdir=${{ github.workspace }}/terraform_conf/ init
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/terraform_conf/key_app.json
+
+    - name: Apply Terraform
+      run: terraform -chdir=${{ github.workspace }}/terraform_conf/ apply -var-file="${{ github.workspace }}/terraform_conf/values.tfvars" -auto-approve 
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/terraform_conf/key_app.json
