@@ -46,12 +46,12 @@ jobs:
 
     - name: Change name of the folder
       run: |
-        mkdir go_stripe_files
-        cp -R stripe_api/* go_stripe_files/
+        mkdir zip_go_files
+        cp -R stripe_api/* zip_go_files/
       working-directory: ${{ github.workspace }}
         
     - name: Zip Go Stripe code
-      run: zip -r stripe_api/go_stripe_files.zip go_stripe_files/*
+      run: zip -r stripe_api/go_stripe_files.zip zip_go_files/*
       working-directory: ${{ github.workspace }}
 
     - name: Upload Flask ZIP as Artifact
