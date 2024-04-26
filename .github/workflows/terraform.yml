@@ -6,8 +6,35 @@ on:
       - main  # Set to your default branch
 
 jobs:
+  prepare-zip:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Zip Flask code
+      run: zip -r backend_flask/flask_files.zip backend_flask/
+      working-directory: ${{ github.workspace }}
+
+    - name: Zip Go Stripe code
+      run: zip -r stripe_api/go_stripe_files.zip stripe_api/
+      working-directory: ${{ github.workspace }}
+
+    - name: Upload Flask ZIP as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: flask-files
+        path: ${{ github.workspace }}/backend_flask/flask_files.zip
+
+    - name: Upload Go Stripe ZIP as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: go-stripe-files
+        path: ${{ github.workspace }}/stripe_api/go_stripe_files.zip
+
   terraform:
     name: 'Terraform'
+    needs: prepare-zip
     runs-on: ubuntu-latest
 
     steps:
