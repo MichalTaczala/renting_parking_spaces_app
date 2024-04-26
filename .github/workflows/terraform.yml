@@ -38,12 +38,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+    
     - name: Checkout Code
       uses: actions/checkout@v2
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v1
 
+    - name: Download Flask ZIP
+      uses: actions/download-artifact@v2
+      with:
+        name: flask-files
+        path: backend_flask/
+    
+    - name: Download Go Stripe ZIP
+      uses: actions/download-artifact@v2
+      with:
+        name: go-stripe-files
+        path: stripe_api/
+
+    
     - name: Add tf vars
       env:
         PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
