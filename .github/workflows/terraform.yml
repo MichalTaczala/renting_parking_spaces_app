@@ -51,7 +51,7 @@ jobs:
       working-directory: ${{ github.workspace }}
         
     - name: Zip Go Stripe code
-      run: zip -r stripe_api/go_stripe_files.zip zip_go_files/*
+      run: zip -r -y stripe_api/go_stripe_files.zip zip_go_files/*
       working-directory: ${{ github.workspace }}
 
     - name: Upload Flask ZIP as Artifact
