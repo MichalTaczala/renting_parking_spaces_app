@@ -80,11 +80,11 @@ jobs:
         name: flask-files
         path: backend_flask/
     
-    - name: Download Go Stripe ZIP
-      uses: actions/download-artifact@v2
-      with:
-        name: go-stripe-files
-        path: stripe_api/
+    # - name: Download Go Stripe ZIP
+    #   uses: actions/download-artifact@v2
+    #   with:
+    #     name: go-stripe-files
+    #     path: stripe_api/
 
     
     - name: Add tf vars
