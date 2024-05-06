@@ -38,11 +38,11 @@ jobs:
       run: zip -r backend_flask/flask_files.zip backend_flask/*
       working-directory: ${{ github.workspace }}
 
-    - name: Download vendor dir
-      uses: actions/download-artifact@v2
-      with:
-        name: vendor-dir
-        path: ${{ github.workspace }}/stripe_api/vendor
+    # - name: Download vendor dir
+    #   uses: actions/download-artifact@v2
+    #   with:
+    #     name: vendor-dir
+    #     path: ${{ github.workspace }}/stripe_api/vendor
 
     - name: Change name of the folder
       run: |
@@ -50,9 +50,9 @@ jobs:
         cp -R stripe_api/* zip_go_files/
       working-directory: ${{ github.workspace }}
         
-    - name: Zip Go Stripe code
-      run: zip -r -X stripe_api/go_stripe_files.zip zip_go_files/*
-      working-directory: ${{ github.workspace }}
+    # - name: Zip Go Stripe code
+    #   run: zip -r -X stripe_api/go_stripe_files.zip zip_go_files/*
+    #   working-directory: ${{ github.workspace }}
 
     - name: Upload Flask ZIP as Artifact
       uses: actions/upload-artifact@v2
