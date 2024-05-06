@@ -14,27 +14,19 @@ func main() {
 	router := gin.Default()
 	envFile, _ := godotenv.Read(".env")
 	stripe.Key = envFile["STRIPE_PRIVATE_KEY"]
-	var tokenStripe string
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"message": "Hello, World!"})
 	})
-	router.POST("/create-token", func(c *gin.Context) {
+	router.POST("/handlePayments", func(c *gin.Context) {
 		var request struct {
-			Token string `json:"token"`
+			ClientSecret string `json:"client_secret"`
 		}
 		if err := c.BindJSON(&request); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request"})
 			return
 		}
 
-		tokenStripe = request.Token
-		params := &stripe.ChargeParams{
-			Amount:       stripe.Int64(2000), // Charge amount is in cents (2000 cents = 20 USD)
-			Currency:     stripe.String(string(stripe.CurrencyUSD)),
-			Description:  stripe.String("Charge for parking space rental"),
-			ReceiptEmail: stripe.String("customer@example.com"),
-		}
-		params.SetSource(tokenStripe) // Replace 'tok_visa' with a real token ID
+		clientSecret := request.ClientSecret
 
 		// Attempt to charge the customer
 		ch, err := charge.New(params)

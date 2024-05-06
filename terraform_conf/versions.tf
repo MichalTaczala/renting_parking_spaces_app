@@ -11,5 +11,6 @@ terraform {
   backend "gcs" {
     bucket = "remote-terraform-files"
     prefix = "terraform/state"
+    # impersonate_service_account = "terraform-super-admin@${var.projectId}.iam.gserviceaccount.com"
   }
 }

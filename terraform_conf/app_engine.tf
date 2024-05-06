@@ -1,6 +1,11 @@
 resource "google_app_engine_application" "app" {
   project     = var.projectId
   location_id = "us-central"
+  lifecycle {
+    prevent_destroy = false
+  }
+
+
 }
 
 resource "google_app_engine_standard_app_version" "flask_service" {
@@ -18,6 +23,7 @@ resource "google_app_engine_standard_app_version" "flask_service" {
     }
   }
 
+
   env_variables = {
     port = "8080"
   }
@@ -31,6 +37,9 @@ resource "google_app_engine_standard_app_version" "flask_service" {
   }
 
   delete_service_on_destroy = false
+  lifecycle {
+    prevent_destroy = false
+  }
 }
 
 resource "google_app_engine_standard_app_version" "go_service" {
@@ -59,4 +68,7 @@ resource "google_app_engine_standard_app_version" "go_service" {
   }
 
   delete_service_on_destroy = true
+  lifecycle {
+    prevent_destroy = false
+  }
 }
