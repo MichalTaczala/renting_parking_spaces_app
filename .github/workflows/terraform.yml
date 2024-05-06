@@ -109,7 +109,8 @@ jobs:
       run: terraform -chdir=${{ github.workspace }}/terraform_conf/ init
       env:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/terraform_conf/key_app.json
-
+    - name: Import app engine application
+      run: terraform -chdir=${{ github.workspace }}/terraform_conf/ import google_app_engine_application.app app -var-file="${{ github.workspace }}/terraform_conf/values.tfvars"
     - name: Apply Terraform
       run: terraform -chdir=${{ github.workspace }}/terraform_conf/ apply -var-file="${{ github.workspace }}/terraform_conf/values.tfvars" -auto-approve 
       env:
