@@ -1,6 +1,0 @@
-runtime: go121 # Specify the Go runtime environment, change as per your Go version
-env: standard # Use the standard environment
-
-handlers:
-  - url: /.* # This regex matches all routes
-    script: auto # Automatically route requests to the appropriate handler
