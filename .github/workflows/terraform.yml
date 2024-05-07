@@ -25,6 +25,12 @@ jobs:
       with:
         name: flask-files
         path: ${{ github.workspace }}/backend_flask/flask_files.zip
+        
+    - name: Upload STRIPE Functions ZIP as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: stripe_files
+        path: ${{ github.workspace }}/stripe_api/stripe_files.zip
 
 
   terraform:
@@ -44,6 +50,12 @@ jobs:
       with:
         name: flask-files
         path: backend_flask/
+        
+    - name: Download Stripe ZIP
+      uses: actions/download-artifact@v2
+      with:
+        name: stripe_files
+        path: stripe_api/
 
     
     - name: Add tf vars
