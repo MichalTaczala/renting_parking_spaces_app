@@ -16,7 +16,7 @@ def payment():
         data = request.get_json()  # Get JSON data from the request
         client_secret = data.get("client_secret")
     response = requests.post(
-        "https://go-service-dot-parking-app-v2.uc.r.appspot.com/handlePayments",
+        "https://us-central1-parking-app-v2.cloudfunctions.net/payment_handling",
         json={"client_secret": client_secret},
     )
 
