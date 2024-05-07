@@ -7,26 +7,18 @@ on:
 
 jobs:
   prepare-zip:
-    needs: create-go-vendor
     runs-on: ubuntu-latest
     steps:
-    
     - name: Checkout Code
       uses: actions/checkout@v2
 
     - name: Zip Flask code
       run: zip -r backend_flask/flask_files.zip backend_flask/*
       working-directory: ${{ github.workspace }}
-
-    # - name: Download vendor dir
-    #   uses: actions/download-artifact@v2
-    #   with:
-    #     name: vendor-dir
-    #     path: ${{ github.workspace }}/stripe_api/vendor
     
-    # - name: Zip Go Stripe code
-    #   run: zip -r -X stripe_api/go_stripe_files.zip zip_go_files/*
-    #   working-directory: ${{ github.workspace }}
+    - name: Zip Stripe code
+      run: zip -r stripe_api/stripe_files.zip stripe_api/*
+      working-directory: ${{ github.workspace }}
 
     - name: Upload Flask ZIP as Artifact
       uses: actions/upload-artifact@v2
@@ -34,11 +26,6 @@ jobs:
         name: flask-files
         path: ${{ github.workspace }}/backend_flask/flask_files.zip
 
-    # - name: Upload Go Stripe ZIP as Artifact
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: go-stripe-files
-    #     path: ${{ github.workspace }}/stripe_api/go_stripe_files.zip
 
   terraform:
     name: 'Terraform'
