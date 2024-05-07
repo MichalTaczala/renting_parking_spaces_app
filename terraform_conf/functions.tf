@@ -10,5 +10,8 @@ resource "google_cloudfunctions_function" "function" {
   https_trigger_security_level = "SECURE_ALWAYS"
   timeout                      = 60
   entry_point                  = "payment"
+  environment_variables = {
+    STRIPE_API_KEY = var.stripe_api_key
+  }
 
 }
