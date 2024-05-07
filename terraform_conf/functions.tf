@@ -1,5 +1,5 @@
 resource "google_cloudfunctions_function" "function" {
-  name        = "payment_handling"
+  name        = "webhook_payment"
   description = "payment handling function"
   runtime     = "python39"
 
@@ -9,9 +9,17 @@ resource "google_cloudfunctions_function" "function" {
   trigger_http                 = true
   https_trigger_security_level = "SECURE_ALWAYS"
   timeout                      = 60
-  entry_point                  = "payment"
+  entry_point                  = "webhook"
   environment_variables = {
     STRIPE_API_KEY = var.stripe_api_key
   }
 
+}
+
+resource "google_cloudfunctions_function_iam_member" "public_invoker" {
+  project        = google_cloudfunctions_function.function.project
+  region         = google_cloudfunctions_function.function.region
+  cloud_function = google_cloudfunctions_function.function.name
+  role           = "roles/cloudfunctions.invoker"
+  member         = "allUsers"
 }
