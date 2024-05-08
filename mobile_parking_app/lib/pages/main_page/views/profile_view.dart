@@ -10,6 +10,12 @@ class ProfileView extends StatelessWidget {
     return Column(
       children: [
         ElevatedButton(
+          onPressed: () => Navigator.of(context).pushNamed("/addParkingSpot"),
+          child: const Text(
+            "Add Parking Spot",
+          ),
+        ),
+        ElevatedButton(
           onPressed: context.read<AuthenticationCubit>().logOut,
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.red),

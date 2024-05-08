@@ -6,6 +6,7 @@ import 'package:mobile_parking_app/cubits/authentication_cubit/authentication_cu
 import 'package:mobile_parking_app/cubits/authentication_cubit/authentication_state.dart';
 import 'package:mobile_parking_app/firebase_options.dart';
 import 'package:mobile_parking_app/models/parking_details_model.dart';
+import 'package:mobile_parking_app/pages/add_parking/add_parking_page.dart';
 import 'package:mobile_parking_app/pages/log_in/log_in_page.dart';
 import 'package:mobile_parking_app/pages/main_page/main_page.dart';
 import 'package:mobile_parking_app/pages/parking_details/parking_details_page.dart';
@@ -49,6 +50,7 @@ class MainApp extends StatelessWidget {
                       .arguments as ParkingDetailsModel,
                 ),
             "/payment": (context) => const StripePaymentPage(),
+            "/addParkingSpot": (context) => const AddParkingPage(),
           },
           builder: (context2, child) {
             return BlocListener<AuthenticationCubit, AuthenticationState>(
