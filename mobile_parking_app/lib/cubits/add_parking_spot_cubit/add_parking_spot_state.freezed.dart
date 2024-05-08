@@ -149,7 +149,7 @@ class _$AddParkingSpotStateImpl implements _AddParkingSpotState {
   const _$AddParkingSpotStateImpl(
       {this.name = "",
       this.address = "",
-      this.price = "",
+      this.price = 0,
       this.description = "",
       final List<File> images = const []})
       : _images = images;

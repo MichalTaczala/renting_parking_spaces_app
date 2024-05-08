@@ -9,7 +9,7 @@ class AddParkingSpotState with _$AddParkingSpotState {
   const factory AddParkingSpotState({
     @Default("") String name,
     @Default("") String address,
-    @Default("") double price,
+    @Default(0) double price,
     @Default("") String description,
     @Default([]) List<File> images,
   }) = _AddParkingSpotState;

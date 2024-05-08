@@ -19,7 +19,7 @@ class AddParkingSpotCubit extends Cubit<AddParkingSpotState> {
     emit(state.copyWith(address: address));
   }
 
-  void priceChanged(String price) {
+  void priceChanged(double price) {
     emit(state.copyWith(price: price));
   }
 
