@@ -55,7 +55,7 @@ class ParkingDetailsModel {
       'address': address,
       'phone': phone,
       'email': email,
-      'images': images.map((file) => file.path).toList(),
+      'images': images?.map((file) => file.path).toList(),
       'description': description,
       'latitude': latitude,
       'longitude': longitude,
