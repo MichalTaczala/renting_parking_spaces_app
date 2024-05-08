@@ -1,7 +1,96 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-class ParkingDetailsPage extends StatelessWidget {
-  const ParkingDetailsPage({super.key});
+import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:http/http.dart' as http;
+import 'package:mobile_parking_app/models/parking_details_model.dart';
+
+class ParkingDetailsPage extends StatefulWidget {
+  const ParkingDetailsPage({super.key, required this.parkingDetailsModel});
+  final ParkingDetailsModel parkingDetailsModel;
+
+  @override
+  State<ParkingDetailsPage> createState() => _ParkingDetailsPageState();
+}
+
+class _ParkingDetailsPageState extends State<ParkingDetailsPage> {
+  Map<String, dynamic>? paymentIntent;
+
+  Future<void> makePayment() async {
+    try {
+      paymentIntent = await createPaymentIntent(
+        widget.parkingDetailsModel.price,
+        widget.parkingDetailsModel.currency,
+      );
+
+      // initialise the payment sheet setup
+      await Stripe.instance.initPaymentSheet(
+        paymentSheetParameters: SetupPaymentSheetParameters(
+          // Client secret key from payment data
+          paymentIntentClientSecret: paymentIntent!['client_secret'],
+          googlePay: const PaymentSheetGooglePay(
+            testEnv: true,
+            currencyCode: "PLN",
+            merchantCountryCode: "PL",
+          ),
+          // Merchant Name
+          merchantDisplayName: 'radakanis',
+        ),
+      );
+      // Display payment sheet
+      displayPaymentSheet(paymentIntent);
+    } catch (e) {
+      print("exception $e");
+
+      if (e is StripeConfigException) {
+        print("Stripe exception ${e.message}");
+      } else {
+        print("exception $e");
+      }
+    }
+  }
+
+  displayPaymentSheet(Map<String, dynamic>? paymentIntent) async {
+    try {
+      await Stripe.instance.presentPaymentSheet();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Paid successfully")),
+      );
+      paymentIntent = null;
+    } on StripeException catch (e) {
+      print('Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text(" Payment Cancelled")),
+      );
+    } catch (e) {
+      print("Error in displaying");
+      print('$e');
+    }
+  }
+
+  createPaymentIntent(double amount, String currency) async {
+    try {
+      Map<String, dynamic> body = {
+        'amount': (((amount * 100).round())).toString(),
+        'currency': currency,
+        'payment_method_types[]': 'card',
+      };
+      //TODO change it to server invokation
+      var secretKey =
+          "sk_test_51NldnEDNOsFHC8X3JgLrJs1AW7Bjxja9dTWrqnYlAP8E1ibGgJyYkCzQMFc8AYWziifVueveymmnvvS34bm9lZb200Di3Wo5oI";
+      var response = await http.post(
+        Uri.parse('https://api.stripe.com/v1/payment_intents'),
+        headers: {
+          'Authorization': 'Bearer $secretKey',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: body,
+      );
+      return jsonDecode(response.body.toString());
+    } catch (err) {
+      return err;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +176,9 @@ class ParkingDetailsPage extends StatelessWidget {
                 ),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () => print("siema"),
+                    onPressed: () async {
+                      await makePayment();
+                    },
                     style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(
                         Colors.blue[400],

@@ -18,4 +18,15 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       );
     });
   }
+
+  void logOut() {
+    _firebaseUserRepo.signOut().then((_) {
+      emit(
+        state.copyWith(
+          user: null,
+          status: AuthenticationStatus.unauthenticated,
+        ),
+      );
+    });
+  }
 }

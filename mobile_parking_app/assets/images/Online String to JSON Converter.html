@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<!-- saved from url=(0035)https://dadroit.com/string-to-json/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>.ͼ1.cm-focused {outline: 1px dotted #212121;}
+.ͼ1 {position: relative !important; box-sizing: border-box; display: flex !important; flex-direction: column;}
+.ͼ1 .cm-scroller {display: flex !important; align-items: flex-start !important; font-family: monospace; line-height: 1.4; height: 100%; overflow-x: auto; position: relative; z-index: 0;}
+.ͼ1 .cm-content[contenteditable=true] {-webkit-user-modify: read-write-plaintext-only;}
+.ͼ1 .cm-content {margin: 0; flex-grow: 2; flex-shrink: 0; display: block; white-space: pre; word-wrap: normal; box-sizing: border-box; min-height: 100%; padding: 4px 0; outline: none;}
+.ͼ1 .cm-lineWrapping {white-space: pre-wrap; white-space: break-spaces; word-break: break-word; overflow-wrap: anywhere; flex-shrink: 1;}
+.ͼ2 .cm-content {caret-color: black;}
+.ͼ3 .cm-content {caret-color: white;}
+.ͼ1 .cm-line {display: block; padding: 0 2px 0 6px;}
+.ͼ1 .cm-layer > * {position: absolute;}
+.ͼ1 .cm-layer {position: absolute; left: 0; top: 0; contain: size style;}
+.ͼ2 .cm-selectionBackground {background: #d9d9d9;}
+.ͼ3 .cm-selectionBackground {background: #222;}
+.ͼ2.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground {background: #d7d4f0;}
+.ͼ3.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground {background: #233;}
+.ͼ1 .cm-cursorLayer {pointer-events: none;}
+.ͼ1.cm-focused > .cm-scroller > .cm-cursorLayer {animation: steps(1) cm-blink 1.2s infinite;}
+@keyframes cm-blink {50% {opacity: 0;}}
+@keyframes cm-blink2 {50% {opacity: 0;}}
+.ͼ1 .cm-cursor, .ͼ1 .cm-dropCursor {border-left: 1.2px solid black; margin-left: -0.6px; pointer-events: none;}
+.ͼ1 .cm-cursor {display: none;}
+.ͼ3 .cm-cursor {border-left-color: #444;}
+.ͼ1 .cm-dropCursor {position: absolute;}
+.ͼ1.cm-focused > .cm-scroller > .cm-cursorLayer .cm-cursor {display: block;}
+.ͼ2 .cm-activeLine {background-color: #cceeff44;}
+.ͼ3 .cm-activeLine {background-color: #99eeff33;}
+.ͼ2 .cm-specialChar {color: red;}
+.ͼ3 .cm-specialChar {color: #f78;}
+.ͼ1 .cm-gutters {flex-shrink: 0; display: flex; height: 100%; box-sizing: border-box; inset-inline-start: 0; z-index: 200;}
+.ͼ2 .cm-gutters {background-color: #f5f5f5; color: #6c6c6c; border-right: 1px solid #ddd;}
+.ͼ3 .cm-gutters {background-color: #333338; color: #ccc;}
+.ͼ1 .cm-gutter {display: flex !important; flex-direction: column; flex-shrink: 0; box-sizing: border-box; min-height: 100%; overflow: hidden;}
+.ͼ1 .cm-gutterElement {box-sizing: border-box;}
+.ͼ1 .cm-lineNumbers .cm-gutterElement {padding: 0 3px 0 5px; min-width: 20px; text-align: right; white-space: nowrap;}
+.ͼ2 .cm-activeLineGutter {background-color: #e2f2ff;}
+.ͼ3 .cm-activeLineGutter {background-color: #222227;}
+.ͼ1 .cm-panels {box-sizing: border-box; position: sticky; left: 0; right: 0;}
+.ͼ2 .cm-panels {background-color: #f5f5f5; color: black;}
+.ͼ2 .cm-panels-top {border-bottom: 1px solid #ddd;}
+.ͼ2 .cm-panels-bottom {border-top: 1px solid #ddd;}
+.ͼ3 .cm-panels {background-color: #333338; color: white;}
+.ͼ1 .cm-tab {display: inline-block; overflow: hidden; vertical-align: bottom;}
+.ͼ1 .cm-widgetBuffer {vertical-align: text-top; height: 1em; width: 0; display: inline;}
+.ͼ1 .cm-placeholder {color: #888; display: inline-block; vertical-align: top;}
+.ͼ1 .cm-highlightSpace:before {content: attr(data-display); position: absolute; pointer-events: none; color: #888;}
+.ͼ1 .cm-highlightTab {background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="20"><path stroke="%23888" stroke-width="1" fill="none" d="M1 10H196L190 5M190 15L196 10M197 4L197 16"/></svg>'); background-size: auto 100%; background-position: right 90%; background-repeat: no-repeat;}
+.ͼ1 .cm-trailingSpace {background-color: #ff332255;}
+.ͼ1 .cm-button {vertical-align: middle; color: inherit; font-size: 70%; padding: .2em 1em; border-radius: 1px;}
+.ͼ2 .cm-button:active {background-image: linear-gradient(#b4b4b4, #d0d3d6);}
+.ͼ2 .cm-button {background-image: linear-gradient(#eff1f5, #d9d9df); border: 1px solid #888;}
+.ͼ3 .cm-button:active {background-image: linear-gradient(#111, #333);}
+.ͼ3 .cm-button {background-image: linear-gradient(#393939, #111); border: 1px solid #888;}
+.ͼ1 .cm-textfield {vertical-align: middle; color: inherit; font-size: 70%; border: 1px solid silver; padding: .2em .5em;}
+.ͼ2 .cm-textfield {background-color: white;}
+.ͼ3 .cm-textfield {border: 1px solid #555; background-color: inherit;}
+.ͼ1 .cm-tooltip.cm-tooltip-autocomplete > ul > li, .ͼ1 .cm-tooltip.cm-tooltip-autocomplete > ul > completion-section {padding: 1px 3px; line-height: 1.2;}
+.ͼ1 .cm-tooltip.cm-tooltip-autocomplete > ul > li {overflow-x: hidden; text-overflow: ellipsis; cursor: pointer;}
+.ͼ1 .cm-tooltip.cm-tooltip-autocomplete > ul > completion-section {display: list-item; border-bottom: 1px solid silver; padding-left: 0.5em; opacity: 0.7;}
+.ͼ1 .cm-tooltip.cm-tooltip-autocomplete > ul {font-family: monospace; white-space: nowrap; overflow: hidden auto; max-width: 700px; max-width: min(700px, 95vw); min-width: 250px; max-height: 10em; height: 100%; list-style: none; margin: 0; padding: 0;}
+.ͼ2 .cm-tooltip-autocomplete ul li[aria-selected] {background: #17c; color: white;}
+.ͼ2 .cm-tooltip-autocomplete-disabled ul li[aria-selected] {background: #777;}
+.ͼ3 .cm-tooltip-autocomplete ul li[aria-selected] {background: #347; color: white;}
+.ͼ3 .cm-tooltip-autocomplete-disabled ul li[aria-selected] {background: #444;}
+.ͼ1 .cm-completionListIncompleteTop:before, .ͼ1 .cm-completionListIncompleteBottom:after {content: "···"; opacity: 0.5; display: block; text-align: center;}
+.ͼ1 .cm-tooltip.cm-completionInfo {position: absolute; padding: 3px 9px; width: max-content; max-width: 400px; box-sizing: border-box;}
+.ͼ1 .cm-completionInfo.cm-completionInfo-left {right: 100%;}
+.ͼ1 .cm-completionInfo.cm-completionInfo-right {left: 100%;}
+.ͼ1 .cm-completionInfo.cm-completionInfo-left-narrow {right: 30px;}
+.ͼ1 .cm-completionInfo.cm-completionInfo-right-narrow {left: 30px;}
+.ͼ2 .cm-snippetField {background-color: #00000022;}
+.ͼ3 .cm-snippetField {background-color: #ffffff22;}
+.ͼ1 .cm-snippetFieldPosition {vertical-align: text-top; width: 0; height: 1.15em; display: inline-block; margin: 0 -0.7px -.7em; border-left: 1.4px dotted #888;}
+.ͼ1 .cm-completionMatchedText {text-decoration: underline;}
+.ͼ1 .cm-completionDetail {margin-left: 0.5em; font-style: italic;}
+.ͼ1 .cm-completionIcon {font-size: 90%; width: .8em; display: inline-block; text-align: center; padding-right: .6em; opacity: 0.6; box-sizing: content-box;}
+.ͼ1 .cm-completionIcon-function:after, .ͼ1 .cm-completionIcon-method:after {content: 'ƒ';}
+.ͼ1 .cm-completionIcon-class:after {content: '○';}
+.ͼ1 .cm-completionIcon-interface:after {content: '◌';}
+.ͼ1 .cm-completionIcon-variable:after {content: '𝑥';}
+.ͼ1 .cm-completionIcon-constant:after {content: '𝐶';}
+.ͼ1 .cm-completionIcon-type:after {content: '𝑡';}
+.ͼ1 .cm-completionIcon-enum:after {content: '∪';}
+.ͼ1 .cm-completionIcon-property:after {content: '□';}
+.ͼ1 .cm-completionIcon-keyword:after {content: '🔑︎';}
+.ͼ1 .cm-completionIcon-namespace:after {content: '▢';}
+.ͼ1 .cm-completionIcon-text:after {content: 'abc'; font-size: 50%; vertical-align: middle;}
+.ͼ1 .cm-tooltip {z-index: 100; box-sizing: border-box;}
+.ͼ2 .cm-tooltip {border: 1px solid #bbb; background-color: #f5f5f5;}
+.ͼ2 .cm-tooltip-section:not(:first-child) {border-top: 1px solid #bbb;}
+.ͼ3 .cm-tooltip {background-color: #333338; color: white;}
+.ͼ1 .cm-tooltip-arrow:before, .ͼ1 .cm-tooltip-arrow:after {content: ''; position: absolute; width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent;}
+.ͼ1 .cm-tooltip-above .cm-tooltip-arrow:before {border-top: 7px solid #bbb;}
+.ͼ1 .cm-tooltip-above .cm-tooltip-arrow:after {border-top: 7px solid #f5f5f5; bottom: 1px;}
+.ͼ1 .cm-tooltip-above .cm-tooltip-arrow {bottom: -7px;}
+.ͼ1 .cm-tooltip-below .cm-tooltip-arrow:before {border-bottom: 7px solid #bbb;}
+.ͼ1 .cm-tooltip-below .cm-tooltip-arrow:after {border-bottom: 7px solid #f5f5f5; top: 1px;}
+.ͼ1 .cm-tooltip-below .cm-tooltip-arrow {top: -7px;}
+.ͼ1 .cm-tooltip-arrow {height: 7px; width: 14px; position: absolute; z-index: -1; overflow: hidden;}
+.ͼ3 .cm-tooltip .cm-tooltip-arrow:before {border-top-color: #333338; border-bottom-color: #333338;}
+.ͼ3 .cm-tooltip .cm-tooltip-arrow:after {border-top-color: transparent; border-bottom-color: transparent;}
+.ͼ1.cm-focused .cm-matchingBracket {background-color: #328c8252;}
+.ͼ1.cm-focused .cm-nonmatchingBracket {background-color: #bb555544;}
+
+.ͼf {color: #8BE9FD;}
+.ͼg {color: #FF79C6;}
+.ͼh {color: #50FA7B;}
+.ͼi {color: #FF79C6;}
+.ͼj {color: #BD93F9;}
+.ͼk {color: #f8f8f2;}
+.ͼl {color: #FF79C6;}
+.ͼm {color: #50FA7B;}
+.ͼn {color: #f8f8f2;}
+
+</style>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Primary Meta Tags -->
+    <title>Online String to JSON Converter</title>
+    <meta name="description" content="Convert String into JSON format easily and securely. Your data is processed on your device, ensuring privacy.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dadroit.com/string-to-json/">
+    <meta property="og:title" content="Online String to JSON Converter">
+    <meta property="og:description" content="Convert String into JSON format easily and securely. Your data is processed on your device, ensuring privacy.">
+    <meta property="og:image" content="https://dadroit.com/images/i_og_landing_jsonviewer_rect.png">
+
+    <!-- Twitter Card -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@DadroitGroup">
+    <meta property="twitter:url" content="https://dadroit.com/string-to-json/">
+    <meta property="twitter:title" content="Online String to JSON Converter">
+    <meta property="twitter:description" content="Convert String into JSON format easily and securely. Your data is processed on your device, ensuring privacy.">
+    <meta property="twitter:image" content="https://dadroit.com/images/i_og_landing_jsonviewer_rect.png">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://dadroit.com/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://dadroit.com/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://dadroit.com/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://dadroit.com/favicon/site.web-manifest">
+    <link rel="mask-icon" href="https://dadroit.com/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="canonical" href="https://dadroit.com/string-to-json/">
+
+  <script type="module" crossorigin="" src="./Online String to JSON Converter_files/vendor-e8c6f3b0.js"></script>
+  <script type="module" crossorigin="" src="./Online String to JSON Converter_files/main-583b1237.js"></script>
+  <link rel="stylesheet" href="./Online String to JSON Converter_files/main-c003a7d4.css">
+</head>
+<body data-new-gr-c-s-check-loaded="14.1171.0" data-gr-ext-installed="" class="vsc-initialized" data-new-gr-c-s-loaded="14.1171.0">
+<div id="app"><div class="converter"><header class="header"><nav class="wrapper"><a href="https://dadroit.com/" aria-label="Dadroit JSON Viewer"><svg width="110" height="29" viewBox="0 0 110 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M70.6698 17.1954C70.6698 19.2887 69.4096 20.5117 67.793 20.5117C66.1289 20.5117 64.8925 19.2887 64.8925 17.2191C64.8925 15.1491 66.1765 13.9732 67.793 13.9732C69.4096 13.9732 70.6698 15.1256 70.6698 17.1954ZM73.8315 23.0286C73.7841 22.5581 73.7365 21.7114 73.7365 20.9351V6H70.6222V12.6092C70.2892 11.9976 69.3382 11.1743 67.3175 11.1743C64.0131 11.1743 61.7067 13.8323 61.7067 17.2191C61.7067 20.7236 64.0843 23.3107 67.4126 23.3107C68.9817 23.3107 70.1706 22.6052 70.6937 21.6877C70.6937 22.2289 70.7649 22.7932 70.8123 23.0286H73.8315ZM39.896 20.0179C42.6538 20.0179 44.9599 18.3244 44.9599 14.7023C44.9599 11.0803 42.6776 9.36322 39.9199 9.36322H37.2809V20.0179H39.896ZM34 23.0286V6.35272H40.0385C44.8411 6.35272 48.3596 9.43391 48.3596 14.7023C48.3596 19.9708 44.8172 23.0286 40.0148 23.0286H34ZM57.0468 18.3478V17.8305L54.4078 18.2304C53.5997 18.3478 52.9576 18.7948 52.9576 19.6886C52.9576 20.3706 53.457 21.0293 54.4791 21.0293C55.8105 21.0293 57.0468 20.3942 57.0468 18.3478ZM53.2904 16.3723L56.167 15.9489C56.8326 15.8548 57.0468 15.5256 57.0468 15.1256C57.0468 14.3025 56.4047 13.6204 55.0736 13.6204C53.6947 13.6204 52.9339 14.4908 52.8388 15.5019L50.0334 14.9141C50.2235 13.1029 51.9114 11.1038 55.0498 11.1038C58.7584 11.1038 60.1376 13.1734 60.1376 15.5019V21.1941C60.1376 21.8053 60.2089 22.6286 60.2801 23.0286H57.3796C57.3082 22.7227 57.2606 22.0877 57.2606 21.6407C56.6664 22.5581 55.5492 23.3578 53.8133 23.3578C51.3172 23.3578 49.7955 21.6878 49.7955 19.8767C49.7955 17.8069 51.3409 16.6547 53.2904 16.3723ZM83.264 14.5612C82.9071 14.4907 82.5982 14.467 82.3127 14.467C80.6963 14.467 79.2936 15.2433 79.2936 17.7367V23.0285H76.1315V11.4565H79.1986V13.1735C79.9118 11.6448 81.5283 11.3624 82.5267 11.3624C82.7885 11.3624 83.0261 11.3859 83.264 11.4095V14.5612ZM89.9447 13.9497C91.4901 13.9497 92.9165 15.0552 92.9165 17.2426C92.9165 19.4298 91.4901 20.5354 89.9447 20.5354C88.3993 20.5354 86.9729 19.4063 86.9729 17.2426C86.9729 15.0552 88.3993 13.9497 89.9447 13.9497ZM89.9447 23.3811C93.4396 23.3811 96.0785 20.7938 96.0785 17.2426C96.0785 13.6675 93.4396 11.1038 89.9447 11.1038C86.45 11.1038 83.8109 13.6675 83.8109 17.2426C83.8109 20.7938 86.45 23.3811 89.9447 23.3811ZM97.6965 23.0285H100.858V11.4566H97.6965V23.0285ZM97.6965 10.452H100.858V7.29164H97.6965V10.452ZM109.797 11.4566H107.444V7.99913H104.591V9.62213C104.591 10.6569 104.021 11.4566 102.784 11.4566H102.19V14.2318H104.306V19.6179C104.306 21.8524 105.732 23.1932 108.015 23.1932C108.942 23.1932 109.512 23.0286 109.797 22.9108V20.3235C109.631 20.3706 109.203 20.4176 108.823 20.4176C107.919 20.4176 107.444 20.0884 107.444 19.0772V14.2318H109.797V11.4566Z" fill="white"></path>
+<mask id="mask0_23_2989" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="26" height="29">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0 29V5L4 0L11.5141 0C19.8737 0 26 5.358 26 14.521C26 23.683 19.8322 29 11.4726 29H0Z" fill="white"></path>
+</mask>
+<g mask="url(#mask0_23_2989)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M4 0L0 5.00049V10L4 5H33H36V0H33H4ZM36 6H33H4L0 11.0005V16L4 11H33H36V6ZM33 12H36V17H33H4L0 22V17.0005L4 12H33ZM36 18H33H4L0 23.0005V28L4 23H33H36V18ZM33 24H36V29H33H4L0 34V29.0005L4 24H33Z" fill="white"></path>
+<rect width="4" height="29" fill="black" fill-opacity="0.12"></rect>
+</g>
+</svg></a><a href="https://dadroit.com/" aria-label="Dadroit JSON Viewer">JSON Viewer</a></nav></header><section class="editor-section"><main class="wrapper"><a href="https://dadroit.com/" class="link">← Other JSON Tools</a><div class="hero-body"><h1 class="title">String to JSON</h1><span class="sub-title">Convert String files to JSON files online.</span><div></div></div><div class="editors-container"><div class="editor-content"><div class="editor-header"><div><button class="option-btn">JSON</button><button class="option-btn">YAML</button><button class="option-btn active">String</button></div><button class="header-btn link3">Load File</button></div><div class="editor-content  string-text-highlight"><div class="cm-editor cm-focused ͼ1 ͼ3 ͼ4"><div aria-live="polite" style="position: fixed; top: -10000px;"></div><div tabindex="-1" class="cm-scroller"><div class="cm-gutters" aria-hidden="true" style="min-height: 985.453px; position: sticky;"><div class="cm-gutter cm-lineNumbers"><div class="cm-gutterElement" style="height: 0px; visibility: hidden; pointer-events: none;">9</div><div class="cm-gutterElement" style="height: 977.453px; margin-top: 4px;">1</div></div></div><div spellcheck="false" autocorrect="off" autocapitalize="off" translate="no" contenteditable="true" class="cm-content cm-lineWrapping" role="code" aria-multiline="true" aria-autocomplete="list" aria-label="Code" style="tab-size: 4;"><div class="cm-line">'{\n  "id": "evt_3PDtWTDNOsFHC8X30FMXUcRg",\n  "object": "event",\n  "api_version": "2023-08-16",\n  "created": 1715109477,\n  "data": {\n    "object": {\n      "id": "pi_3PDtWTDNOsFHC8X30XtFHQmq",\n      "object": "payment_intent",\n      "amount": 2000,\n      "amount_capturable": 0,\n      "amount_details": {\n        "tip": {\n        }\n      },\n      "amount_received": 0,\n      "application": null,\n      "application_fee_amount": null,\n      "automatic_payment_methods": null,\n      "canceled_at": null,\n      "cancellation_reason": null,\n      "capture_method": "automatic",\n      "client_secret": "pi_3PDtWTDNOsFHC8X30XtFHQmq_secret_xMaSVIIwBoNggS0n5rZlxBmaB",\n      "confirmation_method": "automatic",\n      "created": 1715109477,\n      "currency": "usd",\n      "customer": null,\n      "description": "(created by Stripe CLI)",\n      "invoice": null,\n      "last_payment_error": null,\n      "latest_charge": null,\n      "livemode": false,\n      "metadata": {\n      },\n      "next_action": null,\n      "on_behalf_of": null,\n      "payment_method": null,\n      "payment_method_configuration_details": null,\n      "payment_method_options": {\n        "card": {\n          "installments": null,\n          "mandate_options": null,\n          "network": null,\n          "request_three_d_secure": "automatic"\n        }\n      },\n      "payment_method_types": [\n        "card"\n      ],\n      "processing": null,\n      "receipt_email": null,\n      "review": null,\n      "setup_future_usage": null,\n      "shipping": {\n        "address": {\n          "city": "San Francisco",\n          "country": "US",\n          "line1": "510 Townsend St",\n          "line2": null,\n          "postal_code": "94103",\n          "state": "CA"\n        },\n        "carrier": null,\n        "name": "Jenny Rosen",\n        "phone": null,\n        "tracking_number": null\n      },\n      "source": null,\n      "statement_descriptor": null,\n      "statement_descriptor_suffix": null,\n      "status": "requires_payment_method",\n      "transfer_data": null,\n      "transfer_group": null\n    }\n  },\n  "livemode": false,\n  "pending_webhooks": 2,\n  "request": {\n    "id": "req_yjslZsYynf8meh",\n    "idempotency_key": "c568bc70-3bf2-46cf-8b14-5b1cd689c9e3"\n  },\n  "type": "payment_intent.created"\n}'</div></div></div></div></div><input type="file" alt="Upload" aria-label="Upload" accept=".txt" style="position: fixed; left: -999999px;"></div><div class="editor-content"><div class="editor-header"><div><button class="option-btn">YAML</button><button class="option-btn active">JSON</button><button class="option-btn">String</button></div><div class="right-container"><button class="header-btn link3" disabled="">Download</button><button class="header-btn copy-btn" disabled="" type="button" name="copy" aria-label="Copy"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_203_5643" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="2" y="1" width="19" height="22">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM19 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H19C20.1 23 21 22.1 21 21V7C21 5.9 20.1 5 19 5ZM8 21H19V7H8V21Z" fill="white"></path>
+</mask>
+<g mask="url(#mask0_203_5643)">
+<rect width="24" height="24" fill="white" fill-opacity="0.70"></rect>
+</g>
+</svg></button></div></div><div class="empty-editor-style" style="visibility: hidden;">Your result will be shown here.</div><div class="error-editor-style" style="visibility: visible;"><span>1</span>Error: Not a valid value</div><div class="editor-content result-editors"><div class="cm-editor ͼ1 ͼ3 ͼe"><div aria-live="polite" style="position: fixed; top: -10000px;"></div><div tabindex="-1" class="cm-scroller"><div class="cm-gutters" aria-hidden="true" style="min-height: 14px; position: sticky;"><div class="cm-gutter cm-lineNumbers"><div class="cm-gutterElement" style="height: 0px; visibility: hidden; pointer-events: none;">9</div><div class="cm-gutterElement" style="height: 14px;">1</div></div></div><div spellcheck="false" autocorrect="off" autocapitalize="off" translate="no" contenteditable="true" class="cm-content cm-lineWrapping" role="code" aria-multiline="true" aria-autocomplete="list" aria-label="Code" aria-readonly="true" data-language="json" style="tab-size: 4;"><div class="cm-line"><img class="cm-widgetBuffer" aria-hidden="true"><span class="cm-placeholder" aria-label="placeholder Paste your JSON here" contenteditable="false" style="pointer-events: none;">Paste your JSON here</span><br></div></div></div></div></div></div></div></main></section><div class="faq-section"><div class="wrapper"><h2>Frequently asked questions</h2><section class="question"><h3 class="title">What is JSON and its primary applications? </h3><p>JSON is a lightweight format for data exchange, easily readable by both humans and machines. Primarily used in web APIs and server-web application communication, it is language-independent and a popular alternative to XML for data transmission and configuration files.</p></section><section class="question"><h3 class="title">How do I use the String to JSON converter?</h3><p>To convert String to JSON, visit the tool address, input your String data —or load your String file— and the tool will display the corresponding JSON output in real time.</p></section><section class="question"><h3 class="title">How is my data's privacy guaranteed?</h3><p>The entire conversion process happens within your browser, ensuring your data remains confidential and secure on your device.</p></section></div></div><footer class="footer"><div class="wrapper"><a href="https://dadroit.com/" aria-label="Dadroit JSON Viewer"><svg width="110" height="29" viewBox="0 0 110 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M70.6698 17.1954C70.6698 19.2887 69.4096 20.5117 67.793 20.5117C66.1289 20.5117 64.8925 19.2887 64.8925 17.2191C64.8925 15.1491 66.1765 13.9732 67.793 13.9732C69.4096 13.9732 70.6698 15.1256 70.6698 17.1954ZM73.8315 23.0286C73.7841 22.5581 73.7365 21.7114 73.7365 20.9351V6H70.6222V12.6092C70.2892 11.9976 69.3382 11.1743 67.3175 11.1743C64.0131 11.1743 61.7067 13.8323 61.7067 17.2191C61.7067 20.7236 64.0843 23.3107 67.4126 23.3107C68.9817 23.3107 70.1706 22.6052 70.6937 21.6877C70.6937 22.2289 70.7649 22.7932 70.8123 23.0286H73.8315ZM39.896 20.0179C42.6538 20.0179 44.9599 18.3244 44.9599 14.7023C44.9599 11.0803 42.6776 9.36322 39.9199 9.36322H37.2809V20.0179H39.896ZM34 23.0286V6.35272H40.0385C44.8411 6.35272 48.3596 9.43391 48.3596 14.7023C48.3596 19.9708 44.8172 23.0286 40.0148 23.0286H34ZM57.0468 18.3478V17.8305L54.4078 18.2304C53.5997 18.3478 52.9576 18.7948 52.9576 19.6886C52.9576 20.3706 53.457 21.0293 54.4791 21.0293C55.8105 21.0293 57.0468 20.3942 57.0468 18.3478ZM53.2904 16.3723L56.167 15.9489C56.8326 15.8548 57.0468 15.5256 57.0468 15.1256C57.0468 14.3025 56.4047 13.6204 55.0736 13.6204C53.6947 13.6204 52.9339 14.4908 52.8388 15.5019L50.0334 14.9141C50.2235 13.1029 51.9114 11.1038 55.0498 11.1038C58.7584 11.1038 60.1376 13.1734 60.1376 15.5019V21.1941C60.1376 21.8053 60.2089 22.6286 60.2801 23.0286H57.3796C57.3082 22.7227 57.2606 22.0877 57.2606 21.6407C56.6664 22.5581 55.5492 23.3578 53.8133 23.3578C51.3172 23.3578 49.7955 21.6878 49.7955 19.8767C49.7955 17.8069 51.3409 16.6547 53.2904 16.3723ZM83.264 14.5612C82.9071 14.4907 82.5982 14.467 82.3127 14.467C80.6963 14.467 79.2936 15.2433 79.2936 17.7367V23.0285H76.1315V11.4565H79.1986V13.1735C79.9118 11.6448 81.5283 11.3624 82.5267 11.3624C82.7885 11.3624 83.0261 11.3859 83.264 11.4095V14.5612ZM89.9447 13.9497C91.4901 13.9497 92.9165 15.0552 92.9165 17.2426C92.9165 19.4298 91.4901 20.5354 89.9447 20.5354C88.3993 20.5354 86.9729 19.4063 86.9729 17.2426C86.9729 15.0552 88.3993 13.9497 89.9447 13.9497ZM89.9447 23.3811C93.4396 23.3811 96.0785 20.7938 96.0785 17.2426C96.0785 13.6675 93.4396 11.1038 89.9447 11.1038C86.45 11.1038 83.8109 13.6675 83.8109 17.2426C83.8109 20.7938 86.45 23.3811 89.9447 23.3811ZM97.6965 23.0285H100.858V11.4566H97.6965V23.0285ZM97.6965 10.452H100.858V7.29164H97.6965V10.452ZM109.797 11.4566H107.444V7.99913H104.591V9.62213C104.591 10.6569 104.021 11.4566 102.784 11.4566H102.19V14.2318H104.306V19.6179C104.306 21.8524 105.732 23.1932 108.015 23.1932C108.942 23.1932 109.512 23.0286 109.797 22.9108V20.3235C109.631 20.3706 109.203 20.4176 108.823 20.4176C107.919 20.4176 107.444 20.0884 107.444 19.0772V14.2318H109.797V11.4566Z" fill="white"></path>
+<mask id="mask0_23_2989" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="26" height="29">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0 29V5L4 0L11.5141 0C19.8737 0 26 5.358 26 14.521C26 23.683 19.8322 29 11.4726 29H0Z" fill="white"></path>
+</mask>
+<g mask="url(#mask0_23_2989)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M4 0L0 5.00049V10L4 5H33H36V0H33H4ZM36 6H33H4L0 11.0005V16L4 11H33H36V6ZM33 12H36V17H33H4L0 22V17.0005L4 12H33ZM36 18H33H4L0 23.0005V28L4 23H33H36V18ZM33 24H36V29H33H4L0 34V29.0005L4 24H33Z" fill="white"></path>
+<rect width="4" height="29" fill="black" fill-opacity="0.12"></rect>
+</g>
+</svg></a><div class="link-container"><div class="link-group"><a href="https://dadroit.com/">Large JSON Viewer</a><a href="https://dadroit.com/download/">Download</a><a href="https://dadroit.com/release-notes/">Release Notes</a></div><div class="link-group"><a href="https://dadroit.com/buy-licence/">Pricing</a><a href="https://dadroit.com/sign-up/">Sign up</a><a href="https://dadroit.com/login/">Log in</a><a href="https://dadroit.com/dashboard/">Dashboard</a></div><div class="link-group"><a href="mailto:hi@dadroit.com">Email us</a><a href="https://dadroit.com/contact-us/">Send us a message</a><a href="https://twitter.com/dadroitgroup">Twitter</a><a href="https://github.com/DadroitOrganization">GitHub</a></div><div class="link-group"><a href="https://dadroit.com/blog/">Blog</a><a href="https://dadroit.com/newsletter/">Newsletter</a><a href="https://dadroit.com/legal/#privacy-policy">Privacy</a></div><div class="link-group"><a href="https://dadroit.com/json-to-yaml/">JSON to YAML</a><a href="https://dadroit.com/json-to-string/">JSON to String</a><a href="https://dadroit.com/yaml-to-json/">YAML to JSON</a><a href="https://dadroit.com/string-to-json/">String to JSON</a><a href="https://dadroit.com/json-escape/">JSON Escape</a><a href="https://dadroit.com/json-unescape/">JSON Unescape</a></div></div><p class="copy-right">Copyright © 2018-2024, Dadroit Group, All Rights Reserved.<a href="https://dadroit.com/legal">Legal</a></p><div class="image-container"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABNEAAAGICAMAAABYy4bUAAAAulBMVEXR2NjX19fT09PU39/MzMzMzMzT3NxHcEz////MzMzS2dnr8vL///////////8AAAD4+PjS2trMzc3///////////////+RkZEAAABmZmb///////////////////////////////////////////////+/v7/w8PDW3t7q8fHy8vKAgIDX5OTq6uro6OjMzMzS0tLS4eHr6+vU1NTu7u7u9/fMzMzP1tbQ2dnu7u7y8vJVVVUAAADV39+7kY+LAAAAPnRSTlMnEx0YDwodACcFIicEIgUBJyIKAhMUJQ4GChsMCBYfER0PCg4YGQgiHyUTBBMYIhQRERkMHx8ZJRsPFAYCGALTd7cAAAp6SURBVHja7d0FsizZrYbRbNy6kNlQ8J6LDt1mM+P8p+VOg8w+ZS4p1hrEF6A/QtO4yjenGwfwjQ+uK9qXE0CToh1fTQA9irbsFQ1oUrRlDkUDehRtM4eiAU2KdghFA5oUbRuKBjQp2jYUDWhStGMoGtCkaMte0YAmRVvmUDSgR9E2cyga0KRoh1A0oEnRtqFoQJOibUPRgCZFewpFA5oU7bRXNKBJ0ZY5FA3oUbTNHE2KBijafTQpGqBo52hSNEDRttGkaICiPUWTogGKdto3KRqgaMsc1YsGKFoGrUnRAEW7RJOiAYp2jiZFAxRtG02KBijaXTQpGqBop2hSNEDRlrl80QBFy6A1KRqgaJdoUjRA0c7RpGiAom2jSdEARbuLJkUDFO0UTYoGKNoyNykaoGgZNEUrDxTtEorWBCjaORStCVC0bShaE6Bod6FoXYCihaIBigagaACKBqBoQFuKBijaT96+cQC/GNcV7YtPx60DuLJoPxtAE4q2G/UBiiZovYCiHQbQhKLNmwH0oGjzMr62eXHjAJZni7Zfxuqn040D+PD1c0U7jtWXU3mAou3GavtqKg1QtAzaMRStNlC03G0se0WrDRQtdxvLHIpWGyha7jbmULTaQNFyt3EIRasNFC13G9tQtPJA0XYZNEWrDRQtdxuKVh0oWu42FK08ULTcbShadaBoudtQtOpA0XK3oWjVgaLlbkPRqgNFy92GolUHipa7DUWrDhQtdxuKVh4oWu42FK06ULTcbVQvGqBouduoXjRA0XK3Ub1ogKLl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" alt="Dadroit hero"></div></div></footer></div><script src="./Online String to JSON Converter_files/js" async=""></script></div>
+
+
+
+<div style="position: fixed; bottom: 10px; right: 10px; z-index: 1000; background-color: rgba(255, 255, 255, 0.3); padding: 5px; color: black; border: 1px solid rgba(128, 128, 128, 0.3); font-size: 14px;">#.</div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

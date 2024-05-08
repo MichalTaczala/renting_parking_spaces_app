@@ -104,7 +104,7 @@ class __$$AuthenticationStateImplCopyWithImpl<$Res>
 
 class _$AuthenticationStateImpl implements _AuthenticationState {
   const _$AuthenticationStateImpl(
-      {this.user, this.status = AuthenticationStatus.unknown});
+      {this.user, this.status = AuthenticationStatus.unauthenticated});
 
   @override
   final User? user;

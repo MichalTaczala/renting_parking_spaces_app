@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 
 class StripePaymentPage extends StatefulWidget {
   const StripePaymentPage({super.key});
@@ -42,19 +41,12 @@ class _StripePaymentPageState extends State<StripePaymentPage> {
           // Client secret key from payment data
           paymentIntentClientSecret: paymentIntent!['client_secret'],
           googlePay: const PaymentSheetGooglePay(
-              // Currency and country code is accourding to India
-              testEnv: true,
-              currencyCode: "INR",
-              merchantCountryCode: "IN"),
+            testEnv: true,
+            currencyCode: "INR",
+            merchantCountryCode: "IN",
+          ),
           // Merchant Name
           merchantDisplayName: 'Flutterwings',
-          customFlow: true,
-          // primaryButtonLabel:
-          // "Pay ${paymentIntent!['amount'] / 100} ${paymentIntent!['currency']}",
-          // allowsDelayedPaymentMethods: true,
-
-          // return URl if you want to add
-          // returnURL: 'flutterstripe://redirect',
         ),
       );
       // Display payment sheet
@@ -72,22 +64,7 @@ class _StripePaymentPageState extends State<StripePaymentPage> {
 
   displayPaymentSheet(Map<String, dynamic>? paymentIntent) async {
     try {
-      // "Display payment sheet";
       await Stripe.instance.presentPaymentSheet();
-      print(paymentIntent!['client_secret']);
-      Response response = await http.post(
-        Uri.parse('https://parking-app-v2.uc.r.appspot.com/payment'),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({
-          'client_secret': paymentIntent['client_secret'],
-        }),
-      );
-      print(response.statusCode);
-
-      // Show when payment is done
-      // Displaying snackbar for it
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Paid successfully")),
       );

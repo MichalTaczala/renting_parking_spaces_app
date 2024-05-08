@@ -5,8 +5,9 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:mobile_parking_app/cubits/authentication_cubit/authentication_cubit.dart';
 import 'package:mobile_parking_app/cubits/authentication_cubit/authentication_state.dart';
 import 'package:mobile_parking_app/firebase_options.dart';
-import 'package:mobile_parking_app/pages/choose_parking/choose_parking_page.dart';
+import 'package:mobile_parking_app/models/parking_details_model.dart';
 import 'package:mobile_parking_app/pages/log_in/log_in_page.dart';
+import 'package:mobile_parking_app/pages/main_page/main_page.dart';
 import 'package:mobile_parking_app/pages/parking_details/parking_details_page.dart';
 import 'package:mobile_parking_app/pages/stripe_payment/stripe_payment_page.dart';
 import 'package:mobile_parking_app/repositories/firebase_user_repo.dart';
@@ -23,6 +24,8 @@ void main() async {
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
+  static final navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
@@ -30,27 +33,36 @@ class MainApp extends StatelessWidget {
       child: BlocProvider(
         create: (context) =>
             AuthenticationCubit(context.read<FirebaseUserRepo>()),
-        child: BlocListener<AuthenticationCubit, AuthenticationState>(
-          listener: (context, state) {
-            // if (state.status == AuthenticationStatus.authenticated) {
-            //   Navigator.of(context).pushReplacementNamed("/home");
-            // }
-            // if (state.status == AuthenticationStatus.unauthenticated) {
-            //   Navigator.of(context).pushReplacementNamed("/logIn");
-            // }
+        child: MaterialApp(
+          navigatorKey: navigatorKey,
+          theme: mainTheme,
+          initialRoute: "/logIn",
+          routes: {
+            "/home": (context) => const MainPage(),
+            "/logIn": (context) => const LogInPage(),
+            "/parkingDetails": (
+              context,
+            ) =>
+                ParkingDetailsPage(
+                  parkingDetailsModel: ModalRoute.of(context)!
+                      .settings
+                      .arguments as ParkingDetailsModel,
+                ),
+            "/payment": (context) => const StripePaymentPage(),
           },
-          child: SafeArea(
-            child: MaterialApp(
-              theme: mainTheme,
-              initialRoute: "/payment",
-              routes: {
-                "/home": (context) => const ChooseParkingPage(),
-                "/logIn": (context) => const LogInPage(),
-                "/parkingDetails": (context) => const ParkingDetailsPage(),
-                "/payment": (context) => StripePaymentPage(),
+          builder: (context2, child) {
+            return BlocListener<AuthenticationCubit, AuthenticationState>(
+              listener: (context1, state) {
+                if (state.status == AuthenticationStatus.authenticated) {
+                  navigatorKey.currentState?.pushReplacementNamed("/home");
+                } else if (state.status ==
+                    AuthenticationStatus.unauthenticated) {
+                  navigatorKey.currentState?.pushReplacementNamed("/logIn");
+                }
               },
-            ),
-          ),
+              child: SafeArea(child: child ?? Container()),
+            );
+          },
         ),
       ),
     );
