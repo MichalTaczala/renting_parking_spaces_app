@@ -50,7 +50,7 @@ class MainApp extends StatelessWidget {
                       .arguments as ParkingDetailsModel,
                 ),
             "/payment": (context) => const StripePaymentPage(),
-            "/addParkingSpot": (context) => const AddParkingPage(),
+            "/addParkingSpot": (context) => const AddParkingScreen(),
           },
           builder: (context2, child) {
             return BlocListener<AuthenticationCubit, AuthenticationState>(

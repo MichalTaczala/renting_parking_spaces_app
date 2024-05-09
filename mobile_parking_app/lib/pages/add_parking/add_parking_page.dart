@@ -34,20 +34,10 @@ class AddParkingPage extends StatefulWidget {
 class _AddParkingPageState extends State<AddParkingPage> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _addressController = TextEditingController();
-
-  final TextEditingController _nameController = TextEditingController();
-
-  final TextEditingController _priceController = TextEditingController();
-
-  final TextEditingController _descriptionController = TextEditingController();
-
-  late final List<File> _images;
-
   Widget _buildNameField() {
     return TextFormField(
-      controller: _nameController,
       decoration: const InputDecoration(labelText: 'Name'),
+      onChanged: context.read<AddParkingSpotCubit>().nameChanged,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please enter a name for the parking spot';
@@ -59,8 +49,8 @@ class _AddParkingPageState extends State<AddParkingPage> {
 
   Widget _buildDescriptionField() {
     return TextFormField(
-      controller: _descriptionController,
       decoration: const InputDecoration(labelText: 'Description'),
+      onChanged: context.read<AddParkingSpotCubit>().descriptionChanged,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please enter a description for the parking spot';
@@ -72,8 +62,10 @@ class _AddParkingPageState extends State<AddParkingPage> {
 
   Widget _buildPriceField() {
     return TextFormField(
-      controller: _priceController,
       decoration: const InputDecoration(labelText: 'Price Per Day'),
+      onChanged: (value) {
+        context.read<AddParkingSpotCubit>().priceChanged(double.parse(value));
+      },
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -86,7 +78,7 @@ class _AddParkingPageState extends State<AddParkingPage> {
 
   Widget _buildAddressField() {
     return TextFormField(
-      controller: _addressController,
+      onChanged: context.read<AddParkingSpotCubit>().addressChanged,
       decoration: const InputDecoration(labelText: 'Address'),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -100,9 +92,16 @@ class _AddParkingPageState extends State<AddParkingPage> {
   Future _getImageFromGallery() async {
     final picker = ImagePicker();
     final pickedFiles = await picker.pickMultiImage(limit: 10);
-    setState(() {
-      _images = pickedFiles.map((e) => File(e.path)).toList();
-    });
+    if (pickedFiles.isNotEmpty) {
+      if (!mounted) return;
+      context.read<AddParkingSpotCubit>().imagesChanged(
+            pickedFiles
+                .map(
+                  (file) => File(file.path),
+                )
+                .toList(),
+          );
+    }
   }
 
   Widget _buildImagesField() {
@@ -122,7 +121,6 @@ class _AddParkingPageState extends State<AddParkingPage> {
             child: Padding(
               padding: const EdgeInsets.all(32.0),
               child: Column(
-                // padding: const EdgeInsets.all(32.0),
                 children: <Widget>[
                   _buildNameField(),
                   _buildDescriptionField(),
@@ -134,7 +132,7 @@ class _AddParkingPageState extends State<AddParkingPage> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        _createParkingSpot();
+                        context.read<AddParkingSpotCubit>().addParkingSpot();
                       }
                     },
                     child: const Text('Create Parking Spot'),
@@ -148,26 +146,20 @@ class _AddParkingPageState extends State<AddParkingPage> {
     );
   }
 
-  void _createParkingSpot() {
+  void _createParkingSpot(AddParkingSpotState state) {
     ParkingDetailsModel newSpot = ParkingDetailsModel(
-      name: _nameController.text,
-      description: _descriptionController.text,
-      images: _images,
-      price: double.parse(_priceController.text),
-      address: _addressController.text,
+      name: state.name,
+      description: state.description,
+      images: state.images,
+      price: state.price,
+      address: state.address,
       currency: 'USD',
     );
-
-    // Here you could save the new parking spot to a database or a state management solution
-    print('Parking Spot Created: ${newSpot.name}');
     Navigator.pop(context); // Optionally close this page after creation
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _priceController.dispose();
-    _addressController.dispose();
     super.dispose();
   }
 }

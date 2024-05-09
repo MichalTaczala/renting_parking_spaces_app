@@ -40,7 +40,7 @@ class AddParkingSpotCubit extends Cubit<AddParkingSpotState> {
             address: state.address,
             price: state.price,
             description: state.description,
-            // images: state.images,
+            images: null,
             currency: 'USD',
           ),
         ),
