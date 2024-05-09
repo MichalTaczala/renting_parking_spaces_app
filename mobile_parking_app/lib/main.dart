@@ -9,6 +9,7 @@ import 'package:mobile_parking_app/models/parking_details_model.dart';
 import 'package:mobile_parking_app/pages/add_parking/add_parking_page.dart';
 import 'package:mobile_parking_app/pages/log_in/log_in_page.dart';
 import 'package:mobile_parking_app/pages/main_page/main_page.dart';
+import 'package:mobile_parking_app/pages/maps_page.dart';
 import 'package:mobile_parking_app/pages/parking_details/parking_details_page.dart';
 import 'package:mobile_parking_app/pages/stripe_payment/stripe_payment_page.dart';
 import 'package:mobile_parking_app/repositories/firebase_user_repo.dart';
@@ -39,7 +40,7 @@ class MainApp extends StatelessWidget {
           theme: mainTheme,
           initialRoute: "/logIn",
           routes: {
-            "/home": (context) => const MainPage(),
+            "/home": (context) => const MainScreen(),
             "/logIn": (context) => const LogInPage(),
             "/parkingDetails": (
               context,
@@ -51,6 +52,7 @@ class MainApp extends StatelessWidget {
                 ),
             "/payment": (context) => const StripePaymentPage(),
             "/addParkingSpot": (context) => const AddParkingScreen(),
+            "/maps": (context) => const MapsPage(),
           },
           builder: (context2, child) {
             return BlocListener<AuthenticationCubit, AuthenticationState>(

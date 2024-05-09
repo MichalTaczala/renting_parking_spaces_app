@@ -28,6 +28,8 @@ dependencies:
   transparent_image_button: ^1.0.0
   image_picker: ^1.1.1
   google_maps_flutter: ^2.2.8
+  location: ^6.0.2
+  syncfusion_flutter_datepicker: ^25.2.3
 
 dev_dependencies:
   flutter_test:
