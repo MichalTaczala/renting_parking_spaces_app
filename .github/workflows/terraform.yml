@@ -63,7 +63,7 @@ jobs:
         PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
       run: |
         echo "projectId = \"$PROJECT_ID\"" >  ${{ github.workspace }}/terraform_conf/values.tfvars
-
+        echo "stripe_api_key = \"$STRIPE_API_KEY\"" >> ${{ github.workspace }}/terraform_conf/values.tfvars
     - name: Create SA kay
       env:
         GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
