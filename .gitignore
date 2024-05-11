@@ -12,3 +12,4 @@ crash.log
 key_app.json
 
 /flask_env
+backend_flask/models/__pycache__
