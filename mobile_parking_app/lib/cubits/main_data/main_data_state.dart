@@ -7,7 +7,10 @@ part 'main_data_state.freezed.dart';
 class MainDataState with _$MainDataState {
   const factory MainDataState({
     LatLng? choosenLocationForGarage,
+    String? choosenLocationForGarageName,
     DateTime? startDate,
     DateTime? endDate,
+    //TODO change to object
+    @Default([]) List<dynamic> parkingSpots,
   }) = _MainDataState;
 }

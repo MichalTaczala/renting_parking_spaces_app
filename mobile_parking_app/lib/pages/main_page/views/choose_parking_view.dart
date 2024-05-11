@@ -32,9 +32,7 @@ class _ChooseParkingViewState extends State<ChooseParkingView> {
     return ElevatedButton.icon(
       icon: const Icon(Icons.location_on_outlined),
       label: Text(
-        state.choosenLocationForGarage == null
-            ? "Where?"
-            : state.choosenLocationForGarage.toString(),
+        state.choosenLocationForGarageName ?? "Where?",
       ),
       onPressed: () => showModalBottomSheet(
         context: context,
@@ -48,11 +46,13 @@ class _ChooseParkingViewState extends State<ChooseParkingView> {
                       await fetchCurrentLocation(locationController);
                   if (!mounted) return;
                   if (location != null) {
-                    context.read<MainDataCubit>().setLocation(
-                          location,
-                        );
                     if (!context1.mounted) return;
                     Navigator.of(context1).pop();
+                    context
+                        .read<MainDataCubit>()
+                        .setLocationAndFetchParkingSpots(
+                          location,
+                        );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
@@ -73,11 +73,13 @@ class _ChooseParkingViewState extends State<ChooseParkingView> {
                       await Navigator.of(context).pushNamed("/maps") as LatLng?;
                   if (!mounted) return;
                   if (location != null) {
-                    context.read<MainDataCubit>().setLocation(
-                          location,
-                        );
                     if (!context1.mounted) return;
                     Navigator.of(context1).pop();
+                    context
+                        .read<MainDataCubit>()
+                        .setLocationAndFetchParkingSpots(
+                          location,
+                        );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
@@ -109,7 +111,7 @@ class _ChooseParkingViewState extends State<ChooseParkingView> {
             showActionButtons: true,
             onCancel: Navigator.of(context1).pop,
             onSubmit: (Object? pickerDateRange) {
-              context.read<MainDataCubit>().setDateRange(
+              context.read<MainDataCubit>().setDateRangeAndFetchParkingSpots(
                     pickerDateRange as PickerDateRange,
                   );
               Navigator.of(context1).pop();
