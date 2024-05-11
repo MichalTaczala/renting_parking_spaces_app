@@ -92,11 +92,8 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
         creator=getconn,
         # ...
     )
-    Session = sessionmaker(bind=pool)
-
-    # create a Session
-    session = Session()
-    return session
+    
+    return pool
 
 
 if __name__ == "__main__":

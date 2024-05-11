@@ -8,9 +8,13 @@ from dotenv import load_dotenv
 import requests
 from sqlalchemy import Table
 from sqlalchemy import create_engine, MetaData, Table
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import Session
 
 app = Flask(__name__)
 
+load_dotenv()
+engine = connect_with_connector()
 
 @app.route("/")
 def hello():
@@ -45,13 +49,13 @@ def create_user():
     )
 
     # add to the db
-    load_dotenv()
-    session = connect_with_connector()
-    try:
-        session.add(new_user)
-        session.commit()
-    except Exception as e:
-        return jsonify({"message": str(e)}), 400
+    with Session(engine) as session:
+        try:
+            session.add(new_user)
+            session.commit()
+            return jsonify({"message": "succes!!!!!11!1!!!"}), 200
+        except Exception as e:
+            return jsonify({"message": str(e)}), 400
 
 
 @app.route("/payment", methods=["POST"])
