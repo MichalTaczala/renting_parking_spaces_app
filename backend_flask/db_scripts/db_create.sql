@@ -3,6 +3,8 @@ CREATE TYPE user_type AS ENUM ('admin', 'regular', 'guest');
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(31) NOT NULL,
+    user_name VARCHAR(50) NOT NULL,
+    user_surname VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     user_type user_type DEFAULT 'regular', -- Assuming this is a valid enum type
     phone_prefix VARCHAR(3), -- Check for valid phone prefix format
