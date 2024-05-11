@@ -2,11 +2,12 @@ from flask import Flask, request, jsonify
 
 # from flask_sqlalchemy import SQLAlchemy
 import sqlalchemy
-from models.users import User
+from models.user import User
 from db_conn import connect_with_connector
 from dotenv import load_dotenv
 import requests
-
+from sqlalchemy import Table
+from sqlalchemy import create_engine, MetaData, Table
 
 app = Flask(__name__)
 
@@ -46,9 +47,22 @@ def create_user():
     # add to the db
     load_dotenv()
     engine = connect_with_connector()
+    metadata = MetaData(bind=engine)
+
     try:
         with engine.connect() as connection:
-            connection.execute(sqlalchemy.insert(User), new_user)
+            users = Table("users", metadata, autoload=True)
+            connection.execute(
+                users.insert(),
+                username=username,
+                user_name=user_name,
+                user_surname=user_surname,
+                email=email,
+                user_type=user_type,
+                phone_prefix=phone_prefix,
+                phone=phone,
+                password=password,
+            )
     except Exception as e:
         return jsonify({"message": str(e)}), 400
 
