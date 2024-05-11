@@ -1,6 +1,12 @@
 from flask import Flask, request, jsonify
 
+# from flask_sqlalchemy import SQLAlchemy
+import sqlalchemy
+from models.users import User
+from db_conn import connect_with_connector
+from dotenv import load_dotenv
 import requests
+
 
 app = Flask(__name__)
 
@@ -8,6 +14,43 @@ app = Flask(__name__)
 @app.route("/")
 def hello():
     return "Hello World!"
+
+
+@app.route("/create_user", methods=["POST"])
+def create_user():
+    if not request.is_json:
+        return jsonify({"message": "Missing JSON in request"}), 400
+
+    data = request.get_json()
+    username = data.get("username")
+    email = data.get("email")
+    user_type = data.get("user_type")
+    user_name = data.get("user_name")
+    user_surname = data.get("user_surname")
+    phone_prefix = data.get("phone_prefix")
+    phone = data.get("phone")
+    password = data.get("password")
+
+    # create a new user
+    new_user = User(
+        username=username,
+        user_name=user_name,
+        user_surname=user_surname,
+        email=email,
+        user_type=user_type,
+        phone_prefix=phone_prefix,
+        phone=phone,
+        password=password,
+    )
+
+    # add to the db
+    load_dotenv()
+    engine = connect_with_connector()
+    try:
+        with engine.connect() as connection:
+            connection.execute(sqlalchemy.insert(User), new_user)
+    except Exception as e:
+        return jsonify({"message": str(e)}), 400
 
 
 @app.route("/payment", methods=["POST"])
