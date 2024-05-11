@@ -46,23 +46,10 @@ def create_user():
 
     # add to the db
     load_dotenv()
-    engine = connect_with_connector()
-    metadata = MetaData(bind=engine)
-
+    session = connect_with_connector()
     try:
-        with engine.connect() as connection:
-            users = Table("users", metadata, autoload=True)
-            connection.execute(
-                users.insert(),
-                username=username,
-                user_name=user_name,
-                user_surname=user_surname,
-                email=email,
-                user_type=user_type,
-                phone_prefix=phone_prefix,
-                phone=phone,
-                password=password,
-            )
+        session.add(new_user)
+        session.commit()
     except Exception as e:
         return jsonify({"message": str(e)}), 400
 
