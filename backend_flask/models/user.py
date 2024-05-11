@@ -1,5 +1,6 @@
 # Description: This file contains the User model.
 
+import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Enum
 
