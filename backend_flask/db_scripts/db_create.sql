@@ -1,15 +1,15 @@
 CREATE TYPE user_type AS ENUM ('admin', 'regular', 'guest');
 
 CREATE TABLE users (
-    user_id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     username VARCHAR(31) NOT NULL,
-    user_name VARCHAR(50) NOT NULL,
-    user_surname VARCHAR(100) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    user_type user_type DEFAULT 'regular', -- Assuming this is a valid enum type
-    phone_prefix VARCHAR(3), -- Check for valid phone prefix format
-    phone VARCHAR(15) NOT NULL UNIQUE,
-    password VARCHAR(50) NOT NULL
+    type user_type DEFAULT 'regular', -- Assuming this is a valid enum type
+    -- phone_prefix VARCHAR(3), -- Check for valid phone prefix format
+    -- phone VARCHAR(15) NOT NULL UNIQUE,
+    -- password VARCHAR(50) NOT NULL
 );
 
 --TODO: check phone_prefix and phone
@@ -33,7 +33,7 @@ CREATE TABLE parking_spots (
     description VARCHAR(511),
     size INT CHECK (size > 0), -- Ensuring size is a positive integer
     parking_no VARCHAR(8) NOT NULL,
-    availability BOOLEAN NOT NULL,
+    -- availability BOOLEAN NOT NULL, -- WHAT FOR?
     internal BOOLEAN NOT NULL,
     wide_spot BOOLEAN NOT NULL,
     easy_access BOOLEAN NOT NULL,

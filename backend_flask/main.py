@@ -1,61 +1,27 @@
-from flask import Flask, request, jsonify
+"""
+main.py
 
-# from flask_sqlalchemy import SQLAlchemy
-import sqlalchemy
-from models.user import User
-from db_conn import connect_with_connector
-from dotenv import load_dotenv
+This file contains the main Flask application that will be deployed to Google App Engine.
+"""
+
+from flask import Flask, request, jsonify
 import requests
-from sqlalchemy import Table
-from sqlalchemy import create_engine, MetaData, Table
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm import Session
+from dotenv import load_dotenv
+from sqlalchemy.exc import SQLAlchemyError
+from models import User, Address, Booking, ParkingSpot, RentalOffer
+from db_conn import get_session
+from blueprints.user.user import user_bp
 
 app = Flask(__name__)
 
-load_dotenv()
-engine = connect_with_connector()
+# Blueprints
+app.register_blueprint(user_bp)
+
 
 @app.route("/")
 def hello():
+    """Testing endpoint."""
     return "Hello World!"
-
-
-@app.route("/create_user", methods=["POST"])
-def create_user():
-    if not request.is_json:
-        return jsonify({"message": "Missing JSON in request"}), 400
-
-    data = request.get_json()
-    username = data.get("username")
-    email = data.get("email")
-    user_type = data.get("user_type")
-    user_name = data.get("user_name")
-    user_surname = data.get("user_surname")
-    phone_prefix = data.get("phone_prefix")
-    phone = data.get("phone")
-    password = data.get("password")
-
-    # create a new user
-    new_user = User(
-        username=username,
-        user_name=user_name,
-        user_surname=user_surname,
-        email=email,
-        user_type=user_type,
-        phone_prefix=phone_prefix,
-        phone=phone,
-        password=password,
-    )
-
-    # add to the db
-    with Session(engine) as session:
-        try:
-            session.add(new_user)
-            session.commit()
-            return jsonify({"message": "succes!!!!!11!1!!!"}), 200
-        except Exception as e:
-            return jsonify({"message": str(e)}), 400
 
 
 @app.route("/payment", methods=["POST"])
