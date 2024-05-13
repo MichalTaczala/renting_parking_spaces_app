@@ -1,4 +1,5 @@
-import sqlalchemy
+# Description: This file contains the Booking model.
+
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import (
     Column,
@@ -14,6 +15,8 @@ from sqlalchemy.dialects.postgresql import ENUM
 
 # Define the booking_status enumeration type
 booking_status_enum = ENUM("pending", "confirmed", "cancelled", name="booking_status")
+
+Base = declarative_base()
 
 
 class Booking(Base):

@@ -1,4 +1,5 @@
-import sqlalchemy
+# Description: This file contains the Address model.
+
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Numeric
 

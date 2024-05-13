@@ -1,6 +1,5 @@
 # Description: This file contains the ParkingSpot model.
 
-import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Enum
 from sqlalchemy.orm import relationship

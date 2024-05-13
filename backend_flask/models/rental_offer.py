@@ -3,7 +3,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import (
     Column,
     Integer,
-    String,
     Boolean,
     ForeignKey,
     Numeric,
@@ -17,6 +16,8 @@ from sqlalchemy.dialects.postgresql import ENUM
 
 # Define the rental_status enumeration type
 rental_status_enum = ENUM("active", "inactive", name="rental_status")
+
+Base = declarative_base()
 
 
 class RentalOffer(Base):
