@@ -17,7 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AddParkingSpotState {
   String get name => throw _privateConstructorUsedError;
-  String get address => throw _privateConstructorUsedError;
+  String? get placeId => throw _privateConstructorUsedError;
+  AddressModel? get address => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   List<File> get images => throw _privateConstructorUsedError;
@@ -35,10 +36,13 @@ abstract class $AddParkingSpotStateCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
-      String address,
+      String? placeId,
+      AddressModel? address,
       double price,
       String description,
       List<File> images});
+
+  $AddressModelCopyWith<$Res>? get address;
 }
 
 /// @nodoc
@@ -55,7 +59,8 @@ class _$AddParkingSpotStateCopyWithImpl<$Res, $Val extends AddParkingSpotState>
   @override
   $Res call({
     Object? name = null,
-    Object? address = null,
+    Object? placeId = freezed,
+    Object? address = freezed,
     Object? price = null,
     Object? description = null,
     Object? images = null,
@@ -65,10 +70,14 @@ class _$AddParkingSpotStateCopyWithImpl<$Res, $Val extends AddParkingSpotState>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      address: null == address
+      placeId: freezed == placeId
+          ? _value.placeId
+          : placeId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as String,
+              as AddressModel?,
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -83,6 +92,18 @@ class _$AddParkingSpotStateCopyWithImpl<$Res, $Val extends AddParkingSpotState>
               as List<File>,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressModelCopyWith<$Res>? get address {
+    if (_value.address == null) {
+      return null;
+    }
+
+    return $AddressModelCopyWith<$Res>(_value.address!, (value) {
+      return _then(_value.copyWith(address: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -95,10 +116,14 @@ abstract class _$$AddParkingSpotStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {String name,
-      String address,
+      String? placeId,
+      AddressModel? address,
       double price,
       String description,
       List<File> images});
+
+  @override
+  $AddressModelCopyWith<$Res>? get address;
 }
 
 /// @nodoc
@@ -113,7 +138,8 @@ class __$$AddParkingSpotStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? address = null,
+    Object? placeId = freezed,
+    Object? address = freezed,
     Object? price = null,
     Object? description = null,
     Object? images = null,
@@ -123,10 +149,14 @@ class __$$AddParkingSpotStateImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      address: null == address
+      placeId: freezed == placeId
+          ? _value.placeId
+          : placeId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as String,
+              as AddressModel?,
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -148,7 +178,8 @@ class __$$AddParkingSpotStateImplCopyWithImpl<$Res>
 class _$AddParkingSpotStateImpl implements _AddParkingSpotState {
   const _$AddParkingSpotStateImpl(
       {this.name = "",
-      this.address = "",
+      this.placeId,
+      this.address,
       this.price = 0,
       this.description = "",
       final List<File> images = const []})
@@ -158,8 +189,9 @@ class _$AddParkingSpotStateImpl implements _AddParkingSpotState {
   @JsonKey()
   final String name;
   @override
-  @JsonKey()
-  final String address;
+  final String? placeId;
+  @override
+  final AddressModel? address;
   @override
   @JsonKey()
   final double price;
@@ -177,7 +209,7 @@ class _$AddParkingSpotStateImpl implements _AddParkingSpotState {
 
   @override
   String toString() {
-    return 'AddParkingSpotState(name: $name, address: $address, price: $price, description: $description, images: $images)';
+    return 'AddParkingSpotState(name: $name, placeId: $placeId, address: $address, price: $price, description: $description, images: $images)';
   }
 
   @override
@@ -186,6 +218,7 @@ class _$AddParkingSpotStateImpl implements _AddParkingSpotState {
         (other.runtimeType == runtimeType &&
             other is _$AddParkingSpotStateImpl &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.placeId, placeId) || other.placeId == placeId) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.description, description) ||
@@ -194,7 +227,7 @@ class _$AddParkingSpotStateImpl implements _AddParkingSpotState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, address, price,
+  int get hashCode => Object.hash(runtimeType, name, placeId, address, price,
       description, const DeepCollectionEquality().hash(_images));
 
   @JsonKey(ignore: true)
@@ -208,7 +241,8 @@ class _$AddParkingSpotStateImpl implements _AddParkingSpotState {
 abstract class _AddParkingSpotState implements AddParkingSpotState {
   const factory _AddParkingSpotState(
       {final String name,
-      final String address,
+      final String? placeId,
+      final AddressModel? address,
       final double price,
       final String description,
       final List<File> images}) = _$AddParkingSpotStateImpl;
@@ -216,7 +250,9 @@ abstract class _AddParkingSpotState implements AddParkingSpotState {
   @override
   String get name;
   @override
-  String get address;
+  String? get placeId;
+  @override
+  AddressModel? get address;
   @override
   double get price;
   @override

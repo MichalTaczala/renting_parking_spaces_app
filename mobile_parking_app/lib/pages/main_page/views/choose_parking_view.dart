@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:mobile_parking_app/cubits/main_data/main_data_cubit.dart';
 import 'package:mobile_parking_app/cubits/main_data/main_data_state.dart';
+import 'package:mobile_parking_app/models/address_model.dart';
 import 'package:mobile_parking_app/models/parking_details_model.dart';
 import 'package:mobile_parking_app/pages/main_page/widgets/garage_tile.dart';
 import 'package:mobile_parking_app/utils/location_utils.dart';
@@ -145,16 +146,21 @@ class _ChooseParkingViewState extends State<ChooseParkingView> {
         return InkWell(
           onTap: () => Navigator.of(context).pushNamed(
             "/parkingDetails",
-            arguments: ParkingDetailsModel(
+            arguments: const ParkingDetailsModel(
               id: "id",
               name: "name",
-              address: "address",
+              location: AddressModel(
+                city: "city",
+                country: "country",
+                street: "street",
+                zip: "postalCode",
+                lat: 50.0614305556,
+                lng: 19.9365805555,
+              ),
               phone: "phone",
               email: "email",
               images: [],
               description: "description",
-              latitude: "latitude",
-              longitude: "longitude",
               price: 21.37,
               currency: "USD",
               rating: "rating",

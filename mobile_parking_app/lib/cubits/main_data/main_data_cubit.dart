@@ -30,7 +30,7 @@ class MainDataCubit extends Cubit<MainDataState> {
     List<Placemark> placemarks =
         await placemarkFromCoordinates(location.latitude, location.longitude);
     final g = placemarks[0];
-    name = "abc";
+    name = "${location.latitude}, ${location.longitude}";
     emit(
       state.copyWith(
         choosenLocationForGarage: location,
