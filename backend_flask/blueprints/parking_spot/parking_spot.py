@@ -42,3 +42,33 @@ def create_parking_spot():
             return jsonify({"message": "Successfully created new parking spot!"}), 200
         except Exception as e:
             return jsonify({"message": str(e)}), 400
+        
+
+@parkingspot_bp.route("/parking_spots/<int:spot_id>", methods=["PUT"])
+def update_parking_spot(spot_id):
+    """Endpoint for updating parking spot information."""
+    if not request.is_json:
+        return jsonify({"message": "Missing JSON in request"}), 400
+    data = request.get_json()
+    # Retrieve parking spot from the database based on spot_id
+    with get_session() as session:
+        try:
+            spot = session.query(ParkingSpot).filter(ParkingSpot.spot_id == spot_id).first()
+            if spot:
+                # Update parking spot information
+                spot.description = data.get("description", spot.description)
+                spot.size = data.get("size", spot.size)
+                spot.parking_no = data.get("parking_no", spot.parking_no)
+                spot.availability = data.get("availability", spot.availability)
+                spot.internal = data.get("internal", spot.internal)
+                spot.wide_spot = data.get("wide_spot", spot.wide_spot)
+                spot.easy_access = data.get("easy_access", spot.easy_access)
+                spot.level = data.get("level", spot.level)
+                spot.security = data.get("security", spot.security)
+                spot.charging = data.get("charging", spot.charging)
+                session.commit()
+                return jsonify({"message": "Parking spot information updated successfully"}), 200
+            else:
+                return jsonify({"message": "Parking spot not found"}), 404
+        except SQLAlchemyError as e:
+            return jsonify({"message": str(e)}), 500
