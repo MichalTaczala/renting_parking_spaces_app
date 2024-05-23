@@ -72,3 +72,35 @@ def update_parking_spot(spot_id):
                 return jsonify({"message": "Parking spot not found"}), 404
         except SQLAlchemyError as e:
             return jsonify({"message": str(e)}), 500
+        
+        
+@parkingspot_bp.route("/parking_spots/<int:spot_id>", methods=["GET"])
+def get_parking_spot(spot_id):
+    """Endpoint for retrieving parking spot information."""
+    # Retrieve parking spot from the database based on spot_id
+    with get_session() as session:
+        try:
+            spot = session.query(ParkingSpot).filter(ParkingSpot.spot_id == spot_id).first()
+            if spot:
+                # Return parking spot information
+                return (
+                    jsonify(
+                        {
+                            "description": spot.description,
+                            "size": spot.size,
+                            "parking_no": spot.parking_no,
+                            "availability": spot.availability,
+                            "internal": spot.internal,
+                            "wide_spot": spot.wide_spot,
+                            "easy_access": spot.easy_access,
+                            "level": spot.level,
+                            "security": spot.security,
+                            "charging": spot.charging,
+                        }
+                    ),
+                    200,
+                )
+            else:
+                return jsonify({"message": "Parking spot not found"}), 404
+        except SQLAlchemyError as e:
+            return jsonify({"message": str(e)}), 500
