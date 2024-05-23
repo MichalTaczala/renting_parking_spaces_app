@@ -10,7 +10,7 @@ from models import ParkingSpot
 parkingspot_bp = Blueprint("parking_spot", __name__)
 
 
-@parkingspot_bp.route("/create_parking_spot", methods=["POST"])
+@parkingspot_bp.route("/parking_spots/create", methods=["POST"])
 def create_parking_spot():
     """Endpoint for creating a parking spot."""
     if not request.is_json:
