@@ -104,3 +104,21 @@ def get_parking_spot(spot_id):
                 return jsonify({"message": "Parking spot not found"}), 404
         except SQLAlchemyError as e:
             return jsonify({"message": str(e)}), 500
+
+
+@parkingspot_bp.route("/parking_spots/<int:spot_id>", methods=["DELETE"])
+def delete_parking_spot(spot_id):
+    """Endpoint for deleting a parking spot."""
+    # Retrieve parking spot from the database based on spot_id
+    with get_session() as session:
+        try:
+            spot = session.query(ParkingSpot).filter(ParkingSpot.spot_id == spot_id).first()
+            if spot:
+                # Delete the parking spot
+                session.delete(spot)
+                session.commit()
+                return jsonify({"message": "Parking spot deleted successfully"}), 200
+            else:
+                return jsonify({"message": "Parking spot not found"}), 404
+        except SQLAlchemyError as e:
+            return jsonify({"message": str(e)}), 500
