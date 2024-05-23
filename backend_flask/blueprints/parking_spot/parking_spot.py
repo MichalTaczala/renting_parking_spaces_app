@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from db_conn import get_session
 from models import ParkingSpot
+import random
 
 
 parkingspot_bp = Blueprint("parking_spot", __name__)
@@ -120,5 +121,42 @@ def delete_parking_spot(spot_id):
                 return jsonify({"message": "Parking spot deleted successfully"}), 200
             else:
                 return jsonify({"message": "Parking spot not found"}), 404
+        except SQLAlchemyError as e:
+            return jsonify({"message": str(e)}), 500
+
+
+# Temporal endpoint for displaying all parking spots
+@parkingspot_bp.route("/parking_spots/all", methods=["GET"])
+def get_parking_spots():
+    """Endpoint for retrieving all parking spots."""
+    with get_session() as session:
+        try:
+            parking_spots = session.query(ParkingSpot).all()
+            random.shuffle(parking_spots)
+            # Select the first 5 parking spots
+            random_parking_spots = parking_spots[:5]
+            return (
+                jsonify(
+                    [
+                        {
+                            "spot_id": spot.spot_id,
+                            "description": spot.description,
+                            "size": spot.size,
+                            "parking_no": spot.parking_no,
+                            "availability": spot.availability,
+                            "internal": spot.internal,
+                            "wide_spot": spot.wide_spot,
+                            "easy_access": spot.easy_access,
+                            "level": spot.level,
+                            "security": spot.security,
+                            "charging": spot.charging,
+                            "owner_id": spot.owner_id,
+                            "address_id": spot.address_id
+                        }
+                        for spot in parking_spots
+                    ]
+                ),
+                200,
+            )
         except SQLAlchemyError as e:
             return jsonify({"message": str(e)}), 500
