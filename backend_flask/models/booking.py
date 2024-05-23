@@ -12,6 +12,8 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import ENUM
+from .user import User
+from .rental_offer import RentalOffer
 
 # Define the booking_status enumeration type
 booking_status_enum = ENUM("pending", "confirmed", "cancelled", name="booking_status")
@@ -31,8 +33,8 @@ class Booking(Base):
         CheckConstraint("price_total >= 0"),
         nullable=False,
     )
-    user_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
-    offer_id = Column(Integer, ForeignKey("rental_offers.offer_id"), nullable=False)
+    user_id = Column(Integer, ForeignKey(User.id), nullable=False)
+    offer_id = Column(Integer, ForeignKey(RentalOffer.offer_id), nullable=False)
 
-    user = relationship("User")
-    offer = relationship("RentalOffer")
+    user = relationship(User)
+    offer = relationship(RentalOffer)

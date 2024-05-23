@@ -12,6 +12,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import ENUM
+from .parking_spot import ParkingSpot
 
 
 # Define the rental_status enumeration type
@@ -35,8 +36,8 @@ class RentalOffer(Base):
     end_date = Column(Date, nullable=False)
     status = Column(rental_status_enum, nullable=False, default="active")
     spot_id = Column(
-        Integer, ForeignKey("parking_spots.spot_id", ondelete="CASCADE"), nullable=False
+        Integer, ForeignKey(ParkingSpot.spot_id, ondelete="CASCADE"), nullable=False
     )
 
     # Define a relationship to access ParkingSpot from RentalOffer
-    spot = relationship("ParkingSpot")
+    spot = relationship(ParkingSpot)
