@@ -1,0 +1,1 @@
+from .parking_spot import parkingspot_bp

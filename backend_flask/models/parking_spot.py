@@ -2,6 +2,8 @@
 
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Enum
+from .user import User
+from .address import Address
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, CheckConstraint
 
@@ -22,8 +24,8 @@ class ParkingSpot(Base):
     level = Column(Integer, nullable=False)
     security = Column(Boolean, nullable=False)
     charging = Column(Boolean, nullable=False)
-    owner_id = Column(Integer, ForeignKey("users.user_id", ondelete="CASCADE"))
-    address_id = Column(Integer, ForeignKey("address.address_id", ondelete="SET NULL"))
+    owner_id = Column(Integer, ForeignKey(User.id, ondelete="CASCADE"))
+    address_id = Column(Integer, ForeignKey(Address.address_id, ondelete="SET NULL"))
 
-    owner = relationship("User")
-    address = relationship("Adress")
+    owner = relationship(User)
+    address = relationship(Address)

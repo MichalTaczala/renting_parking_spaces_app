@@ -11,11 +11,13 @@ from sqlalchemy.exc import SQLAlchemyError
 from models import User, Address, Booking, ParkingSpot, RentalOffer
 from db_conn import get_session
 from blueprints.user.user import user_bp
+from blueprints.parking_spot.parking_spot import parkingspot_bp
 
 app = Flask(__name__)
 
 # Blueprints
 app.register_blueprint(user_bp)
+app.register_blueprint(parkingspot_bp)
 
 
 @app.route("/")
