@@ -1,4 +1,4 @@
-# Description: This file contains the Booking model.
+"""Model for a booking record"""
 
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import (
@@ -22,6 +22,8 @@ Base = declarative_base()
 
 
 class Booking(Base):
+    """Booking model for representing a single space reservation."""
+
     __tablename__ = "bookings"
 
     booking_id = Column(BigInteger, primary_key=True)
@@ -38,3 +40,15 @@ class Booking(Base):
 
     user = relationship(User)
     offer = relationship(RentalOffer)
+
+    def json(self):
+        """Return the booking information as a JSON object."""
+        return {
+            "booking_id": self.booking_id,
+            "booking_start": self.booking_start,
+            "booking_end": self.booking_end,
+            "status": self.status,
+            "price_total": self.price_total,
+            "user_id": self.user_id,
+            "offer_id": self.offer_id,
+        }
