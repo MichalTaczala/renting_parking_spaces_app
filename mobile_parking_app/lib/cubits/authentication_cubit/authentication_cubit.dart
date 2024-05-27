@@ -10,12 +10,20 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   void logIn() {
     _firebaseUserRepo.signInWithGoogle().then((user) {
-      emit(
-        state.copyWith(
-          user: user,
-          status: AuthenticationStatus.authenticated,
-        ),
-      );
+      if (user == null) {
+        emit(
+          state.copyWith(
+            status: AuthenticationStatus.unauthenticated,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            user: user,
+            status: AuthenticationStatus.authenticated,
+          ),
+        );
+      }
     });
   }
 

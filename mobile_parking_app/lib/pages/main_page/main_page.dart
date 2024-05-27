@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_parking_app/cubits/main_data/main_data_cubit.dart';
 import 'package:mobile_parking_app/pages/main_page/views/choose_parking_view.dart';
 import 'package:mobile_parking_app/pages/main_page/views/profile_view.dart';
+import 'package:mobile_parking_app/repositories/flask_repository.dart';
+import 'package:mobile_parking_app/repositories/google_maps_repository.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -10,7 +12,9 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MainDataCubit(),
+      create: (context) => MainDataCubit(
+          flaskRepository: context.read<FlaskRepository>(),
+          googleMapsRepository: context.read<GoogleMapsRepository>()),
       child: const MainPage(),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:mobile_parking_app/cubits/authentication_cubit/authentication_cubit.dart';
 import 'package:mobile_parking_app/cubits/authentication_cubit/authentication_state.dart';
@@ -13,13 +14,15 @@ import 'package:mobile_parking_app/pages/maps_page.dart';
 import 'package:mobile_parking_app/pages/parking_details/parking_details_page.dart';
 import 'package:mobile_parking_app/pages/stripe_payment/stripe_payment_page.dart';
 import 'package:mobile_parking_app/repositories/firebase_user_repo.dart';
+import 'package:mobile_parking_app/repositories/flask_repository.dart';
+import 'package:mobile_parking_app/repositories/google_maps_repository.dart';
 import 'package:mobile_parking_app/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  Stripe.publishableKey =
-      'pk_test_51NldnEDNOsFHC8X3bRdzKuznF4HKto9DJKdWGUpfki9h6wvALOuCuD1vvHB9WvrNEYWx0vnCbpe2yjHJgXpYPr3P00XFDkInWx';
+  await dotenv.load();
+  Stripe.publishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY']!;
   runApp(const MainApp());
 }
 
@@ -30,8 +33,18 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => FirebaseUserRepo(),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (context) => FirebaseUserRepo(),
+        ),
+        RepositoryProvider(
+          create: (context) => FlaskRepository(),
+        ),
+        RepositoryProvider(
+          create: (context) => GoogleMapsRepository(),
+        ),
+      ],
       child: BlocProvider(
         create: (context) =>
             AuthenticationCubit(context.read<FirebaseUserRepo>()),
@@ -58,6 +71,9 @@ class MainApp extends StatelessWidget {
             return BlocListener<AuthenticationCubit, AuthenticationState>(
               listener: (context1, state) {
                 if (state.status == AuthenticationStatus.authenticated) {
+                  context1
+                      .read<FlaskRepository>()
+                      .changeUserId(state.user!.uid);
                   navigatorKey.currentState?.pushReplacementNamed("/home");
                 } else if (state.status ==
                     AuthenticationStatus.unauthenticated) {

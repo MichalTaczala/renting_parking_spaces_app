@@ -2,8 +2,8 @@ name: 'Deploy Terraform to GCP'
 
 on:
   push:
-    branches:
-      - main  # Set to your default branch
+    # branches:
+    #   - main  # Set to your default branch
 
 jobs:
   prepare-zip:
