@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mobile_parking_app/models/address_model.dart';
 
 part 'add_parking_spot_state.freezed.dart';
 
@@ -8,7 +9,8 @@ part 'add_parking_spot_state.freezed.dart';
 class AddParkingSpotState with _$AddParkingSpotState {
   const factory AddParkingSpotState({
     @Default("") String name,
-    @Default("") String address,
+    String? placeId,
+    AddressModel? address,
     @Default(0) double price,
     @Default("") String description,
     @Default([]) List<File> images,

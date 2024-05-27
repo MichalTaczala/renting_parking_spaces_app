@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_parking_app/models/parking_details_model.dart';
+import 'package:mobile_parking_app/pages/parking_details/show_parking_on_map_page.dart';
 
 class ParkingDetailsPage extends StatefulWidget {
   const ParkingDetailsPage({super.key, required this.parkingDetailsModel});
@@ -123,8 +125,26 @@ class _ParkingDetailsPageState extends State<ParkingDetailsPage> {
                 ),
                 const Spacer(),
                 TextButton(
-                    onPressed: () => print("siema"),
-                    child: const Text("Show map"))
+                  onPressed: () {
+                    if (widget.parkingDetailsModel.location?.lat == null ||
+                        widget.parkingDetailsModel.location?.lng == null) {
+                      return;
+                    }
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ShowParkingOnMap(
+                          initialCameraPosition: LatLng(
+                            widget.parkingDetailsModel.location!.lat!,
+                            widget.parkingDetailsModel.location!.lng!,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    "Show map",
+                  ),
+                ),
               ],
             ),
             const SizedBox(
