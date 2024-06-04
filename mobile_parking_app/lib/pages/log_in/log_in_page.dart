@@ -33,9 +33,10 @@ class LogInPage extends StatelessWidget {
               const Text(
                 "ParkNest",
                 style: TextStyle(
-                    fontSize: 60,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
+                  fontSize: 60,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const Spacer(),
               const Text(

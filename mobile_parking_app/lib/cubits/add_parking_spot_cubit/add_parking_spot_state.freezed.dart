@@ -16,12 +16,21 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AddParkingSpotState {
-  String get name => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
   String? get placeId => throw _privateConstructorUsedError;
   AddressModel? get address => throw _privateConstructorUsedError;
-  double get price => throw _privateConstructorUsedError;
+  double? get price => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  List<File> get images => throw _privateConstructorUsedError;
+  List<File> get imagesFiles => throw _privateConstructorUsedError;
+  List<String> get imagesUrls => throw _privateConstructorUsedError;
+  double? get widthSize => throw _privateConstructorUsedError;
+  double? get lengthSize => throw _privateConstructorUsedError;
+  double? get height => throw _privateConstructorUsedError;
+  bool get isInternal => throw _privateConstructorUsedError;
+  bool get isEasyAccess => throw _privateConstructorUsedError;
+  bool get isSecurity => throw _privateConstructorUsedError;
+  bool get isCharger => throw _privateConstructorUsedError;
+  String? get ownerId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AddParkingSpotStateCopyWith<AddParkingSpotState> get copyWith =>
@@ -35,12 +44,21 @@ abstract class $AddParkingSpotStateCopyWith<$Res> {
       _$AddParkingSpotStateCopyWithImpl<$Res, AddParkingSpotState>;
   @useResult
   $Res call(
-      {String name,
+      {String? name,
       String? placeId,
       AddressModel? address,
-      double price,
+      double? price,
       String description,
-      List<File> images});
+      List<File> imagesFiles,
+      List<String> imagesUrls,
+      double? widthSize,
+      double? lengthSize,
+      double? height,
+      bool isInternal,
+      bool isEasyAccess,
+      bool isSecurity,
+      bool isCharger,
+      String? ownerId});
 
   $AddressModelCopyWith<$Res>? get address;
 }
@@ -58,18 +76,27 @@ class _$AddParkingSpotStateCopyWithImpl<$Res, $Val extends AddParkingSpotState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? name = freezed,
     Object? placeId = freezed,
     Object? address = freezed,
-    Object? price = null,
+    Object? price = freezed,
     Object? description = null,
-    Object? images = null,
+    Object? imagesFiles = null,
+    Object? imagesUrls = null,
+    Object? widthSize = freezed,
+    Object? lengthSize = freezed,
+    Object? height = freezed,
+    Object? isInternal = null,
+    Object? isEasyAccess = null,
+    Object? isSecurity = null,
+    Object? isCharger = null,
+    Object? ownerId = freezed,
   }) {
     return _then(_value.copyWith(
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       placeId: freezed == placeId
           ? _value.placeId
           : placeId // ignore: cast_nullable_to_non_nullable
@@ -78,18 +105,54 @@ class _$AddParkingSpotStateCopyWithImpl<$Res, $Val extends AddParkingSpotState>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as AddressModel?,
-      price: null == price
+      price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      images: null == images
-          ? _value.images
-          : images // ignore: cast_nullable_to_non_nullable
+      imagesFiles: null == imagesFiles
+          ? _value.imagesFiles
+          : imagesFiles // ignore: cast_nullable_to_non_nullable
               as List<File>,
+      imagesUrls: null == imagesUrls
+          ? _value.imagesUrls
+          : imagesUrls // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      widthSize: freezed == widthSize
+          ? _value.widthSize
+          : widthSize // ignore: cast_nullable_to_non_nullable
+              as double?,
+      lengthSize: freezed == lengthSize
+          ? _value.lengthSize
+          : lengthSize // ignore: cast_nullable_to_non_nullable
+              as double?,
+      height: freezed == height
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as double?,
+      isInternal: null == isInternal
+          ? _value.isInternal
+          : isInternal // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isEasyAccess: null == isEasyAccess
+          ? _value.isEasyAccess
+          : isEasyAccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSecurity: null == isSecurity
+          ? _value.isSecurity
+          : isSecurity // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCharger: null == isCharger
+          ? _value.isCharger
+          : isCharger // ignore: cast_nullable_to_non_nullable
+              as bool,
+      ownerId: freezed == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -115,12 +178,21 @@ abstract class _$$AddParkingSpotStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String name,
+      {String? name,
       String? placeId,
       AddressModel? address,
-      double price,
+      double? price,
       String description,
-      List<File> images});
+      List<File> imagesFiles,
+      List<String> imagesUrls,
+      double? widthSize,
+      double? lengthSize,
+      double? height,
+      bool isInternal,
+      bool isEasyAccess,
+      bool isSecurity,
+      bool isCharger,
+      String? ownerId});
 
   @override
   $AddressModelCopyWith<$Res>? get address;
@@ -137,18 +209,27 @@ class __$$AddParkingSpotStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? name = freezed,
     Object? placeId = freezed,
     Object? address = freezed,
-    Object? price = null,
+    Object? price = freezed,
     Object? description = null,
-    Object? images = null,
+    Object? imagesFiles = null,
+    Object? imagesUrls = null,
+    Object? widthSize = freezed,
+    Object? lengthSize = freezed,
+    Object? height = freezed,
+    Object? isInternal = null,
+    Object? isEasyAccess = null,
+    Object? isSecurity = null,
+    Object? isCharger = null,
+    Object? ownerId = freezed,
   }) {
     return _then(_$AddParkingSpotStateImpl(
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       placeId: freezed == placeId
           ? _value.placeId
           : placeId // ignore: cast_nullable_to_non_nullable
@@ -157,18 +238,54 @@ class __$$AddParkingSpotStateImplCopyWithImpl<$Res>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as AddressModel?,
-      price: null == price
+      price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      images: null == images
-          ? _value._images
-          : images // ignore: cast_nullable_to_non_nullable
+      imagesFiles: null == imagesFiles
+          ? _value._imagesFiles
+          : imagesFiles // ignore: cast_nullable_to_non_nullable
               as List<File>,
+      imagesUrls: null == imagesUrls
+          ? _value._imagesUrls
+          : imagesUrls // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      widthSize: freezed == widthSize
+          ? _value.widthSize
+          : widthSize // ignore: cast_nullable_to_non_nullable
+              as double?,
+      lengthSize: freezed == lengthSize
+          ? _value.lengthSize
+          : lengthSize // ignore: cast_nullable_to_non_nullable
+              as double?,
+      height: freezed == height
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as double?,
+      isInternal: null == isInternal
+          ? _value.isInternal
+          : isInternal // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isEasyAccess: null == isEasyAccess
+          ? _value.isEasyAccess
+          : isEasyAccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSecurity: null == isSecurity
+          ? _value.isSecurity
+          : isSecurity // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCharger: null == isCharger
+          ? _value.isCharger
+          : isCharger // ignore: cast_nullable_to_non_nullable
+              as bool,
+      ownerId: freezed == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -177,39 +294,77 @@ class __$$AddParkingSpotStateImplCopyWithImpl<$Res>
 
 class _$AddParkingSpotStateImpl implements _AddParkingSpotState {
   const _$AddParkingSpotStateImpl(
-      {this.name = "",
+      {this.name,
       this.placeId,
       this.address,
-      this.price = 0,
+      this.price,
       this.description = "",
-      final List<File> images = const []})
-      : _images = images;
+      final List<File> imagesFiles = const [],
+      final List<String> imagesUrls = const [],
+      this.widthSize,
+      this.lengthSize,
+      this.height,
+      this.isInternal = false,
+      this.isEasyAccess = false,
+      this.isSecurity = false,
+      this.isCharger = false,
+      this.ownerId})
+      : _imagesFiles = imagesFiles,
+        _imagesUrls = imagesUrls;
 
   @override
-  @JsonKey()
-  final String name;
+  final String? name;
   @override
   final String? placeId;
   @override
   final AddressModel? address;
   @override
-  @JsonKey()
-  final double price;
+  final double? price;
   @override
   @JsonKey()
   final String description;
-  final List<File> _images;
+  final List<File> _imagesFiles;
   @override
   @JsonKey()
-  List<File> get images {
-    if (_images is EqualUnmodifiableListView) return _images;
+  List<File> get imagesFiles {
+    if (_imagesFiles is EqualUnmodifiableListView) return _imagesFiles;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_images);
+    return EqualUnmodifiableListView(_imagesFiles);
+  }
+
+  final List<String> _imagesUrls;
+  @override
+  @JsonKey()
+  List<String> get imagesUrls {
+    if (_imagesUrls is EqualUnmodifiableListView) return _imagesUrls;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_imagesUrls);
   }
 
   @override
+  final double? widthSize;
+  @override
+  final double? lengthSize;
+  @override
+  final double? height;
+  @override
+  @JsonKey()
+  final bool isInternal;
+  @override
+  @JsonKey()
+  final bool isEasyAccess;
+  @override
+  @JsonKey()
+  final bool isSecurity;
+  @override
+  @JsonKey()
+  final bool isCharger;
+  @override
+  final String? ownerId;
+
+  @override
   String toString() {
-    return 'AddParkingSpotState(name: $name, placeId: $placeId, address: $address, price: $price, description: $description, images: $images)';
+    return 'AddParkingSpotState(name: $name, placeId: $placeId, address: $address, price: $price, description: $description, imagesFiles: $imagesFiles, imagesUrls: $imagesUrls, widthSize: $widthSize, lengthSize: $lengthSize, height: $height, isInternal: $isInternal, isEasyAccess: $isEasyAccess, isSecurity: $isSecurity, isCharger: $isCharger, ownerId: $ownerId)';
   }
 
   @override
@@ -223,12 +378,44 @@ class _$AddParkingSpotStateImpl implements _AddParkingSpotState {
             (identical(other.price, price) || other.price == price) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            const DeepCollectionEquality().equals(other._images, _images));
+            const DeepCollectionEquality()
+                .equals(other._imagesFiles, _imagesFiles) &&
+            const DeepCollectionEquality()
+                .equals(other._imagesUrls, _imagesUrls) &&
+            (identical(other.widthSize, widthSize) ||
+                other.widthSize == widthSize) &&
+            (identical(other.lengthSize, lengthSize) ||
+                other.lengthSize == lengthSize) &&
+            (identical(other.height, height) || other.height == height) &&
+            (identical(other.isInternal, isInternal) ||
+                other.isInternal == isInternal) &&
+            (identical(other.isEasyAccess, isEasyAccess) ||
+                other.isEasyAccess == isEasyAccess) &&
+            (identical(other.isSecurity, isSecurity) ||
+                other.isSecurity == isSecurity) &&
+            (identical(other.isCharger, isCharger) ||
+                other.isCharger == isCharger) &&
+            (identical(other.ownerId, ownerId) || other.ownerId == ownerId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, placeId, address, price,
-      description, const DeepCollectionEquality().hash(_images));
+  int get hashCode => Object.hash(
+      runtimeType,
+      name,
+      placeId,
+      address,
+      price,
+      description,
+      const DeepCollectionEquality().hash(_imagesFiles),
+      const DeepCollectionEquality().hash(_imagesUrls),
+      widthSize,
+      lengthSize,
+      height,
+      isInternal,
+      isEasyAccess,
+      isSecurity,
+      isCharger,
+      ownerId);
 
   @JsonKey(ignore: true)
   @override
@@ -240,25 +427,52 @@ class _$AddParkingSpotStateImpl implements _AddParkingSpotState {
 
 abstract class _AddParkingSpotState implements AddParkingSpotState {
   const factory _AddParkingSpotState(
-      {final String name,
+      {final String? name,
       final String? placeId,
       final AddressModel? address,
-      final double price,
+      final double? price,
       final String description,
-      final List<File> images}) = _$AddParkingSpotStateImpl;
+      final List<File> imagesFiles,
+      final List<String> imagesUrls,
+      final double? widthSize,
+      final double? lengthSize,
+      final double? height,
+      final bool isInternal,
+      final bool isEasyAccess,
+      final bool isSecurity,
+      final bool isCharger,
+      final String? ownerId}) = _$AddParkingSpotStateImpl;
 
   @override
-  String get name;
+  String? get name;
   @override
   String? get placeId;
   @override
   AddressModel? get address;
   @override
-  double get price;
+  double? get price;
   @override
   String get description;
   @override
-  List<File> get images;
+  List<File> get imagesFiles;
+  @override
+  List<String> get imagesUrls;
+  @override
+  double? get widthSize;
+  @override
+  double? get lengthSize;
+  @override
+  double? get height;
+  @override
+  bool get isInternal;
+  @override
+  bool get isEasyAccess;
+  @override
+  bool get isSecurity;
+  @override
+  bool get isCharger;
+  @override
+  String? get ownerId;
   @override
   @JsonKey(ignore: true)
   _$$AddParkingSpotStateImplCopyWith<_$AddParkingSpotStateImpl> get copyWith =>

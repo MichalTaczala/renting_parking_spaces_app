@@ -6,8 +6,8 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:mobile_parking_app/cubits/authentication_cubit/authentication_cubit.dart';
 import 'package:mobile_parking_app/cubits/authentication_cubit/authentication_state.dart';
 import 'package:mobile_parking_app/firebase_options.dart';
-import 'package:mobile_parking_app/models/parking_details_model.dart';
-import 'package:mobile_parking_app/pages/add_parking/add_parking_page.dart';
+import 'package:mobile_parking_app/models/parking_spot_model.dart';
+import 'package:mobile_parking_app/models/user_model.dart';
 import 'package:mobile_parking_app/pages/log_in/log_in_page.dart';
 import 'package:mobile_parking_app/pages/main_page/main_page.dart';
 import 'package:mobile_parking_app/pages/maps_page.dart';
@@ -26,11 +26,16 @@ void main() async {
   runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
   static final navigatorKey = GlobalKey<NavigatorState>();
 
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
@@ -39,17 +44,17 @@ class MainApp extends StatelessWidget {
           create: (context) => FirebaseUserRepo(),
         ),
         RepositoryProvider(
-          create: (context) => FlaskRepository(),
+          create: (context) => GoogleMapsRepository(),
         ),
         RepositoryProvider(
-          create: (context) => GoogleMapsRepository(),
+          create: (context) => FlaskRepository(),
         ),
       ],
       child: BlocProvider(
         create: (context) =>
             AuthenticationCubit(context.read<FirebaseUserRepo>()),
         child: MaterialApp(
-          navigatorKey: navigatorKey,
+          navigatorKey: MainApp.navigatorKey,
           theme: mainTheme,
           initialRoute: "/logIn",
           routes: {
@@ -61,23 +66,30 @@ class MainApp extends StatelessWidget {
                 ParkingDetailsPage(
                   parkingDetailsModel: ModalRoute.of(context)!
                       .settings
-                      .arguments as ParkingDetailsModel,
+                      .arguments as ParkingSpotModel,
                 ),
             "/payment": (context) => const StripePaymentPage(),
-            "/addParkingSpot": (context) => const AddParkingScreen(),
             "/maps": (context) => const MapsPage(),
           },
           builder: (context2, child) {
             return BlocListener<AuthenticationCubit, AuthenticationState>(
               listener: (context1, state) {
                 if (state.status == AuthenticationStatus.authenticated) {
-                  context1
-                      .read<FlaskRepository>()
-                      .changeUserId(state.user!.uid);
-                  navigatorKey.currentState?.pushReplacementNamed("/home");
+                  context1.read<FlaskRepository>().addUserId(state.user!.uid);
+                  context1.read<FlaskRepository>().updateUserProfile(
+                        UserModel(
+                          firstName: state.user!.displayName?.split(" ")[0],
+                          lastName: state.user!.displayName?.split(" ")[1],
+                          email: state.user!.email!,
+                          phone: state.user!.phoneNumber,
+                        ),
+                      );
+                  MainApp.navigatorKey.currentState
+                      ?.pushReplacementNamed("/home");
                 } else if (state.status ==
                     AuthenticationStatus.unauthenticated) {
-                  navigatorKey.currentState?.pushReplacementNamed("/logIn");
+                  MainApp.navigatorKey.currentState
+                      ?.pushReplacementNamed("/logIn");
                 }
               },
               child: SafeArea(child: child ?? Container()),

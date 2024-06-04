@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_parking_app/models/parking_spot_model.dart';
 
 class GarageTile extends StatelessWidget {
-  final String imagelink;
-  final String address;
-  final String dateRange;
-  final String cost;
+  final ParkingSpotModel parkingDetailsModel;
 
-  const GarageTile({super.key, required this.imagelink, required this.address, required this.dateRange, required this.cost});
+  const GarageTile({super.key, required this.parkingDetailsModel});
 
   @override
   Widget build(BuildContext context) {
@@ -17,32 +15,33 @@ class GarageTile extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(30),
-            child: Image.asset("assets/images/garage.jpeg"),
+            child: Hero(
+                tag: "parking_main_image_${parkingDetailsModel.imagesUrls[0]}",
+                child: Image.network(parkingDetailsModel.imagesUrls[0])),
           ),
-          const Padding(
-            padding: EdgeInsets.only(top: 10.0),
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0),
             child: Text(
-              "ul. Marokańska, Praga południe",
-              style: TextStyle(
+              "${parkingDetailsModel.address?.street} ${parkingDetailsModel.address?.houseNo}, ${parkingDetailsModel.address?.country}",
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
           const Text(
-            "2,3 km away",
+            "TODO 2,3 km away",
             style: TextStyle(fontSize: 16),
           ),
-          const Text(
-            "Apr. 19-24",
-            style: TextStyle(fontSize: 16),
-          ),
-          const Text(
-            "10 zł/h",
-            style: TextStyle(
+          Text(
+            "${parkingDetailsModel.price} ${parkingDetailsModel.currency} per day",
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
             ),
+          ),
+          const SizedBox(
+            height: 32,
           ),
         ],
       ),

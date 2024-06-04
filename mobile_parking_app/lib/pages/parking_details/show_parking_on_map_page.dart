@@ -30,7 +30,7 @@ class _ShowParkingOnMapState extends State<ShowParkingOnMap> {
     return GoogleMap(
       key: const ValueKey('show_parking_on_map'),
       initialCameraPosition:
-          CameraPosition(target: widget.initialCameraPosition, zoom: 13.5),
+          CameraPosition(target: widget.initialCameraPosition, zoom: 10),
       markers: {
         Marker(
           markerId: MarkerId(widget.initialCameraPosition.toString()),

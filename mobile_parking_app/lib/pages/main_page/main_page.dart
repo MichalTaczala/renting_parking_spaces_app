@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_parking_app/cubits/add_parking_spot_cubit/add_parking_spot_cubit.dart';
 import 'package:mobile_parking_app/cubits/main_data/main_data_cubit.dart';
+import 'package:mobile_parking_app/pages/main_page/views/add_parking_spot_view.dart';
 import 'package:mobile_parking_app/pages/main_page/views/choose_parking_view.dart';
+import 'package:mobile_parking_app/pages/main_page/views/my_offers_view.dart';
 import 'package:mobile_parking_app/pages/main_page/views/profile_view.dart';
 import 'package:mobile_parking_app/repositories/flask_repository.dart';
 import 'package:mobile_parking_app/repositories/google_maps_repository.dart';
@@ -11,11 +14,32 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MainDataCubit(
-          flaskRepository: context.read<FlaskRepository>(),
-          googleMapsRepository: context.read<GoogleMapsRepository>()),
-      child: const MainPage(),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (context) => FlaskRepository(),
+        ),
+        RepositoryProvider(
+          create: (context) => GoogleMapsRepository(),
+        ),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => MainDataCubit(
+              flaskRepository: context.read<FlaskRepository>(),
+              googleMapsRepository: context.read<GoogleMapsRepository>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => AddParkingSpotCubit(
+              context.read<FlaskRepository>(),
+              context.read<GoogleMapsRepository>(),
+            ),
+          ),
+        ],
+        child: const MainPage(),
+      ),
     );
   }
 }
@@ -42,9 +66,11 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: PageView(
         controller: pageController,
-        children: const [
-          ChooseParkingView(),
-          ProfileView(),
+        children: [
+          const ChooseParkingView(),
+          const AddParkingSpotView(),
+          MyOffersView(),
+          const ProfileView(),
         ],
         onPageChanged: (index) {
           setState(() {
@@ -52,16 +78,9 @@ class _MainPageState extends State<MainPage> {
           });
         },
       ),
-      // body: switch (idx) {
-      //   0 => BlocProvider.value(
-      //       value: context.read<MainDataCubit>(),
-      //       child: const ChooseParkingView(),
-      //     ),
-      //   1 => const ProfileView(),
-      //   int() => throw UnimplementedError(),
-      // },
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: idx,
+        type: BottomNavigationBarType.fixed,
         onTap: (index) {
           pageController.animateToPage(
             index,
@@ -78,11 +97,18 @@ class _MainPageState extends State<MainPage> {
             label: "Home",
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: "Add Garage",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.car_rental),
+            label: "My Garages",
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: "Profile",
           ),
         ],
-        // fixedColor: Colors.blue[400],
       ),
     );
   }

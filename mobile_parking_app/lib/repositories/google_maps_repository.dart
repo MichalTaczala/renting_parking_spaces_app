@@ -56,12 +56,12 @@ class GoogleMapsRepository {
 
       return AddressModel(
         street: street,
-        houseNumber: houseNumber,
+        houseNo: houseNumber,
         city: city,
-        zip: postalCode,
+        postalCode: postalCode,
         country: country,
         lat: lat,
-        lng: lng,
+        long: lng,
       );
     } else {
       throw Exception('Failed to load address');

@@ -1,15 +1,17 @@
 import 'dart:convert';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:mobile_parking_app/models/parking_details_model.dart';
+import 'package:mobile_parking_app/models/parking_spot_model.dart';
 import 'package:mobile_parking_app/pages/parking_details/show_parking_on_map_page.dart';
 
 class ParkingDetailsPage extends StatefulWidget {
   const ParkingDetailsPage({super.key, required this.parkingDetailsModel});
-  final ParkingDetailsModel parkingDetailsModel;
+  final ParkingSpotModel parkingDetailsModel;
 
   @override
   State<ParkingDetailsPage> createState() => _ParkingDetailsPageState();
@@ -78,8 +80,7 @@ class _ParkingDetailsPageState extends State<ParkingDetailsPage> {
         'payment_method_types[]': 'card',
       };
       //TODO change it to server invokation
-      var secretKey =
-          "sk_test_51NldnEDNOsFHC8X3JgLrJs1AW7Bjxja9dTWrqnYlAP8E1ibGgJyYkCzQMFc8AYWziifVueveymmnvvS34bm9lZb200Di3Wo5oI";
+      var secretKey = dotenv.get("STRIPE_SECRET");
       var response = await http.post(
         Uri.parse('https://api.stripe.com/v1/payment_intents'),
         headers: {
@@ -104,8 +105,21 @@ class _ParkingDetailsPageState extends State<ParkingDetailsPage> {
           children: [
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(30)),
-              child: Image.asset(
-                "assets/images/garage.jpeg",
+              child: Hero(
+                tag:
+                    "parking_main_image_${widget.parkingDetailsModel.imagesUrls[0]}",
+                child: CarouselSlider.builder(
+                  itemCount: widget.parkingDetailsModel.imagesUrls.length,
+                  itemBuilder: ((context, index, realIndex) => Image.network(
+                        widget.parkingDetailsModel.imagesUrls[index],
+                        fit: BoxFit.fitWidth,
+                      )),
+                  options: CarouselOptions(
+                    aspectRatio: 4 / 3,
+                    autoPlay: true,
+                    viewportFraction: 1,
+                  ),
+                ),
               ),
             ),
             const SizedBox(
@@ -113,36 +127,35 @@ class _ParkingDetailsPageState extends State<ParkingDetailsPage> {
             ),
             Row(
               children: [
-                const Column(
+                Column(
                   children: [
                     Text(
-                      "Some nice parking",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      widget.parkingDetailsModel.name!,
+                      style: const TextStyle(
+                          fontSize: 30, fontWeight: FontWeight.bold),
                     ),
-                    Text("4.5 (355 Reviews)"),
                   ],
                 ),
                 const Spacer(),
                 TextButton(
                   onPressed: () {
-                    if (widget.parkingDetailsModel.location?.lat == null ||
-                        widget.parkingDetailsModel.location?.lng == null) {
+                    if (widget.parkingDetailsModel.address?.lat == null ||
+                        widget.parkingDetailsModel.address?.long == null) {
                       return;
                     }
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => ShowParkingOnMap(
                           initialCameraPosition: LatLng(
-                            widget.parkingDetailsModel.location!.lat!,
-                            widget.parkingDetailsModel.location!.lng!,
+                            widget.parkingDetailsModel.address!.lat!,
+                            widget.parkingDetailsModel.address!.long!,
                           ),
                         ),
                       ),
                     );
                   },
                   child: const Text(
-                    "Show map",
+                    "Show on map",
                   ),
                 ),
               ],
@@ -150,9 +163,9 @@ class _ParkingDetailsPageState extends State<ParkingDetailsPage> {
             const SizedBox(
               height: 10,
             ),
-            const Text(
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In scelerisque vulputate metus sit amet luctus. Maecenas viverra eu felis ac vehicula. Suspendisse commodo ante ligula, a vestibulum enim hendrerit ut. Nam sodales laoreet justo eget dictum. Integer interdum ligula turpis, sit amet vehicula sem fringilla in. Phasellus laoreet ultricies metus at laoreet. Cras quam elit, volutpat ut consectetur vitae, iaculis quis justo. Donec id augue ipsum. Vivamus libero sapien, egestas sit amet cursus ac, vestibulum ac felis. Ut tempus, nibh ut mollis tincidunt, elit nulla efficitur lacus, vitae pulvinar diam lorem nec orci. In tellus nunc, blandit eu tempus a, ultricies non ipsum.",
-              style: TextStyle(
+            Text(
+              widget.parkingDetailsModel.description ?? "",
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -180,9 +193,9 @@ class _ParkingDetailsPageState extends State<ParkingDetailsPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Price per hour"),
+                    const Text("Price per day"),
                     Text(
-                      "10 zł",
+                      "${widget.parkingDetailsModel.currency} ${widget.parkingDetailsModel.price}",
                       style: TextStyle(
                         fontSize: 30,
                         color: Colors.green[300],

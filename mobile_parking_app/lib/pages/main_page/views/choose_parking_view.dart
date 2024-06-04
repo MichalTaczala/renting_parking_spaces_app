@@ -4,8 +4,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:mobile_parking_app/cubits/main_data/main_data_cubit.dart';
 import 'package:mobile_parking_app/cubits/main_data/main_data_state.dart';
-import 'package:mobile_parking_app/models/address_model.dart';
-import 'package:mobile_parking_app/models/parking_details_model.dart';
 import 'package:mobile_parking_app/pages/main_page/widgets/garage_tile.dart';
 import 'package:mobile_parking_app/utils/location_utils.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -140,48 +138,29 @@ class _ChooseParkingViewState extends State<ChooseParkingView> {
     );
   }
 
-  Widget _buildListOfGarages() {
+  Widget _buildListOfGarages(MainDataState state) {
     return ListView.builder(
+      itemCount: state.parkingSpots.length,
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () => Navigator.of(context).pushNamed(
             "/parkingDetails",
-            arguments: const ParkingDetailsModel(
-              id: "id",
-              name: "name",
-              location: AddressModel(
-                city: "city",
-                country: "country",
-                street: "street",
-                zip: "postalCode",
-                lat: 50.0614305556,
-                lng: 19.9365805555,
-              ),
-              phone: "phone",
-              email: "email",
-              images: [],
-              description: "description",
-              price: 21.37,
-              currency: "USD",
-              rating: "rating",
-              distance: "distance",
-            ),
+            arguments: state.parkingSpots[index],
           ),
-          child: const GarageTile(
-            address: "a",
-            cost: "a",
-            dateRange: "a",
-            imagelink: "a",
+          child: GarageTile(
+            parkingDetailsModel: state.parkingSpots[index],
           ),
         );
       },
       padding: EdgeInsets.zero,
-      itemCount: 20,
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    if (context.read<MainDataCubit>().state.parkingSpots.isEmpty) {
+      context.read<MainDataCubit>().init();
+    }
     return BlocBuilder<MainDataCubit, MainDataState>(
       builder: (context, state) {
         var children = <Widget>[
@@ -201,7 +180,7 @@ class _ChooseParkingViewState extends State<ChooseParkingView> {
             height: 20,
           ),
           Expanded(
-            child: _buildListOfGarages(),
+            child: _buildListOfGarages(state),
           ),
         ];
         return Padding(

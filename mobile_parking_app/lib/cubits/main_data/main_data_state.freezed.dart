@@ -22,7 +22,7 @@ mixin _$MainDataState {
   DateTime? get startDate => throw _privateConstructorUsedError;
   DateTime? get endDate =>
       throw _privateConstructorUsedError; //TODO change to object
-  List<dynamic> get parkingSpots => throw _privateConstructorUsedError;
+  List<ParkingSpotModel> get parkingSpots => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MainDataStateCopyWith<MainDataState> get copyWith =>
@@ -40,7 +40,7 @@ abstract class $MainDataStateCopyWith<$Res> {
       String? choosenLocationForGarageName,
       DateTime? startDate,
       DateTime? endDate,
-      List<dynamic> parkingSpots});
+      List<ParkingSpotModel> parkingSpots});
 }
 
 /// @nodoc
@@ -82,7 +82,7 @@ class _$MainDataStateCopyWithImpl<$Res, $Val extends MainDataState>
       parkingSpots: null == parkingSpots
           ? _value.parkingSpots
           : parkingSpots // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as List<ParkingSpotModel>,
     ) as $Val);
   }
 }
@@ -100,7 +100,7 @@ abstract class _$$MainDataStateImplCopyWith<$Res>
       String? choosenLocationForGarageName,
       DateTime? startDate,
       DateTime? endDate,
-      List<dynamic> parkingSpots});
+      List<ParkingSpotModel> parkingSpots});
 }
 
 /// @nodoc
@@ -140,7 +140,7 @@ class __$$MainDataStateImplCopyWithImpl<$Res>
       parkingSpots: null == parkingSpots
           ? _value._parkingSpots
           : parkingSpots // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as List<ParkingSpotModel>,
     ));
   }
 }
@@ -153,7 +153,7 @@ class _$MainDataStateImpl implements _MainDataState {
       this.choosenLocationForGarageName,
       this.startDate,
       this.endDate,
-      final List<dynamic> parkingSpots = const []})
+      final List<ParkingSpotModel> parkingSpots = const []})
       : _parkingSpots = parkingSpots;
 
   @override
@@ -165,11 +165,11 @@ class _$MainDataStateImpl implements _MainDataState {
   @override
   final DateTime? endDate;
 //TODO change to object
-  final List<dynamic> _parkingSpots;
+  final List<ParkingSpotModel> _parkingSpots;
 //TODO change to object
   @override
   @JsonKey()
-  List<dynamic> get parkingSpots {
+  List<ParkingSpotModel> get parkingSpots {
     if (_parkingSpots is EqualUnmodifiableListView) return _parkingSpots;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_parkingSpots);
@@ -221,7 +221,7 @@ abstract class _MainDataState implements MainDataState {
       final String? choosenLocationForGarageName,
       final DateTime? startDate,
       final DateTime? endDate,
-      final List<dynamic> parkingSpots}) = _$MainDataStateImpl;
+      final List<ParkingSpotModel> parkingSpots}) = _$MainDataStateImpl;
 
   @override
   LatLng? get choosenLocationForGarage;
@@ -232,7 +232,7 @@ abstract class _MainDataState implements MainDataState {
   @override
   DateTime? get endDate;
   @override //TODO change to object
-  List<dynamic> get parkingSpots;
+  List<ParkingSpotModel> get parkingSpots;
   @override
   @JsonKey(ignore: true)
   _$$MainDataStateImplCopyWith<_$MainDataStateImpl> get copyWith =>

@@ -6,13 +6,16 @@ part 'address_model.g.dart';
 @freezed
 class AddressModel with _$AddressModel {
   const factory AddressModel({
-    String? street,
-    String? houseNumber,
-    String? city,
-    String? zip,
-    String? country,
+    int? addressId,
     required double? lat,
-    required double? lng,
+    required double? long,
+    required String? street,
+    required String? houseNo,
+    required String? postalCode,
+    required String? city,
+    String? region,
+    String? district,
+    required String? country,
   }) = _AddressModel;
 
   factory AddressModel.fromJson(Map<String, dynamic> json) =>

@@ -8,11 +8,20 @@ part 'add_parking_spot_state.freezed.dart';
 @freezed
 class AddParkingSpotState with _$AddParkingSpotState {
   const factory AddParkingSpotState({
-    @Default("") String name,
+    String? name,
     String? placeId,
     AddressModel? address,
-    @Default(0) double price,
+    double? price,
     @Default("") String description,
-    @Default([]) List<File> images,
+    @Default([]) List<File> imagesFiles,
+    @Default([]) List<String> imagesUrls,
+    double? widthSize,
+    double? lengthSize,
+    double? height,
+    @Default(false) bool isInternal,
+    @Default(false) bool isEasyAccess,
+    @Default(false) bool isSecurity,
+    @Default(false) bool isCharger,
+    String? ownerId,
   }) = _AddParkingSpotState;
 }
