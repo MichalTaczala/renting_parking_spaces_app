@@ -4,7 +4,7 @@ TODO
 # Development
 
 ### TODO
-- [ ] TODO: change parking spot model - nowy od michala + CZY MA ON CENE (za godzine) 
+- [X] TODO: change parking spot model - nowy od michala + CZY MA ON CENE (za godzine) 
 - [ ] do tworzenia parking spot model dodac odrazu tworzenie nowego adresu: zagniezdzony json - najpierw parking spot potem adres - ew dopytac Michala
 - [ ] dopytac michala o autentykacje usera jak to kurwa dziala - dp tworzenia usera
 - [ ] requesty wrzucic do postmana? - chyba niekoniecznie (jakby sie komus nudzilo)
