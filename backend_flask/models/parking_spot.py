@@ -1,9 +1,4 @@
 # Description: This file contains the ParkingSpot model.
-
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Enum
-from .user import User
-from .address import Address
 from sqlalchemy.orm import relationship
 from sqlalchemy import (
     Column,
@@ -13,6 +8,11 @@ from sqlalchemy import (
     Boolean,
     ForeignKey,
 )
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Enum
+from flask import jsonify
+from .user import User
+from .address import Address
 
 Base = declarative_base()
 
@@ -26,21 +26,39 @@ class ParkingSpot(Base):
     height = Column(Numeric(precision=10, scale=2))
     width = Column(Numeric(precision=10, scale=2))
     length = Column(Numeric(precision=10, scale=2))
-    parking_no = Column(String(8), nullable=False)
-    availability = Column(Boolean, nullable=False)
     internal = Column(Boolean, nullable=False)
-    wide_spot = Column(Boolean, nullable=False)
     easy_access = Column(Boolean, nullable=False)
-    level = Column(Integer, nullable=False)
     security = Column(Boolean, nullable=False)
     charging = Column(Boolean, nullable=False)
     owner_id = Column(
         Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False
     )
     address_id = Column(Integer, ForeignKey("address.address_id", ondelete="SET NULL"))
-
+    # address_model ???
     price = Column(Numeric(precision=10, scale=2))
     currency = Column(String(3), default="USD")
-
+    images_url = Column(String(511), nullable=False)
+    # Relations
     owner = relationship("User")
     address = relationship("Address")
+
+    def to_json(self):
+        return jsonify(
+            {
+                "spot_id": self.spot_id,
+                "name": self.name,
+                "description": self.description,
+                "height": self.height,
+                "width": self.width,
+                "length": self.length,
+                "internal": self.internal,
+                "easy_access": self.easy_access,
+                "security": self.security,
+                "charging": self.charging,
+                "owner_id": self.owner_id,
+                "address_id": self.address_id,
+                "price": self.price,
+                "currency": self.currency,
+                "imagesURL": self.images_url,
+            }
+        )
