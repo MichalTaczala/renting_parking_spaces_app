@@ -68,13 +68,13 @@ def create_parking_spot():
             return jsonify({"message": str(e)}), 400
 
 
-# TODO: change so that the user can both add and update parking spots
 @parkingspot_bp.route("/parking_spots/<int:spot_id>", methods=["PUT"])
 def update_parking_spot(spot_id):
-    """Endpoint for adding and updating parking spot information."""
+    """Endpoint for updating parking spot information."""
     if not request.is_json:
         return jsonify({"message": "Missing JSON in request"}), 400
     data = request.get_json()
+    address_data = data.get("address")
     # Retrieve parking spot from the database based on spot_id
     with get_session() as session:
         try:
@@ -85,16 +85,23 @@ def update_parking_spot(spot_id):
             )
             if spot:
                 # Update parking spot information
+                spot.name = data.get("name", spot.name)
                 spot.description = data.get("description", spot.description)
-                spot.size = data.get("size", spot.size)
-                spot.parking_no = data.get("parking_no", spot.parking_no)
-                spot.availability = data.get("availability", spot.availability)
+                spot.height = data.get("height", spot.height)
+                spot.width = data.get("width", spot.width)
+                spot.length = data.get("length", spot.length)
                 spot.internal = data.get("internal", spot.internal)
-                spot.wide_spot = data.get("wide_spot", spot.wide_spot)
                 spot.easy_access = data.get("easy_access", spot.easy_access)
-                spot.level = data.get("level", spot.level)
                 spot.security = data.get("security", spot.security)
                 spot.charging = data.get("charging", spot.charging)
+                spot.owner_id = data.get("owner_id", spot.owner_id)
+                spot.address_id = data.get(
+                    "address_id", spot.address_id
+                )  # TODO: update this instead of using the same address
+                spot.price = data.get("price", spot.price)
+                spot.currency = data.get("currency", spot.currency)
+                # spot.images_url = data.get("images_url", spot.images_url)
+
                 session.commit()
                 return (
                     jsonify(
