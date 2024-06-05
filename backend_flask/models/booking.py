@@ -1,5 +1,6 @@
 """Model for a booking record"""
 
+from flask import jsonify
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import (
     Column,
@@ -41,8 +42,8 @@ class Booking(Base):
     user = relationship(User)
     offer = relationship(RentalOffer)
 
-    def json(self):
-        """Return the booking information as a JSON object."""
+    def to_dict(self):
+        """Return the booking information as a dictionary."""
         return {
             "booking_id": self.booking_id,
             "booking_start": self.booking_start,
@@ -52,3 +53,7 @@ class Booking(Base):
             "user_id": self.user_id,
             "offer_id": self.offer_id,
         }
+
+    def to_json(self):
+        """Return the booking information as a JSON object."""
+        return jsonify(self.to_dict())

@@ -40,23 +40,24 @@ class ParkingSpot(Base):
     owner = relationship(User)
     address = relationship(Address)
 
+    def to_dict(self):
+        return {
+            "spot_id": self.spot_id,
+            "name": self.name,
+            "description": self.description,
+            "height": self.height,
+            "width": self.width,
+            "length": self.length,
+            "internal": self.internal,
+            "easy_access": self.easy_access,
+            "security": self.security,
+            "charging": self.charging,
+            "owner_id": self.owner_id,
+            "address_id": self.address_id,
+            "price": self.price,
+            "currency": self.currency,
+            "imagesURL": self.images_url,
+        }
+
     def to_json(self):
-        return jsonify(
-            {
-                "spot_id": self.spot_id,
-                "name": self.name,
-                "description": self.description,
-                "height": self.height,
-                "width": self.width,
-                "length": self.length,
-                "internal": self.internal,
-                "easy_access": self.easy_access,
-                "security": self.security,
-                "charging": self.charging,
-                "owner_id": self.owner_id,
-                "address_id": self.address_id,
-                "price": self.price,
-                "currency": self.currency,
-                "imagesURL": self.images_url,
-            }
-        )
+        return jsonify(self.to_dict())

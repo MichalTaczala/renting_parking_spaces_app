@@ -1,3 +1,4 @@
+from flask import jsonify
 import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import (
@@ -41,3 +42,18 @@ class RentalOffer(Base):
 
     # Define a relationship to access ParkingSpot from RentalOffer
     spot = relationship(ParkingSpot)
+
+    def to_dict(self):
+        return {
+            "offer_id": self.offer_id,
+            "auto_accept": self.auto_accept,
+            "price": self.price,
+            "created_at": self.created_at,
+            "start_date": self.start_date,
+            "end_date": self.end_date,
+            "status": self.status,
+            "spot_id": self.spot_id,
+        }
+
+    def to_json(self):
+        return jsonify(self.to_dict())
