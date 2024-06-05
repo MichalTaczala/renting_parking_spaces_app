@@ -30,17 +30,15 @@ class ParkingSpot(Base):
     easy_access = Column(Boolean, nullable=False)
     security = Column(Boolean, nullable=False)
     charging = Column(Boolean, nullable=False)
-    owner_id = Column(
-        Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False
-    )
-    address_id = Column(Integer, ForeignKey("address.address_id", ondelete="SET NULL"))
+    owner_id = Column(Integer, ForeignKey(User.id, ondelete="CASCADE"), nullable=False)
+    address_id = Column(Integer, ForeignKey(Address.address_id, ondelete="SET NULL"))
     # address_model ???
     price = Column(Numeric(precision=10, scale=2))
     currency = Column(String(3), default="USD")
     images_url = Column(String(511), nullable=False)
     # Relations
-    owner = relationship("User")
-    address = relationship("Address")
+    owner = relationship(User)
+    address = relationship(Address)
 
     def to_json(self):
         return jsonify(
