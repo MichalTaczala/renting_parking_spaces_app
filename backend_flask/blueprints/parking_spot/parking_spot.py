@@ -117,7 +117,7 @@ def update_parking_spot(spot_id):
 
 @parkingspot_bp.route("/parking_spots/<int:spot_id>", methods=["GET"])
 def get_parking_spot(spot_id):
-    """Endpoint for retrieving parking spot information."""
+    """Endpoint for retrieving single parking spot information."""
     # Retrieve parking spot from the database based on spot_id
     with get_session() as session:
         try:
@@ -128,21 +128,16 @@ def get_parking_spot(spot_id):
             )
             if spot:
                 # Return parking spot information
+                address = (
+                    session.query(Address)
+                    .filter(Address.address_id == spot.address_id)
+                    .first()
+                )
+                data = spot.to_dict()
+                data["address"] = address.to_dict()
+
                 return (
-                    jsonify(
-                        {
-                            "description": spot.description,
-                            "size": spot.size,
-                            "parking_no": spot.parking_no,
-                            "availability": spot.availability,
-                            "internal": spot.internal,
-                            "wide_spot": spot.wide_spot,
-                            "easy_access": spot.easy_access,
-                            "level": spot.level,
-                            "security": spot.security,
-                            "charging": spot.charging,
-                        }
-                    ),
+                    jsonify(data),
                     200,
                 )
             else:
