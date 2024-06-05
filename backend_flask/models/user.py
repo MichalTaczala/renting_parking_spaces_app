@@ -15,6 +15,7 @@ class User(Base):
 
     __tablename__ = "users"
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
+    firebase_token = sqlalchemy.Column(sqlalchemy.Text, nullable=False)
     username = sqlalchemy.Column(sqlalchemy.String(31), nullable=False)
     first_name = sqlalchemy.Column(sqlalchemy.String(50), nullable=False)
     last_name = sqlalchemy.Column(sqlalchemy.String(100), nullable=False)
