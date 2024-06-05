@@ -5,7 +5,14 @@ from sqlalchemy import Enum
 from .user import User
 from .address import Address
 from sqlalchemy.orm import relationship
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, CheckConstraint
+from sqlalchemy import (
+    Column,
+    Integer,
+    Numeric,
+    String,
+    Boolean,
+    ForeignKey,
+)
 
 Base = declarative_base()
 
@@ -14,8 +21,11 @@ class ParkingSpot(Base):
     __tablename__ = "parking_spots"
 
     spot_id = Column(Integer, primary_key=True)
+    name = Column(String(127), nullable=False)
     description = Column(String(511))
-    size = Column(Integer, CheckConstraint("size > 0"))
+    height = Column(Numeric(precision=10, scale=2))
+    width = Column(Numeric(precision=10, scale=2))
+    length = Column(Numeric(precision=10, scale=2))
     parking_no = Column(String(8), nullable=False)
     availability = Column(Boolean, nullable=False)
     internal = Column(Boolean, nullable=False)
@@ -24,8 +34,13 @@ class ParkingSpot(Base):
     level = Column(Integer, nullable=False)
     security = Column(Boolean, nullable=False)
     charging = Column(Boolean, nullable=False)
-    owner_id = Column(Integer, ForeignKey(User.id, ondelete="CASCADE"))
-    address_id = Column(Integer, ForeignKey(Address.address_id, ondelete="SET NULL"))
+    owner_id = Column(
+        Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False
+    )
+    address_id = Column(Integer, ForeignKey("address.address_id", ondelete="SET NULL"))
 
-    owner = relationship(User)
-    address = relationship(Address)
+    price = Column(Numeric(precision=10, scale=2))
+    currency = Column(String(3), default="USD")
+
+    owner = relationship("User")
+    address = relationship("Address")
