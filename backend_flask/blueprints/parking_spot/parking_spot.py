@@ -6,6 +6,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from db_conn import get_session
 from models import ParkingSpot, Address, Booking, RentalOffer
 import random
+from datetime import timedelta
 
 from google.cloud import storage
 
@@ -18,18 +19,37 @@ parkingspot_bp = Blueprint("parking_spot", __name__)
 
 def calculate_distance(lat1, long1, lat2, long2):
     """Calculate the Haversine distance between two points on the earth."""
-    R = 6371  # Radius of the Earth in kilometers
-    dlat = math.radians(lat2 - lat1)
-    dlong = math.radians(long2 - long1)
-    a = (
-        math.sin(dlat / 2) ** 2
-        + math.cos(math.radians(lat1))
-        * math.cos(math.radians(lat2))
-        * math.sin(dlong / 2) ** 2
-    )
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-    distance = R * c
-    return distance
+    try:
+        R = 6371  # Radius of the Earth in kilometers
+        dlat = math.radians(lat2 - lat1)
+        dlong = math.radians(long2 - long1)
+        a = (
+            math.sin(dlat / 2) ** 2
+            + math.cos(math.radians(lat1))
+            * math.cos(math.radians(lat2))
+            * math.sin(dlong / 2) ** 2
+        )
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+        distance = R * c
+        return distance
+    except Exception as e:
+        return 0
+
+
+def get_list_of_images(spot_id: int):
+    """Get a list of image URLs for a parking spot."""
+    directory_name = f"{spot_id}/"
+    try:
+        bucket = client.bucket(bucket_name)
+        blobs = bucket.list_blobs(prefix=directory_name)
+        image_urls = []
+        for blob in blobs:
+            url = blob.generate_signed_url(expiration=timedelta(hours=1))
+            # URL valid for 1 hour
+            image_urls.append(url)
+        return image_urls
+    except Exception as e:
+        return str(e)
 
 
 # TODO: endpoint for uploading images for a specific parking spot
@@ -196,6 +216,7 @@ def get_parking_spot(spot_id):
     user_long = request.args.get("long")
     user_lat = float(user_lat) if user_lat else None
     user_long = float(user_long) if user_long else None
+    image_urls = get_list_of_images(spot_id)
 
     # Retrieve parking spot from the database based on spot_id
     with get_session() as session:
@@ -218,7 +239,7 @@ def get_parking_spot(spot_id):
                 data = spot.to_dict()
                 data["address"] = address.to_dict()
                 data["distance"] = distance
-                data["image_urls"] = []  # TODO:
+                data["image_urls"] = image_urls
 
                 return (
                     jsonify(data),
@@ -346,7 +367,7 @@ def get_parking_spots():
                         "address_id": spot[0].address_id,
                         "price": spot[0].price,
                         "currency": spot[0].currency,
-                        "imagesURL": spot[0].images_url,
+                        "images_url": get_list_of_images(spot[0].spot_id),
                         "distance": spot[1],  # Add distance to the response
                     }
                     for spot in sorted_parking_spots
@@ -368,7 +389,7 @@ def get_parking_spots():
                         "address_id": spot.address_id,
                         "price": spot.price,
                         "currency": spot.currency,
-                        "imagesURL": spot.images_url,
+                        "images_url": get_list_of_images(spot.spot_id),
                     }
                     for spot in available_parking_spots[:20]
                 ]
