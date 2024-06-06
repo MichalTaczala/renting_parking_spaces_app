@@ -312,7 +312,7 @@ def get_parking_spots():
 
 # Temporal endpoint for displaying all parking spots
 @parkingspot_bp.route("/parking_spots/all_simple", methods=["GET"])
-def get_parking_spots():
+def get_parking_spots_temp():
     """Endpoint for retrieving all parking spots."""
     with get_session() as session:
         try:
