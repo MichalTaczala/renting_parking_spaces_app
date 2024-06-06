@@ -18,7 +18,8 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     # secure - consider a more secure solution such as
     # Cloud Secret Manager (https://cloud.google.com/secret-manager) to help
     # keep secrets safe.
-    load_dotenv()  # TODO: find a better place to load this
+    if os.path.exists(".env"):
+        load_dotenv()  # TODO: find a better place to load this
     instance_connection_name = os.environ[
         "INSTANCE_CONNECTION_NAME"
     ]  # e.g. 'project:region:instance'

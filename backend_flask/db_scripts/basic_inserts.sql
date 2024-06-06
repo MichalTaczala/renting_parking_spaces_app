@@ -1,8 +1,8 @@
 -- Inserting data into the "users" table
-INSERT INTO users (username, email, user_type, phone_prefix, phone, password) VALUES
-    ('bgrabek', 'Bartek', 'Grabek', 'admin@example.com', 'regular', '123', '123456789', 'admin_password'),
-    ('mtaczala', 'Michal', 'Taczala', 'regular@example.com', 'regular', '456', '987654321', 'regular_password'),
-    ('pwysocka', 'Patrycja', 'Wysocka', 'guest@example.com', 'regular', '789', '567891234', 'guest_password');
+INSERT INTO users (firebase_token, username, first_name, last_name, email, type, phone_prefix, phone) VALUES
+    ('1234', 'bgrabek', 'Bartek', 'Grabek', 'admin@example.com', 'regular', '123', '123456789'),
+    ('3456', 'mtaczala', 'Michal', 'Taczala', 'regular@example.com', 'regular', '456', '987654321'),
+    ('7890', 'pwysocka', 'Patrycja', 'Wysocka', 'guest@example.com', 'regular', '789', '567891234');
 
 -- Inserting data into the "address" table
 INSERT INTO address (long, lat, street, house_no, postal_code, city, region, district, country) VALUES

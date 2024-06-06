@@ -13,3 +13,5 @@ key_app.json
 
 /flask_env
 **/__pycache__/**
+
+backend_env2/*
