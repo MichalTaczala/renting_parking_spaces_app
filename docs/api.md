@@ -73,6 +73,7 @@ curl -X POST http://localhost:11434/api/parking_spots/create -H "Content-Type: a
 ```shell
 {
     "message": "Successfully created new parking spot!"
+    "parking_spot": 17
 }
 ```
 

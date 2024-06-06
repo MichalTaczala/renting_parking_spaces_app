@@ -79,7 +79,15 @@ def create_parking_spot():
             )
             session.add(new_parking_spot)
             session.commit()
-            return jsonify({"message": "Successfully created new parking spot!"}), 200
+            return (
+                jsonify(
+                    {
+                        "message": "Successfully created new parking spot!",
+                        "parking_id": new_parking_spot.spot_id,
+                    }
+                ),
+                200,
+            )
         except Exception as e:
             return jsonify({"message": str(e)}), 400
 
