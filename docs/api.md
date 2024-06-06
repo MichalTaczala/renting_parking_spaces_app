@@ -38,10 +38,8 @@ Creates a new parking spott with the specified details, inc. nested address and 
 - `region` (optional): Region of the address.
 - `district` (optional): District of the address.
 - `country` (required): Country of the address.
-
 ### Examples
 Create a new parking spot
-
 **Request**
 ```shell
 curl -X POST http://localhost:11434/api/parking_spots/create -H "Content-Type: application/json" -d '{

@@ -139,7 +139,6 @@ def get_parking_spot(spot_id):
     user_long = request.args.get("long")
     user_lat = float(user_lat) if user_lat else None
     user_long = float(user_long) if user_long else None
-    compute_distance_bool = user_lat is not None and user_long is not None
 
     # Retrieve parking spot from the database based on spot_id
     with get_session() as session:
@@ -158,13 +157,10 @@ def get_parking_spot(spot_id):
                 )
                 spot_lat = float(address.lat)
                 spot_long = float(address.long)
+                distance = calculate_distance(user_lat, user_long, spot_lat, spot_long)
                 data = spot.to_dict()
                 data["address"] = address.to_dict()
-                if compute_distance_bool:
-                    distance = calculate_distance(
-                        user_lat, user_long, spot_lat, spot_long
-                    )
-                    data["distance"] = distance
+                data["distance"] = distance
 
                 return (
                     jsonify(data),
