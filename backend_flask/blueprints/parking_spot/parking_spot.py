@@ -7,6 +7,11 @@ from db_conn import get_session
 from models import ParkingSpot, Address, Booking, RentalOffer
 import random
 
+from google.cloud import storage
+
+MAX_IMAGES_PER_PARKING_SPOT = 5
+client = storage.Client.from_service_account_json("../terraform_conf/key_app.json")
+bucket_name = "parking-images-test"
 
 parkingspot_bp = Blueprint("parking_spot", __name__)
 
@@ -25,6 +30,50 @@ def calculate_distance(lat1, long1, lat2, long2):
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
     distance = R * c
     return distance
+
+
+# TODO: endpoint for uploading images for a specific parking spot
+@parkingspot_bp.route("/parking_spots/<int:spot_id>/upload_images", methods=["POST"])
+def upload_images(spot_id):
+    """Endpoint for uploading images for a specific parking spot."""
+    # Retrieve parking spot from the database based on spot_id
+    with get_session() as session:
+        try:
+            spot = (
+                session.query(ParkingSpot)
+                .filter(ParkingSpot.spot_id == spot_id)
+                .first()
+            )
+            if spot:
+                images = []
+                i = 0
+                for i in range(0, MAX_IMAGES_PER_PARKING_SPOT):
+                    image = request.files.get(f"image{i}")
+                    if not image:
+                        break
+                    images.append(image)
+                    i += 1
+                if len(images) == 0:
+                    return jsonify({"error": "Image file is required"}), 400
+                try:
+                    bucket = client.bucket(bucket_name)
+                    for image in images:
+                        blob = bucket.blob(f"{spot_id}/{image.filename}")
+                        blob.upload_from_file(image)
+                    return (
+                        jsonify(
+                            {
+                                "message": f"Images uploaded successfully for parking spot {spot_id}"
+                            }
+                        ),
+                        201,
+                    )
+                except Exception as e:
+                    return jsonify({"error": str(e)}), 500
+            else:
+                return jsonify({"message": "Parking spot not found"}), 404
+        except SQLAlchemyError as e:
+            return jsonify({"message": str(e)}), 500
 
 
 @parkingspot_bp.route("/parking_spots/create", methods=["POST"])
@@ -169,6 +218,7 @@ def get_parking_spot(spot_id):
                 data = spot.to_dict()
                 data["address"] = address.to_dict()
                 data["distance"] = distance
+                data["image_urls"] = []  # TODO:
 
                 return (
                     jsonify(data),
