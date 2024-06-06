@@ -1,5 +1,5 @@
 # Description: This file contains the User model.
-
+from flask import jsonify
 import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Enum
@@ -15,6 +15,7 @@ class User(Base):
 
     __tablename__ = "users"
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
+    firebase_token = sqlalchemy.Column(sqlalchemy.Text, nullable=False)
     username = sqlalchemy.Column(sqlalchemy.String(31), nullable=False)
     first_name = sqlalchemy.Column(sqlalchemy.String(50), nullable=False)
     last_name = sqlalchemy.Column(sqlalchemy.String(100), nullable=False)
@@ -26,7 +27,7 @@ class User(Base):
     phone = sqlalchemy.Column(sqlalchemy.String(15), nullable=False, unique=True)
     password = sqlalchemy.Column(sqlalchemy.String(50), nullable=False)
 
-    def json(self):
+    def to_dict(self):
         """Return a JSON representation of the User object without password."""
         return {
             "id": self.id,
@@ -38,3 +39,7 @@ class User(Base):
             "phone_prefix": self.phone_prefix,
             "phone": self.phone,
         }
+
+    def to_json(self):
+        """Return a JSON representation of the User object without password."""
+        return jsonify(self.to_dict())

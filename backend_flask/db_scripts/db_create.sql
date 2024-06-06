@@ -2,14 +2,14 @@ CREATE TYPE user_type AS ENUM ('admin', 'regular', 'guest');
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
+    firebase_token TEXT UNIQUE NOT NULL,
     username VARCHAR(31) NOT NULL,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     type user_type DEFAULT 'regular', -- Assuming this is a valid enum type
-    -- phone_prefix VARCHAR(3), -- Check for valid phone prefix format
-    -- phone VARCHAR(15) NOT NULL UNIQUE,
-    -- password VARCHAR(50) NOT NULL
+    phone_prefix VARCHAR(3), -- Check for valid phone prefix format
+    phone VARCHAR(15) NOT NULL UNIQUE
 );
 
 --TODO: check phone_prefix and phone
@@ -30,18 +30,24 @@ CREATE TABLE address (
 
 CREATE TABLE parking_spots (
     spot_id SERIAL PRIMARY KEY,
+    name VARCHAR(127) NOT NULL,
     description VARCHAR(511),
     size INT CHECK (size > 0), -- Ensuring size is a positive integer
+    height DOUBLE PRECISION,
+    width DOUBLE PRECISION,
+    length DOUBLE PRECISION,
     parking_no VARCHAR(8) NOT NULL,
-    -- availability BOOLEAN NOT NULL, -- WHAT FOR?
+    availability BOOLEAN NOT NULL,
     internal BOOLEAN NOT NULL,
     wide_spot BOOLEAN NOT NULL,
     easy_access BOOLEAN NOT NULL,
     level INT NOT NULL,
     security BOOLEAN NOT NULL,
     charging BOOLEAN NOT NULL,
-    owner_id INT REFERENCES users (user_id) ON DELETE CASCADE, -- Referencing user_id and cascading deletes
-    address_id INT REFERENCES address (address_id) ON DELETE SET NULL -- Referencing address_id and setting to NULL on delete
+    owner_id INT REFERENCES users (id) ON DELETE CASCADE, -- Referencing id and cascading deletes
+    address_id INT REFERENCES address (address_id) ON DELETE SET NULL, -- Referencing address_id and setting to NULL on delete
+    price NUMERIC(10, 2),
+    currency VARCHAR(3) DEFAULT 'USD'
 );
 
 CREATE TYPE rental_status AS ENUM ('active', 'inactive');
