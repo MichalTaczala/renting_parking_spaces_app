@@ -11,6 +11,22 @@ import random
 parkingspot_bp = Blueprint("parking_spot", __name__)
 
 
+def calculate_distance(lat1, long1, lat2, long2):
+    """Calculate the Haversine distance between two points on the earth."""
+    R = 6371  # Radius of the Earth in kilometers
+    dlat = math.radians(lat2 - lat1)
+    dlong = math.radians(long2 - long1)
+    a = (
+        math.sin(dlat / 2) ** 2
+        + math.cos(math.radians(lat1))
+        * math.cos(math.radians(lat2))
+        * math.sin(dlong / 2) ** 2
+    )
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    distance = R * c
+    return distance
+
+
 @parkingspot_bp.route("/parking_spots/create", methods=["POST"])
 def create_parking_spot():
     """Endpoint for creating a parking spot."""
@@ -118,6 +134,12 @@ def update_parking_spot(spot_id):
 @parkingspot_bp.route("/parking_spots/<int:spot_id>", methods=["GET"])
 def get_parking_spot(spot_id):
     """Endpoint for retrieving single parking spot information."""
+    # Retrieve query parameters
+    user_lat = request.args.get("lat")
+    user_long = request.args.get("long")
+    user_lat = float(user_lat) if user_lat else None
+    user_long = float(user_long) if user_long else None
+
     # Retrieve parking spot from the database based on spot_id
     with get_session() as session:
         try:
@@ -133,8 +155,12 @@ def get_parking_spot(spot_id):
                     .filter(Address.address_id == spot.address_id)
                     .first()
                 )
+                spot_lat = float(address.lat)
+                spot_long = float(address.long)
+                distance = calculate_distance(user_lat, user_long, spot_lat, spot_long)
                 data = spot.to_dict()
                 data["address"] = address.to_dict()
+                data["distance"] = distance
 
                 return (
                     jsonify(data),
@@ -191,21 +217,6 @@ def get_parking_spots():
         datetime.strptime(start_date_str, "%Y-%m-%d") if start_date_str else None
     )
     end_date = datetime.strptime(end_date_str, "%Y-%m-%d") if end_date_str else None
-
-    def calculate_distance(lat1, long1, lat2, long2):
-        """Calculate the Haversine distance between two points on the earth."""
-        R = 6371  # Radius of the Earth in kilometers
-        dlat = math.radians(lat2 - lat1)
-        dlong = math.radians(long2 - long1)
-        a = (
-            math.sin(dlat / 2) ** 2
-            + math.cos(math.radians(lat1))
-            * math.cos(math.radians(lat2))
-            * math.sin(dlong / 2) ** 2
-        )
-        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-        distance = R * c
-        return distance
 
     with get_session() as session:
         try:
@@ -312,7 +323,7 @@ def get_parking_spots():
 
 # Temporal endpoint for displaying all parking spots
 @parkingspot_bp.route("/parking_spots/all_simple", methods=["GET"])
-def get_parking_spots():
+def get_parking_spots_temp():
     """Endpoint for retrieving all parking spots."""
     with get_session() as session:
         try:
