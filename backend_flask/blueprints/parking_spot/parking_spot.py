@@ -6,25 +6,94 @@ from sqlalchemy.exc import SQLAlchemyError
 from db_conn import get_session
 from models import ParkingSpot, Address, Booking, RentalOffer
 import random
+from datetime import timedelta
 
+from google.cloud import storage
+
+MAX_IMAGES_PER_PARKING_SPOT = 5
+client = storage.Client.from_service_account_json("../terraform_conf/key_app.json")
+bucket_name = "parking-images-test"
 
 parkingspot_bp = Blueprint("parking_spot", __name__)
 
 
 def calculate_distance(lat1, long1, lat2, long2):
     """Calculate the Haversine distance between two points on the earth."""
-    R = 6371  # Radius of the Earth in kilometers
-    dlat = math.radians(lat2 - lat1)
-    dlong = math.radians(long2 - long1)
-    a = (
-        math.sin(dlat / 2) ** 2
-        + math.cos(math.radians(lat1))
-        * math.cos(math.radians(lat2))
-        * math.sin(dlong / 2) ** 2
-    )
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-    distance = R * c
-    return distance
+    try:
+        R = 6371  # Radius of the Earth in kilometers
+        dlat = math.radians(lat2 - lat1)
+        dlong = math.radians(long2 - long1)
+        a = (
+            math.sin(dlat / 2) ** 2
+            + math.cos(math.radians(lat1))
+            * math.cos(math.radians(lat2))
+            * math.sin(dlong / 2) ** 2
+        )
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+        distance = R * c
+        return distance
+    except Exception as e:
+        return 0
+
+
+def get_list_of_images(spot_id: int):
+    """Get a list of image URLs for a parking spot."""
+    directory_name = f"{spot_id}/"
+    try:
+        bucket = client.bucket(bucket_name)
+        blobs = bucket.list_blobs(prefix=directory_name)
+        image_urls = []
+        for blob in blobs:
+            url = blob.generate_signed_url(expiration=timedelta(hours=1))
+            # URL valid for 1 hour
+            image_urls.append(url)
+        return image_urls
+    except Exception as e:
+        return str(e)
+
+
+# TODO: endpoint for uploading images for a specific parking spot
+@parkingspot_bp.route("/parking_spots/<int:spot_id>/upload_images", methods=["POST"])
+def upload_images(spot_id):
+    """Endpoint for uploading images for a specific parking spot."""
+    # Retrieve parking spot from the database based on spot_id
+    with get_session() as session:
+        try:
+            spot = (
+                session.query(ParkingSpot)
+                .filter(ParkingSpot.spot_id == spot_id)
+                .first()
+            )
+            if spot:
+                images = []
+                i = 0
+                for i in range(0, MAX_IMAGES_PER_PARKING_SPOT):
+                    image = request.files.get(f"image{i}")
+                    if not image:
+                        break
+                    images.append(image)
+                    i += 1
+                if len(images) == 0:
+                    return jsonify({"error": "Image file is required"}), 400
+                try:
+                    bucket = client.bucket(bucket_name)
+                    for image in images:
+                        blob = bucket.blob(f"{spot_id}/{image.filename}")
+                        blob.upload_from_file(image)
+                    return (
+                        jsonify(
+                            {
+                                "message": f"Images uploaded successfully for parking spot {spot_id}"
+                            }
+                        ),
+                        201,
+                    )
+                except Exception as e:
+                    return jsonify({"error": str(e)}), 500
+            else:
+                return jsonify({"message": "Parking spot not found"}), 404
+        except SQLAlchemyError as e:
+            return jsonify({"message": str(e)}), 500
 
 
 @parkingspot_bp.route("/parking_spots/create", methods=["POST"])
@@ -79,7 +148,15 @@ def create_parking_spot():
             )
             session.add(new_parking_spot)
             session.commit()
-            return jsonify({"message": "Successfully created new parking spot!"}), 200
+            return (
+                jsonify(
+                    {
+                        "message": "Successfully created new parking spot!",
+                        "parking_id": new_parking_spot.spot_id,
+                    }
+                ),
+                200,
+            )
         except Exception as e:
             return jsonify({"message": str(e)}), 400
 
@@ -139,7 +216,7 @@ def get_parking_spot(spot_id):
     user_long = request.args.get("long")
     user_lat = float(user_lat) if user_lat else None
     user_long = float(user_long) if user_long else None
-    compute_distance_bool = user_lat is not None and user_long is not None
+    image_urls = get_list_of_images(spot_id)
 
     # Retrieve parking spot from the database based on spot_id
     with get_session() as session:
@@ -158,13 +235,11 @@ def get_parking_spot(spot_id):
                 )
                 spot_lat = float(address.lat)
                 spot_long = float(address.long)
+                distance = calculate_distance(user_lat, user_long, spot_lat, spot_long)
                 data = spot.to_dict()
                 data["address"] = address.to_dict()
-                if compute_distance_bool:
-                    distance = calculate_distance(
-                        user_lat, user_long, spot_lat, spot_long
-                    )
-                    data["distance"] = distance
+                data["distance"] = distance
+                data["image_urls"] = image_urls
 
                 return (
                     jsonify(data),
@@ -292,7 +367,7 @@ def get_parking_spots():
                         "address_id": spot[0].address_id,
                         "price": spot[0].price,
                         "currency": spot[0].currency,
-                        "imagesURL": spot[0].images_url,
+                        "images_url": get_list_of_images(spot[0].spot_id),
                         "distance": spot[1],  # Add distance to the response
                     }
                     for spot in sorted_parking_spots
@@ -314,7 +389,7 @@ def get_parking_spots():
                         "address_id": spot.address_id,
                         "price": spot.price,
                         "currency": spot.currency,
-                        "imagesURL": spot.images_url,
+                        "images_url": get_list_of_images(spot.spot_id),
                     }
                     for spot in available_parking_spots[:20]
                 ]
