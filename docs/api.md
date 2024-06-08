@@ -3,6 +3,7 @@
 ### Users
 - [Create a new user](#creating-a-new-user)
 - [Getting all users](#getting-all-users)
+- [Getting a single user profile](#gett)
 - [Getting user id by firebase token](#getting-user-id-by-firebase-token)
 
 ### Parking spots
@@ -111,48 +112,6 @@ If there is a problem with the request:
 ```
 
 
-## Getting user id by firebase token
-```shell
-GET /users/id
-```
-Retrieves the user ID associated with the provided Firebase token.
-
-### Parameters
-- `firebase_token` (required): Firebase token associated with the user.
-### Examples
-Retrieve user ID based on Firebase token
-**Request**
-```shell
-curl -X GET http://localhost:11434/api/users/id -H "Content-Type: application/json" -d '{
-    "firebase_token": "your_firebase_token_here"
-}'
-```
-**Response**
-If the user is found:
-```shell
-{
-    "user_id": 123
-}
-```
-If the user is not found:
-```shell
-{
-    "message": "User not found"
-}
-```
-If the user is missing JSON
-```shell
-{
-    "message": "Missing JSON in request"
-}
-```
-If there is a problem with the request:
-```shell
-{
-    "message": "Error message"
-}
-```
-
 ## Getting a single user by id
 
 ```shell
@@ -195,6 +154,50 @@ If there is a problem with the request:
     "message": "Error message"
 }
 ```
+
+
+## Getting user id by firebase token
+```shell
+GET /users/id
+```
+Retrieves the user ID associated with the provided Firebase token.
+
+### Parameters
+- `firebase_token` (required): Firebase token associated with the user.
+### Examples
+Retrieve user ID based on Firebase token
+**Request**
+```shell
+curl -X GET http://localhost:11434/api/users/id -H "Content-Type: application/json" -d '{
+    "firebase_token": "your_firebase_token_here"
+}'
+```
+**Response**
+If the user is found:
+```shell
+{
+    "user_id": 123
+}
+```
+If the user is not found:
+```shell
+{
+    "message": "User not found"
+}
+```
+If the user is missing JSON
+```shell
+{
+    "message": "Missing JSON in request"
+}
+```
+If there is a problem with the request:
+```shell
+{
+    "message": "Error message"
+}
+```
+
 
 ## Creating a new parking spot
 ```shell
