@@ -2,6 +2,7 @@
 
 ### Users
 - [Create a new user](#creating-a-new-user)
+- [Getting all users](#getting-all-users)
 - [Getting user id by firebase token](#getting-user-id-by-firebase-token)
 
 ### Parking spots
@@ -65,7 +66,7 @@ If there is an error:
 }
 ```
 
-## Getting user id by firebase token
+## Getting all users
 ```shell
 GET /users/all
 ```
