@@ -5,6 +5,7 @@
 - [Getting all users](#getting-all-users)
 - [Getting a single user profile](#gett)
 - [Getting user id by firebase token](#getting-user-id-by-firebase-token)
+- [Updating user profile](#updating-user-profile)
 
 ### Parking spots
 - [Create a new parking spot](#creating-a-new-parking-spot)
