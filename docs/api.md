@@ -7,6 +7,63 @@
 - [Create a new parking spot](#creating-a-new-parking-spot)
 
 
+## Creating a new user
+```shell
+POST /users/create
+```
+Creates a new user with the specified details. If a user with the provided `firebase_token` already exists in the database, the existing user is returned.
+
+### Parameters
+- `firebase_token` (required): Unique token for the user from Firebase.
+- `username` (required): Username of the user.
+- `first_name` (required): First name of the user.
+- `last_name` (required): Last name of the user.
+- `email` (required): Email address of the user.
+- `type` (optional): Type of the user (e.g., admin, regular).
+- `phone_prefix` (optional): Phone prefix for the user's phone number.
+- `phone` (required): Phone number of the user.
+
+### Examples
+Create a new user
+**Request**
+```shell
+curl -X POST http://localhost:11434/api/users/create -H "Content-Type: application/json" -d '{
+    "firebase_token": "abc123def456",
+    "username": "johndoe",
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@example.com",
+    "type": "regular",
+    "phone_prefix": "+1",
+    "phone": "1234567890"
+}'
+```
+**Response**
+If the user is successfully created:
+```shell
+{
+    "message": "Successfully created new user!"
+}
+```
+If the user already exists (based on `firebase_token`):
+```shell
+{
+    "message": "User already exists!"
+}
+```
+If there are missing required fields:
+```shell
+{
+    "message": "Missing required fields"
+}
+```
+If there is an error:
+```shell
+{
+    "message": "<error message>"
+}
+```
+
 ## Creating a new parking spot
 ```shell
 POST /api/parking_spots/create
@@ -77,24 +134,6 @@ curl -X POST http://localhost:11434/api/parking_spots/create -H "Content-Type: a
 }
 ```
 
-
-
-#### Create new user
-##### Request
-
-```shell
-curl http://localhost:11434/api/your_endpoint -d '{
-    "param1": "sth",
-    "param2": "sth else"
-}'
-```
-##### Response
-```json
-{
-    "response": "Success",
-    "created_at": "2023-08-04T08:52:19.385406455-07:00",
-}
-```
 
 ## Creating a new user
 **Type:** Private

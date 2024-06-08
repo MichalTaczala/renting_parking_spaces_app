@@ -12,6 +12,51 @@ from db_conn import get_session
 
 user_bp = Blueprint("user", __name__)
 
+
+@user_bp.route("/users/create", methods=["POST"])
+def create():
+    """Endpoint for creating a new user."""
+    if not request.is_json:
+        return jsonify({"message": "Missing JSON in request"}), 400
+
+    data = request.get_json()
+
+    # check if all required fields are present
+    if any([data.get(field) is None for field in User.required_fields]):
+        return jsonify({"message": "Missing required fields"}), 400
+
+    # check if the user already exists by firebase token
+    with get_session() as session:
+        try:
+            existing_user = (
+                session.query(User)
+                .filter_by(firebase_token=data.get("firebase_token"))
+                .first()
+            )
+            if existing_user:
+                return (
+                    jsonify({"message": "User already exists!"}),
+                    200,
+                )
+
+            # create a new user
+            new_user = User(
+                firebase_token=data.get("firebase_token"),
+                username=data.get("username"),
+                first_name=data.get("first_name"),
+                last_name=data.get("last_name"),
+                email=data.get("email"),
+                type=data.get("type"),
+                phone_prefix=data.get("phone_prefix"),
+                phone=data.get("phone"),
+            )
+            session.add(new_user)
+            session.commit()
+            return jsonify({"message": "Successfully created new user!"}), 200
+        except Exception as e:
+            return jsonify({"message": str(e)}), 400
+
+
 # Initialize Firebase Admin SDK (do this once in your application, e.g., in app initialization code)
 # cred = credentials.Certificate(
 #     "path/to/your/firebase/credentials.json"
@@ -157,33 +202,3 @@ def get_user_profile(user_id):
                 return jsonify({"message": "User not found"}), 404
         except SQLAlchemyError as e:
             return jsonify({"message": str(e)}), 500
-
-
-@user_bp.route("/create_user", methods=["POST"])
-def create_user():
-    """Testing endpoint for creeting a user."""
-    if not request.is_json:
-        return jsonify({"message": "Missing JSON in request"}), 400
-
-    data = request.get_json()
-
-    # create a new user
-    new_user = User(
-        username=data.get("username"),
-        first_name=data.get("first_name"),
-        last_name=data.get("last_name"),
-        email=data.get("email"),
-        type=data.get("type"),
-        phone_prefix=data.get("phone_prefix"),
-        phone=data.get("phone"),
-        password=data.get("password"),
-    )
-
-    # add to the db
-    with get_session() as session:
-        try:
-            session.add(new_user)
-            session.commit()
-            return jsonify({"message": "Successfully created new user!"}), 200
-        except Exception as e:
-            return jsonify({"message": str(e)}), 400
