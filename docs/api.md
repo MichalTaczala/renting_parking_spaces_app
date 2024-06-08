@@ -28,6 +28,7 @@ Creates a new user with the specified details. If a user with the provided `fire
 
 ### Examples
 Create a new user
+
 **Request**
 ```shell
 curl -X POST http://localhost:11434/api/users/create -H "Content-Type: application/json" -d '{
@@ -41,7 +42,9 @@ curl -X POST http://localhost:11434/api/users/create -H "Content-Type: applicati
     "phone": "1234567890"
 }'
 ```
+
 **Response**
+
 If the user is successfully created:
 ```shell
 {
@@ -76,11 +79,15 @@ Gets data about all users (without firebase_tokens)
 None
 ### Examples
 List all users
+
 **Request**
+
 ```shell
 curl -X GET http://localhost:11434/api/users/all -H "Authorization: Your-Token-Here"
 ```
+
 **Response**
+
 If successfully retrieved:
 ```shell
 [
@@ -129,7 +136,9 @@ Retrieves user profile information
 ```shell
 curl -X GET http://localhost:11434/api/users/123
 ```
+
 **Response**
+
 If the user is found:
 ```shell
 {
@@ -165,14 +174,18 @@ Retrieves the user ID associated with the provided Firebase token.
 ### Parameters
 - `firebase_token` (required): Firebase token associated with the user.
 ### Examples
+
 Retrieve user ID based on Firebase token
+
 **Request**
 ```shell
 curl -X GET http://localhost:11434/api/users/id -H "Content-Type: application/json" -d '{
     "firebase_token": "your_firebase_token_here"
 }'
 ```
+
 **Response**
+
 If the user is found:
 ```shell
 {
@@ -232,6 +245,7 @@ Creates a new parking spott with the specified details, inc. nested address and 
 - `country` (required): Country of the address.
 ### Examples
 Create a new parking spot
+
 **Request**
 ```shell
 curl -X POST http://localhost:11434/api/parking_spots/create -H "Content-Type: application/json" -d '{
