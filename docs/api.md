@@ -2,6 +2,7 @@
 
 ### Users
 - [Create a new user](#creating-a-new-user)
+- [Getting user id by firebase token](#getting-user-id-by-firebase-token)
 
 ### Parking spots
 - [Create a new parking spot](#creating-a-new-parking-spot)
@@ -61,6 +62,93 @@ If there is an error:
 ```shell
 {
     "message": "<error message>"
+}
+```
+
+## Getting user id by firebase token
+```shell
+GET /users/all
+```
+Gets data about all users (without firebase_tokens)
+### Parameters
+None
+### Examples
+List all users
+**Request**
+```shell
+curl -X GET http://localhost:11434/api/users/all -H "Authorization: Your-Token-Here"
+```
+**Response**
+If successfully retrieved:
+```shell
+[
+    {
+        "user_id": 1,
+        "username": "user1",
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "john.doe@example.com"
+    },
+    {
+        "user_id": 2,
+        "username": "user2",
+        "first_name": "Jane",
+        "last_name": "Doe",
+        "email": "jane.doe@example.com"
+    }
+]
+```
+If there are no users:
+```shell
+[]
+```
+If there is a problem with the request:
+```shell
+{
+    "message": "Error message"
+}
+```
+
+
+## Getting user id by firebase token
+```shell
+GET /users/id
+```
+Retrieves the user ID associated with the provided Firebase token.
+
+### Parameters
+- `firebase_token` (required): Firebase token associated with the user.
+### Examples
+Retrieve user ID based on Firebase token
+**Request**
+```shell
+curl -X GET http://localhost:11434/api/users/id -H "Content-Type: application/json" -d '{
+    "firebase_token": "your_firebase_token_here"
+}'
+```
+**Response**
+If the user is found:
+```shell
+{
+    "user_id": 123
+}
+```
+If the user is not found:
+```shell
+{
+    "message": "User not found"
+}
+```
+If the user is missing JSON
+```shell
+{
+    "message": "Missing JSON in request"
+}
+```
+If there is a problem with the request:
+```shell
+{
+    "message": "Error message"
 }
 ```
 

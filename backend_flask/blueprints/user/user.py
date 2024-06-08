@@ -14,7 +14,7 @@ user_bp = Blueprint("user", __name__)
 
 
 @user_bp.route("/users/create", methods=["POST"])
-def create():
+def create_user():
     """Endpoint for creating a new user."""
     if not request.is_json:
         return jsonify({"message": "Missing JSON in request"}), 400
@@ -57,31 +57,35 @@ def create():
             return jsonify({"message": str(e)}), 400
 
 
-# temporal endpoint for displaying al users
+# TODO: make it private eg. with a token required decorator
 @user_bp.route("/users/all", methods=["GET"])
 def get_users():
     """Endpoint for retrieving all users."""
     with get_session() as session:
         try:
             users = session.query(User).all()
-            return (
-                jsonify(
-                    [
-                        {
-                            "id": user.id,
-                            "username": user.username,
-                            "email": user.email,
-                            "type": user.type,
-                            "first_name": user.first_name,
-                            "last_name": user.last_name,
-                            "phone_prefix": user.phone_prefix,
-                            "phone": user.phone,
-                        }
-                        for user in users
-                    ]
-                ),
-                200,
+            return jsonify([user.dict for user in users]), 200
+        except SQLAlchemyError as e:
+            return jsonify({"message": str(e)}), 500
+
+
+@user_bp.route("/users/id", methods=["GET"])
+def get_user_id():
+    """Endpoint for retrieving user id based on firebase token."""
+    if not request.is_json:
+        return jsonify({"message": "Missing JSON in request"}), 400
+    data = request.get_json()
+    with get_session() as session:
+        try:
+            user = (
+                session.query(User)
+                .filter(User.firebase_token == data.get("firebase_token"))
+                .first()
             )
+            if user:
+                return jsonify({"user_id": user.id}), 200
+            else:
+                return jsonify({"message": "User not found"}), 404
         except SQLAlchemyError as e:
             return jsonify({"message": str(e)}), 500
 
