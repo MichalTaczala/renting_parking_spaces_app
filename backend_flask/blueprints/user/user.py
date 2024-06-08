@@ -90,6 +90,25 @@ def get_user_id():
             return jsonify({"message": str(e)}), 500
 
 
+@user_bp.route("/users/<int:user_id>", methods=["GET"])
+def get_user_profile(user_id):
+    """Endpoint for retrieving user profile information."""
+    # Retrieve user from the database based on userId
+    with get_session() as session:
+        try:
+            user = session.query(User).filter(User.id == user_id).first()
+            if user:
+                # Return user profile information
+                return (
+                    user.json,
+                    200,
+                )
+            else:
+                return jsonify({"message": "User not found"}), 404
+        except SQLAlchemyError as e:
+            return jsonify({"message": str(e)}), 500
+
+
 @user_bp.route("/users/<int:user_id>", methods=["PUT"])
 def update_user_profile(user_id):
     """Endpoint for updating user profile information."""
@@ -117,30 +136,4 @@ def update_user_profile(user_id):
             return jsonify({"message": str(e)}), 500
 
 
-@user_bp.route("/users/<int:user_id>", methods=["GET"])
-def get_user_profile(user_id):
-    """Endpoint for retrieving user profile information."""
-    # Retrieve user from the database based on userId
-    with get_session() as session:
-        try:
-            user = session.query(User).filter(User.user_id == user_id).first()
-            if user:
-                # Return user profile information
-                return (
-                    jsonify(
-                        {
-                            "username": user.username,
-                            "email": user.email,
-                            "type": user.type,
-                            "first_name": user.first_name,
-                            "last_name": user.last_name,
-                            "phone_prefix": user.phone_prefix,
-                            "phone": user.phone,
-                        }
-                    ),
-                    200,
-                )
-            else:
-                return jsonify({"message": "User not found"}), 404
-        except SQLAlchemyError as e:
-            return jsonify({"message": str(e)}), 500
+

@@ -153,6 +153,49 @@ If there is a problem with the request:
 }
 ```
 
+## Getting a single user by id
+
+```shell
+GET /users/<int:user_id>
+```
+Retrieves the profile information for the user with the specified user ID.
+
+### Parameters
+- `user_id` (required): ID of the user whose profile information is to be retrieved.
+
+### Examples
+Retrieves user profile information
+
+**Request**
+```shell
+curl -X GET http://localhost:11434/api/users/123
+```
+**Response**
+If the user is found:
+```shell
+{
+    "user_id": 123,
+    "username": "john_doe",
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@example.com",
+    "phone_prefix": "48",
+    "phone": "1234567890",
+}
+```
+If the user is not found:
+```shell
+{
+    "message": "User not found"
+}
+```
+If there is a problem with the request:
+```shell
+{
+    "message": "Error message"
+}
+```
+
 ## Creating a new parking spot
 ```shell
 POST /api/parking_spots/create
