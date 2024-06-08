@@ -212,6 +212,62 @@ If there is a problem with the request:
 ```
 
 
+## Updating user profile
+```shell
+PUT /api/users/<int:user_id>
+```
+### Parameters
+- `user_id` (required): ID of the user whose profile information is to be updated.
+
+### Request Body
+The request body should be a JSON object containing the fields to be updated. The following fields can be updated:
+- `username` (optional): Username of the user.
+- `email` (optional): Email address of the user.
+- `type` (optional): Type of the user (e.g., admin, regular).
+- `first_name` (optional): First name of the user.
+- `last_name` (optional): Last name of the user.
+- `phone_prefix` (optional): Phone prefix for the user's phone number.
+- `phone` (optional): Phone number of the user.
+
+### Examples
+Update user profile information, namely email and phone.
+
+**Request**
+```shell
+curl -X PUT http://localhost:11434/api/users/123 -H "Content-Type: application/json" -d '{
+    "email": "john.doe.new@example.com",
+    "phone_prefix": "+48",
+    "phone": "444 555 666"
+}'
+```
+
+**Response**
+If the user profile is successfully updated:
+```shell
+{
+    "message": "User profile updated successfully"
+}
+```
+If the user is not found:
+```shell
+{
+    "message": "User not found"
+}
+```
+If there is missing JSON in the request:
+```shell
+{
+    "message": "Missing JSON in request"
+}
+```
+If there is a problem with the request:
+```shell
+{
+    "message": "Error message"
+}
+```
+
+
 ## Creating a new parking spot
 ```shell
 POST /api/parking_spots/create

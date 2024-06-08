@@ -134,6 +134,3 @@ def update_user_profile(user_id):
                 return jsonify({"message": "User not found"}), 404
         except SQLAlchemyError as e:
             return jsonify({"message": str(e)}), 500
-
-
-
