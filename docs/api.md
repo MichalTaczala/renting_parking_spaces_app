@@ -9,6 +9,7 @@
 
 ### Parking spots
 - [Create a new parking spot](#creating-a-new-parking-spot)
+- [Update data of a parking spot](#updating-parking-spot-data)
 - [Uploading images for a specific parking spot](#uploading-images-for-a-specific-parking-spot)
 
 
@@ -348,6 +349,72 @@ curl -X POST http://localhost:11434/api/parking_spots/create -H "Content-Type: a
 {
     "message": "Successfully created new parking spot!"
     "parking_spot": 17
+}
+```
+
+## Updating parking spot data
+```shell
+PUT /api/parking_spots/<int:spot_id>
+```
+Updates the parkign spot data.
+
+### Parameters
+None
+
+### Request Body
+The request body should be a JSON object containing at least one of the following fields:
+- `name` (optional): Name of the parking spot.
+- `description` (optional): Description of the parking spot.
+- `height`(optional): Height of the parking spot.
+- `width` (optional): Width of the parking spot.
+- `length` (optional): Length of the parking spot.
+- `internal` (optional): Boolean indicating if the parking spot is internal. Default is `False`.
+- `easy_access` (optional): Boolean indicating if the parking spot has easy access. Default is `False`.
+- `security` (optional): Boolean indicating if the parking spot has security features. Default is `False`.
+- `charging` (optional): Boolean indicating if the parking spot has charging capabilities. Default is `False`.
+- `owner_id` (required): ID of the owner of the parking spot.
+- `price` (optional): Price of the parking spot.
+- `currency` (optional): Currency of the price. Default is USD.
+- `images_url` (optional): URL to images of the parking spot.
+- `address` (optional): Nested JSON object containing address details:
+    - `long` (optional): Longitude of the address.
+    - `lat` (optional): Latitude of the address.
+    - `street` (optional): Street name of the address.
+    - `house_no` (optional): House number of the address.
+    - `postal_code` (optional): Postal code of the address.
+    - `city` (optional): City of the address.
+    - `region` (optional): Region of the address.
+    - `district` (optional): District of the address.
+    - `country` (optional): Country of the address.
+
+### Examples
+Update description and price about a particular parking spot identified by `spot_id=123`.
+
+**Request**
+```shell
+curl -X PUT http://localhost:11434/api/parking_spots/123 -H "Content-Type: application/json" -d '{
+    "description": "A new, renovated secure parking spot in the heart of the city.",
+    "price": 150.00,
+}'
+```
+**Response**
+
+If the update is successful:
+```shell
+{
+    "message": "Parking spot information updated successfully"
+}
+```
+If the parking spot is not found:
+```shell
+{
+    "message": "Parking spot not found"
+}
+```
+If an error occurs:
+```shell
+{
+    "message": "Error message"
 }
 ```
 
