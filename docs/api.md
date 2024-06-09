@@ -12,6 +12,7 @@
 - [Update data of a parking spot](#updating-parking-spot-data)
 - [Uploading images for a specific parking spot](#uploading-images-for-a-specific-parking-spot)
 - [Getting single parking spot data](#getting-single-parking-spot-data)
+- [Deleting a parking spot](#deleting-a-parking-spot)
 
 
 ## Creating a new user
