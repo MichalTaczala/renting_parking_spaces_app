@@ -1,15 +1,19 @@
+import math
+import random
+from datetime import datetime, timedelta
+
 import requests
 from flask import Flask, request, jsonify
 from flask import Blueprint
-from sqlalchemy.orm import Session
+from sqlalchemy import and_, not_, or_
+from sqlalchemy.orm import Session, aliased
 from sqlalchemy.exc import SQLAlchemyError
-from db_conn import get_session
-from models import ParkingSpot, Address, Booking, RentalOffer
-import random
-from datetime import timedelta
-
 from google.cloud import storage
 
+from db_conn import get_session
+from models import ParkingSpot, Address, Booking, RentalOffer
+
+# Settings
 MAX_IMAGES_PER_PARKING_SPOT = 5
 client = storage.Client.from_service_account_json("../terraform_conf/key_app.json")
 bucket_name = "parking-images-test"
@@ -52,7 +56,6 @@ def get_list_of_images(spot_id: int):
         return str(e)
 
 
-# TODO: endpoint for uploading images for a specific parking spot
 @parkingspot_bp.route("/parking_spots/<int:spot_id>/upload_images", methods=["POST"])
 def upload_images(spot_id):
     """Endpoint for uploading images for a specific parking spot."""
@@ -237,7 +240,7 @@ def get_parking_spot(spot_id):
                 spot_long = float(address.long)
                 distance = calculate_distance(user_lat, user_long, spot_lat, spot_long)
                 data = spot.to_dict()
-                data["address"] = address.to_dict()
+                data["address"] = address.dict
                 data["distance"] = distance
                 data["image_urls"] = image_urls
 
@@ -271,13 +274,6 @@ def delete_parking_spot(spot_id):
                 return jsonify({"message": "Parking spot not found"}), 404
         except SQLAlchemyError as e:
             return jsonify({"message": str(e)}), 500
-
-
-### START EXPERIMENT
-import math
-from datetime import datetime
-from sqlalchemy import and_, not_, or_
-from sqlalchemy.orm import aliased
 
 
 @parkingspot_bp.route("/parking_spots/all", methods=["GET"])
@@ -396,45 +392,5 @@ def get_parking_spots():
 
             return jsonify(response_data), 200
 
-        except SQLAlchemyError as e:
-            return jsonify({"message": str(e)}), 500
-
-
-# Temporal endpoint for displaying all parking spots
-@parkingspot_bp.route("/parking_spots/all_simple", methods=["GET"])
-def get_parking_spots_temp():
-    """Endpoint for retrieving all parking spots."""
-    with get_session() as session:
-        try:
-            parking_spots = session.query(ParkingSpot).all()
-
-            random.shuffle(parking_spots)
-            # Select the first 5 parking spots
-            random_parking_spots = parking_spots[:20]
-            return (
-                jsonify(
-                    [
-                        {
-                            "spot_id": spot.spot_id,
-                            "name": spot.name,
-                            "description": spot.description,
-                            "height": spot.height,
-                            "width": spot.width,
-                            "length": spot.length,
-                            "internal": spot.internal,
-                            "easy_access": spot.easy_access,
-                            "security": spot.security,
-                            "charging": spot.charging,
-                            "owner_id": spot.owner_id,
-                            "address_id": spot.address_id,
-                            "price": spot.price,
-                            "currency": spot.currency,
-                            "imagesURL": spot.images_url,
-                        }
-                        for spot in random_parking_spots
-                    ]
-                ),
-                200,
-            )
         except SQLAlchemyError as e:
             return jsonify({"message": str(e)}), 500
