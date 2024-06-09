@@ -555,3 +555,41 @@ If no images are provided:
     "error": "Image file is required"
 }
 ```
+
+
+## Deleting a parking spot
+```shell
+DELETE /api/parking_spots/<int:spot_id>
+```
+Deletes a specific parking spot identified by its spot_id.
+
+### Parameters
+- `spot_id` (required): The ID of the parking spot to delete.
+
+### Examples
+Remove parking spot with `spot_id=123`.
+
+**Request**
+```shell
+curl -X DELETE http://localhost:11434/api/parking_spots/123
+```
+
+**Response**
+If successful:
+```shell
+{
+    "message": "Parking spot deleted successfully"
+}
+```
+If the parking spot is not found:
+```shell
+{
+    "message": "Parking spot not found"
+}
+```
+If an error occurs:
+```shell
+{
+    "message": "Error message"
+}
+```
