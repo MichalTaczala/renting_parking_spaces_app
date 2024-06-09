@@ -446,6 +446,7 @@ curl -X POST http://localhost:11434/api/parking_spots/123/upload_images -F "imag
 ```
 
 **Response**
+
 If the images are uploaded successfully:
 ```shell
 {
@@ -468,6 +469,65 @@ If no images are provided:
 ```shell
 {
     "error": "Image file is required"
+}
+```
+
+
+## Getting multiple parking spots (with optional filters)
+```shell
+GET /api/parking_spots/all
+```
+Retrieves a list of all available parking spots (that is present in Rental Offers), optionally filtered by date range and sorted by distance to a user's location if coordinates are provided.
+The maximum number of parking spots displayed is hardcoded in the variable `MAX_SPOTS_PER_PAGE`.
+
+### Parameters
+- `startDate` (optional): The start date for the availability filter in YYYY-MM-DD format.
+- `endDate` (optional): The end date for the availability filter in YYYY-MM-DD format.
+- `lat` (optional): Latitude of the user's location for distance sorting.
+- `long` (optional): Longitude of the user's location for distance sorting.
+
+**Note**: the distance sorting works only if both `lat` and `long` are provided.
+
+### Examples
+Retrieve all parking spots available from `2024-06-01` to `2024-06-07` and sorted by distance to the user's location (latitude `49.2827`, longitude `-123.1207`)
+
+**Request**
+```shell
+curl -X GET "http://localhost:11434/api/parking_spots/all?startDate=2024-06-01&endDate=2024-06-07&lat=49.2827&long=-123.1207"
+```
+
+**Response**
+If successful, a list of parking spot data:
+```shell
+[
+    {
+        "spot_id": 1,
+        "name": "Downtown Parking Spot",
+        "description": "A secure parking spot in the heart of the city.",
+        "height": 2.5,
+        "width": 2.0,
+        "length": 5.0,
+        "internal": true,
+        "easy_access": true,
+        "security": true,
+        "charging": true,
+        "owner_id": 123,
+        "address_id": 45,
+        "price": 150.00,
+        "currency": "USD",
+        "images_url": [
+            "http://example.com/images/parking_spot_1_1.jpg",
+            "http://example.com/images/parking_spot_1_2.jpg"
+        ],
+        "distance": 0.5
+    },
+    ...
+]
+```
+If there is an error:
+```shell
+{
+    "message": "Error message describing the issue"
 }
 ```
 
