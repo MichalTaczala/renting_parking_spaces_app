@@ -9,7 +9,7 @@
 
 ### Parking spots
 - [Create a new parking spot](#creating-a-new-parking-spot)
-- [Uploading images for a specific parking spot]()
+- [Uploading images for a specific parking spot](#uploading-images-for-a-specific-parking-spot)
 
 
 ## Creating a new user
