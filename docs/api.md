@@ -11,6 +11,7 @@
 - [Create a new parking spot](#creating-a-new-parking-spot)
 - [Update data of a parking spot](#updating-parking-spot-data)
 - [Uploading images for a specific parking spot](#uploading-images-for-a-specific-parking-spot)
+- [Getting multiple parking spots data (with filters)](#getting-multiple-parking-spots-with-optional-filters)
 - [Getting single parking spot data](#getting-single-parking-spot-data)
 - [Deleting a parking spot](#deleting-a-parking-spot)
 
