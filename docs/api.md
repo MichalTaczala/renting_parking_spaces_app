@@ -18,6 +18,10 @@ POST /users/create
 Creates a new user with the specified details. If a user with the provided `firebase_token` already exists in the database, the existing user is returned.
 
 ### Parameters
+None
+
+### Request Body
+The request body should be a JSON object containing the following fields:
 - `firebase_token` (required): Unique token for the user from Firebase.
 - `username` (required): Username of the user.
 - `first_name` (required): First name of the user.
@@ -173,9 +177,11 @@ GET /users/id
 Retrieves the user ID associated with the provided Firebase token.
 
 ### Parameters
+None
+### Request Body
+The request body should be a JSON object containing the following fields:
 - `firebase_token` (required): Firebase token associated with the user.
 ### Examples
-
 Retrieve user ID based on Firebase token
 
 **Request**
@@ -277,6 +283,10 @@ POST /api/parking_spots/create
 Creates a new parking spott with the specified details, inc. nested address and other attributes. If address is not yet in the database, a new address is added and the address_id is attached to the parking spot model.
 
 ### Parameters
+None
+
+### Request Body
+The request body should be a JSON object containing following fields:
 - `name` (required): Name of the parking spot.
 - `description`: Description of the parking spot.
 - `height`(optional): Height of the parking spot.
