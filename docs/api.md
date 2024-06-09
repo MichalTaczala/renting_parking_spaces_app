@@ -9,6 +9,7 @@
 
 ### Parking spots
 - [Create a new parking spot](#creating-a-new-parking-spot)
+- [Uploading images for a specific parking spot]()
 
 
 ## Creating a new user
@@ -301,15 +302,15 @@ The request body should be a JSON object containing following fields:
 - `currency` (optional): Currency of the price. Default is USD.
 - `images_url` (optional): URL to images of the parking spot.
 - `address` (required): Nested JSON object containing address details:
-- `long` (required): Longitude of the address.
-- `lat` (required): Latitude of the address.
-- `street` (required): Street name of the address.
-- `house_no` (required): House number of the address.
-- `postal_code` (required): Postal code of the address.
-- `city` (required): City of the address.
-- `region` (optional): Region of the address.
-- `district` (optional): District of the address.
-- `country` (required): Country of the address.
+    - `long` (required): Longitude of the address.
+    - `lat` (required): Latitude of the address.
+    - `street` (required): Street name of the address.
+    - `house_no` (required): House number of the address.
+    - `postal_code` (required): Postal code of the address.
+    - `city` (required): City of the address.
+    - `region` (optional): Region of the address.
+    - `district` (optional): District of the address.
+    - `country` (required): Country of the address.
 ### Examples
 Create a new parking spot
 
@@ -347,5 +348,56 @@ curl -X POST http://localhost:11434/api/parking_spots/create -H "Content-Type: a
 {
     "message": "Successfully created new parking spot!"
     "parking_spot": 17
+}
+```
+
+## Uploading images for a specific parking spot
+```shell
+POST /api/parking_spots/<int:spot_id>/upload_images
+```
+Uploads images for a specific parking spot identified by its spot_id. This endpoint allows multiple image uploads, 
+but the number of images per parking spot is limited by `MAX_IMAGES_PER_PARKING_SPOT=5`.
+The images are uploaded to bucket and are saved by the path `<spot_id>/<filename>`
+
+### Parameters
+- `spot_id` (required): The ID of the parking spot.
+
+### Request body
+The request body should contain multiple image files sent as multipart/form-data.
+The key to the files MUST be named in order `image0`, `image1`, `image2`, `image3`, `image4`.
+If less than `MAX_IMAGES_PER_PARKING_SPOT` is supposed to be uploaded, use less file keys but keep the ordering
+from 0.
+
+### Examples
+Upload `2` new images for the parking spot with `spot_id = 123`.
+
+**Request**
+```shell
+curl -X POST http://localhost:11434/api/parking_spots/123/upload_images -F "image0=@/path/to/image1.jpg" -F "image1=@/path/to/image2.jpg"
+```
+
+**Response**
+If the images are uploaded successfully:
+```shell
+{
+    "message": "Images uploaded successfully for parking spot 123"
+}
+```
+If the parking spot is not found:
+```shell
+{
+    "message": "Parking spot not found"
+}
+```
+If there is an error with the image upload process:
+```shell
+{
+    "error": "Error message"
+}
+```
+If no images are provided:
+```shell
+{
+    "error": "Image file is required"
 }
 ```
