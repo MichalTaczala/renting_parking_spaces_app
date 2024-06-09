@@ -11,6 +11,7 @@
 - [Create a new parking spot](#creating-a-new-parking-spot)
 - [Update data of a parking spot](#updating-parking-spot-data)
 - [Uploading images for a specific parking spot](#uploading-images-for-a-specific-parking-spot)
+- [Getting single parking spot data](#getting-single-parking-spot-data)
 
 
 ## Creating a new user
@@ -450,6 +451,92 @@ If the images are uploaded successfully:
     "message": "Images uploaded successfully for parking spot 123"
 }
 ```
+If the parking spot is not found:
+```shell
+{
+    "message": "Parking spot not found"
+}
+```
+If there is an error with the image upload process:
+```shell
+{
+    "error": "Error message"
+}
+```
+If no images are provided:
+```shell
+{
+    "error": "Image file is required"
+}
+```
+
+
+## Getting single parking spot data
+```shell
+GET /api/parking_spots/<int:spot_id>
+```
+Retrieves detailed information for a specific parking spot identified by its spot_id. 
+If latitude and longitude are provided in the query parameters, the response includes the distance from the user's location to the parking spot.
+
+### Parameters
+- `spot_id` (required): The ID of the parking spot.
+
+### Request body
+The request may take optional additional arguments:
+- `lat` (optional): the latitude position of the user's current location
+- `long` (optional): the longitude position of the user's current location
+Only if both arguments are provided, the distance can be computed.
+
+### Examples
+Get the data about the parking spot (`spot_id=123`) for a user whose current location is `lat=-49.2827`, `long=-123.1207`.
+
+**Request**
+```shell
+curl -X GET http://localhost:11434/api/parking_spots/123?lat=49.2827&long=-123.1207
+```
+
+**Response**
+The response contains detailed information about the parking spot, including its address, distance from the user's location (if provided), and URLs of associated images.
+
+If the request is successful:
+```shell
+{
+    "spot_id": 123,
+    "name": "Downtown Parking Spot",
+    "description": "A secure parking spot in the heart of the city.",
+    "height": 2.5,
+    "width": 2.0,
+    "length": 5.0,
+    "internal": true,
+    "easy_access": true,
+    "security": true,
+    "charging": true,
+    "owner_id": 456,
+    "address_id": 789,
+    "price": 150.00,
+    "currency": "USD",
+    "images_url": "http://example.com/images/parkingspot.jpg",
+    "address": {
+        "long": -123.456,
+        "lat": 49.2827,
+        "street": "Main St",
+        "house_no": "123",
+        "postal_code": "V6B 3K9",
+        "city": "Vancouver",
+        "region": "BC",
+        "district": "Downtown",
+        "country": "Canada"
+    },
+    "distance": 2.3,
+    "image_urls": [
+        "http://example.com/images/parkingspot1.jpg",
+        "http://example.com/images/parkingspot2.jpg"
+    ]
+}
+```
+**Note**: the `distance` metric is computed with every new GET request
+**Note**: the `image_urls` contains the public URLs to images associated with the particular parking spot
+
 If the parking spot is not found:
 ```shell
 {
