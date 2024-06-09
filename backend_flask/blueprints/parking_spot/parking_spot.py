@@ -15,6 +15,7 @@ from models import ParkingSpot, Address, Booking, RentalOffer
 
 # Settings
 MAX_IMAGES_PER_PARKING_SPOT = 5
+MAX_SPOTS_PER_PAGE = 20
 client = storage.Client.from_service_account_json("../terraform_conf/key_app.json")
 bucket_name = "parking-images-test"
 
@@ -346,7 +347,7 @@ def get_parking_spots():
                     for spot in available_parking_spots
                 ]
                 parking_spots_with_distance.sort(key=lambda x: x[1])
-                sorted_parking_spots = parking_spots_with_distance[:20]
+                sorted_parking_spots = parking_spots_with_distance[:MAX_SPOTS_PER_PAGE]
                 response_data = [
                     {
                         "spot_id": spot[0].spot_id,
@@ -387,7 +388,7 @@ def get_parking_spots():
                         "currency": spot.currency,
                         "images_url": get_list_of_images(spot.spot_id),
                     }
-                    for spot in available_parking_spots[:20]
+                    for spot in available_parking_spots[:MAX_SPOTS_PER_PAGE]
                 ]
 
             return jsonify(response_data), 200
