@@ -348,49 +348,31 @@ def get_parking_spots():
                 ]
                 parking_spots_with_distance.sort(key=lambda x: x[1])
                 sorted_parking_spots = parking_spots_with_distance[:MAX_SPOTS_PER_PAGE]
-                response_data = [
-                    {
-                        "spot_id": spot[0].spot_id,
-                        "name": spot[0].name,
-                        "description": spot[0].description,
-                        "height": spot[0].height,
-                        "width": spot[0].width,
-                        "length": spot[0].length,
-                        "internal": spot[0].internal,
-                        "easy_access": spot[0].easy_access,
-                        "security": spot[0].security,
-                        "charging": spot[0].charging,
-                        "owner_id": spot[0].owner_id,
-                        "address_id": spot[0].address_id,
-                        "price": spot[0].price,
-                        "currency": spot[0].currency,
-                        "images_url": get_list_of_images(spot[0].spot_id),
-                        "distance": spot[1],  # Add distance to the response
-                    }
-                    for spot in sorted_parking_spots
-                ]
+                response_data = []
+                # add each parking spot dict with address dict
+                for spot, distance in sorted_parking_spots:
+                    data = spot[0].to_dict()
+                    address_id = spot.address_id
+                    # retrieve address data from the database
+                    address = (
+                        session.query(Address).filter(Address.address_id == address_id).first()
+                    )
+                    data["address"] = address.dict
+                    data["distance"] = distance
+                    data["image_urls"] = get_list_of_images(spot.spot_id)
+                    response_data.append(data)
             else:
-                response_data = [
-                    {
-                        "spot_id": spot.spot_id,
-                        "name": spot.name,
-                        "description": spot.description,
-                        "height": spot.height,
-                        "width": spot.width,
-                        "length": spot.length,
-                        "internal": spot.internal,
-                        "easy_access": spot.easy_access,
-                        "security": spot.security,
-                        "charging": spot.charging,
-                        "owner_id": spot.owner_id,
-                        "address_id": spot.address_id,
-                        "price": spot.price,
-                        "currency": spot.currency,
-                        "images_url": get_list_of_images(spot.spot_id),
-                    }
-                    for spot in available_parking_spots[:MAX_SPOTS_PER_PAGE]
-                ]
-
+                response_data = []
+                # for each parking spot retrieve address data from the database
+                for spot in available_parking_spots[:MAX_SPOTS_PER_PAGE]:
+                    data = spot.to_dict()
+                    address_id = spot.address_id
+                    address = (
+                        session.query(Address).filter(Address.address_id == address_id).first()
+                    )
+                    data["address"] = address.dict
+                    data["image_urls"] = get_list_of_images(spot.spot_id)
+                    response_data.append(data)
             return jsonify(response_data), 200
 
         except SQLAlchemyError as e:
