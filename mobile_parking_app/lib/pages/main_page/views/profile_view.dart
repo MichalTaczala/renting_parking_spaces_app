@@ -1,9 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_parking_app/cubits/authentication_cubit/authentication_cubit.dart';
+import 'package:mobile_parking_app/cubits/profile_data/profile_data_cubit.dart';
+import 'package:mobile_parking_app/cubits/profile_data/profile_data_state.dart';
+import 'package:mobile_parking_app/repositories/flask_repository.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return RepositoryProvider(
+      create: (context) => FlaskRepository(),
+      child: BlocProvider(
+        create: (context) => ProfileDataCubit(context.read<FlaskRepository>()),
+        child: const ProfileViewImpl(),
+      ),
+    );
+  }
+}
+
+class ProfileViewImpl extends StatelessWidget {
+  const ProfileViewImpl({super.key});
 
   Widget buildRow(String title, String value) {
     return Padding(
@@ -50,44 +68,30 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          children: [
-            // ElevatedButton(
-            //   onPressed: () => Navigator.of(context).pushNamed("/addParkingSpot"),
-            //   child: const Text(
-            //     "Add Parking Spot",
-            //   ),
-            // ),
-            // ElevatedButton(
-            //   onPressed: context.read<AuthenticationCubit>().logOut,
-            //   style: ButtonStyle(
-            //     backgroundColor: MaterialStateProperty.all(Colors.red),
-            //   ),
-            //   child: const Text(
-            //     "Log Out",
-            //     style: TextStyle(
-            //       color: Colors.white,
-            //     ),
-            //   ),
-            // ),
-            const Center(
-              child: Text(
-                "Your profile",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+    context.read<ProfileDataCubit>().updateProfileData("firebaseId");
+    return BlocBuilder<ProfileDataCubit, ProfileDataState>(
+      builder: (context, state) {
+        return Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              children: [
+                const Center(
+                  child: Text(
+                    "Your profile",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-
-            buildRow("Name: ", "John Doe"),
-            buildRow("Email: ", "abc@gmail.com"),
-            buildRow("Phone: ", "1234567890"),
-            const Spacer(),
-            buildLogOutButton(context),
-          ],
-        ));
+                buildRow("Name: ", "John Doe"),
+                buildRow("Email: ", "abc@gmail.com"),
+                buildRow("Phone: ", "1234567890"),
+                const Spacer(),
+                buildLogOutButton(context),
+              ],
+            ));
+      },
+    );
   }
 }

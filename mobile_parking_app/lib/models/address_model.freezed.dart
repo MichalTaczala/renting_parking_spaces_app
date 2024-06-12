@@ -20,11 +20,14 @@ AddressModel _$AddressModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AddressModel {
+  @JsonKey(name: "address_id")
   int? get addressId => throw _privateConstructorUsedError;
   double? get lat => throw _privateConstructorUsedError;
   double? get long => throw _privateConstructorUsedError;
   String? get street => throw _privateConstructorUsedError;
+  @JsonKey(name: "house_no")
   String? get houseNo => throw _privateConstructorUsedError;
+  @JsonKey(name: "postal_code")
   String? get postalCode => throw _privateConstructorUsedError;
   String? get city => throw _privateConstructorUsedError;
   String? get region => throw _privateConstructorUsedError;
@@ -44,12 +47,12 @@ abstract class $AddressModelCopyWith<$Res> {
       _$AddressModelCopyWithImpl<$Res, AddressModel>;
   @useResult
   $Res call(
-      {int? addressId,
+      {@JsonKey(name: "address_id") int? addressId,
       double? lat,
       double? long,
       String? street,
-      String? houseNo,
-      String? postalCode,
+      @JsonKey(name: "house_no") String? houseNo,
+      @JsonKey(name: "postal_code") String? postalCode,
       String? city,
       String? region,
       String? district,
@@ -134,12 +137,12 @@ abstract class _$$AddressModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? addressId,
+      {@JsonKey(name: "address_id") int? addressId,
       double? lat,
       double? long,
       String? street,
-      String? houseNo,
-      String? postalCode,
+      @JsonKey(name: "house_no") String? houseNo,
+      @JsonKey(name: "postal_code") String? postalCode,
       String? city,
       String? region,
       String? district,
@@ -217,12 +220,12 @@ class __$$AddressModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AddressModelImpl implements _AddressModel {
   const _$AddressModelImpl(
-      {this.addressId,
+      {@JsonKey(name: "address_id") this.addressId,
       required this.lat,
       required this.long,
       required this.street,
-      required this.houseNo,
-      required this.postalCode,
+      @JsonKey(name: "house_no") required this.houseNo,
+      @JsonKey(name: "postal_code") required this.postalCode,
       required this.city,
       this.region,
       this.district,
@@ -232,6 +235,7 @@ class _$AddressModelImpl implements _AddressModel {
       _$$AddressModelImplFromJson(json);
 
   @override
+  @JsonKey(name: "address_id")
   final int? addressId;
   @override
   final double? lat;
@@ -240,8 +244,10 @@ class _$AddressModelImpl implements _AddressModel {
   @override
   final String? street;
   @override
+  @JsonKey(name: "house_no")
   final String? houseNo;
   @override
+  @JsonKey(name: "postal_code")
   final String? postalCode;
   @override
   final String? city;
@@ -298,12 +304,12 @@ class _$AddressModelImpl implements _AddressModel {
 
 abstract class _AddressModel implements AddressModel {
   const factory _AddressModel(
-      {final int? addressId,
+      {@JsonKey(name: "address_id") final int? addressId,
       required final double? lat,
       required final double? long,
       required final String? street,
-      required final String? houseNo,
-      required final String? postalCode,
+      @JsonKey(name: "house_no") required final String? houseNo,
+      @JsonKey(name: "postal_code") required final String? postalCode,
       required final String? city,
       final String? region,
       final String? district,
@@ -313,6 +319,7 @@ abstract class _AddressModel implements AddressModel {
       _$AddressModelImpl.fromJson;
 
   @override
+  @JsonKey(name: "address_id")
   int? get addressId;
   @override
   double? get lat;
@@ -321,8 +328,10 @@ abstract class _AddressModel implements AddressModel {
   @override
   String? get street;
   @override
+  @JsonKey(name: "house_no")
   String? get houseNo;
   @override
+  @JsonKey(name: "postal_code")
   String? get postalCode;
   @override
   String? get city;

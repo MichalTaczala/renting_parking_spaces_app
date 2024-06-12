@@ -22,7 +22,7 @@ class FirebaseUserRepo {
 
       final UserCredential userCredential =
           await _firebaseAuth.signInWithCredential(authCredential);
-          
+
       return userCredential.user!;
     } catch (e) {
       return null;

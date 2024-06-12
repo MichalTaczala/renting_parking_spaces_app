@@ -22,12 +22,17 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 mixin _$UserModel {
   int? get id => throw _privateConstructorUsedError;
   String? get username => throw _privateConstructorUsedError;
+  @JsonKey(name: "first_name")
   String? get firstName => throw _privateConstructorUsedError;
+  @JsonKey(name: "last_name")
   String? get lastName => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
+  @JsonKey(name: "phone_prefix")
   String? get phonePrefix => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
+  @JsonKey(name: "firebase_token")
+  String? get firebaseToken => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,12 +48,13 @@ abstract class $UserModelCopyWith<$Res> {
   $Res call(
       {int? id,
       String? username,
-      String? firstName,
-      String? lastName,
+      @JsonKey(name: "first_name") String? firstName,
+      @JsonKey(name: "last_name") String? lastName,
       String email,
       String? type,
-      String? phonePrefix,
-      String? phone});
+      @JsonKey(name: "phone_prefix") String? phonePrefix,
+      String? phone,
+      @JsonKey(name: "firebase_token") String? firebaseToken});
 }
 
 /// @nodoc
@@ -72,6 +78,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? type = freezed,
     Object? phonePrefix = freezed,
     Object? phone = freezed,
+    Object? firebaseToken = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -106,6 +113,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
+      firebaseToken: freezed == firebaseToken
+          ? _value.firebaseToken
+          : firebaseToken // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -121,12 +132,13 @@ abstract class _$$UserModelImplCopyWith<$Res>
   $Res call(
       {int? id,
       String? username,
-      String? firstName,
-      String? lastName,
+      @JsonKey(name: "first_name") String? firstName,
+      @JsonKey(name: "last_name") String? lastName,
       String email,
       String? type,
-      String? phonePrefix,
-      String? phone});
+      @JsonKey(name: "phone_prefix") String? phonePrefix,
+      String? phone,
+      @JsonKey(name: "firebase_token") String? firebaseToken});
 }
 
 /// @nodoc
@@ -148,6 +160,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? type = freezed,
     Object? phonePrefix = freezed,
     Object? phone = freezed,
+    Object? firebaseToken = freezed,
   }) {
     return _then(_$UserModelImpl(
       id: freezed == id
@@ -182,6 +195,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
+      firebaseToken: freezed == firebaseToken
+          ? _value.firebaseToken
+          : firebaseToken // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -192,12 +209,13 @@ class _$UserModelImpl implements _UserModel {
   const _$UserModelImpl(
       {this.id,
       this.username,
-      this.firstName,
-      this.lastName,
+      @JsonKey(name: "first_name") this.firstName,
+      @JsonKey(name: "last_name") this.lastName,
       required this.email,
       this.type,
-      this.phonePrefix,
-      required this.phone});
+      @JsonKey(name: "phone_prefix") this.phonePrefix,
+      required this.phone,
+      @JsonKey(name: "firebase_token") this.firebaseToken});
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
@@ -207,21 +225,27 @@ class _$UserModelImpl implements _UserModel {
   @override
   final String? username;
   @override
+  @JsonKey(name: "first_name")
   final String? firstName;
   @override
+  @JsonKey(name: "last_name")
   final String? lastName;
   @override
   final String email;
   @override
   final String? type;
   @override
+  @JsonKey(name: "phone_prefix")
   final String? phonePrefix;
   @override
   final String? phone;
+  @override
+  @JsonKey(name: "firebase_token")
+  final String? firebaseToken;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, username: $username, firstName: $firstName, lastName: $lastName, email: $email, type: $type, phonePrefix: $phonePrefix, phone: $phone)';
+    return 'UserModel(id: $id, username: $username, firstName: $firstName, lastName: $lastName, email: $email, type: $type, phonePrefix: $phonePrefix, phone: $phone, firebaseToken: $firebaseToken)';
   }
 
   @override
@@ -240,13 +264,15 @@ class _$UserModelImpl implements _UserModel {
             (identical(other.type, type) || other.type == type) &&
             (identical(other.phonePrefix, phonePrefix) ||
                 other.phonePrefix == phonePrefix) &&
-            (identical(other.phone, phone) || other.phone == phone));
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.firebaseToken, firebaseToken) ||
+                other.firebaseToken == firebaseToken));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, username, firstName,
-      lastName, email, type, phonePrefix, phone);
+      lastName, email, type, phonePrefix, phone, firebaseToken);
 
   @JsonKey(ignore: true)
   @override
@@ -264,14 +290,16 @@ class _$UserModelImpl implements _UserModel {
 
 abstract class _UserModel implements UserModel {
   const factory _UserModel(
-      {final int? id,
-      final String? username,
-      final String? firstName,
-      final String? lastName,
-      required final String email,
-      final String? type,
-      final String? phonePrefix,
-      required final String? phone}) = _$UserModelImpl;
+          {final int? id,
+          final String? username,
+          @JsonKey(name: "first_name") final String? firstName,
+          @JsonKey(name: "last_name") final String? lastName,
+          required final String email,
+          final String? type,
+          @JsonKey(name: "phone_prefix") final String? phonePrefix,
+          required final String? phone,
+          @JsonKey(name: "firebase_token") final String? firebaseToken}) =
+      _$UserModelImpl;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$UserModelImpl.fromJson;
@@ -281,17 +309,23 @@ abstract class _UserModel implements UserModel {
   @override
   String? get username;
   @override
+  @JsonKey(name: "first_name")
   String? get firstName;
   @override
+  @JsonKey(name: "last_name")
   String? get lastName;
   @override
   String get email;
   @override
   String? get type;
   @override
+  @JsonKey(name: "phone_prefix")
   String? get phonePrefix;
   @override
   String? get phone;
+  @override
+  @JsonKey(name: "firebase_token")
+  String? get firebaseToken;
   @override
   @JsonKey(ignore: true)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>

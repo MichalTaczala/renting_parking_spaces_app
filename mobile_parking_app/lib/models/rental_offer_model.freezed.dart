@@ -20,13 +20,19 @@ RentalOfferModel _$RentalOfferModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$RentalOfferModel {
+  @JsonKey(name: "offer_id")
   int get offerId => throw _privateConstructorUsedError;
+  @JsonKey(name: "auto_accept")
   bool get autoAccept => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
+  @JsonKey(name: "created_at")
   DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "start_date")
   DateTime get startDate => throw _privateConstructorUsedError;
+  @JsonKey(name: "end_date")
   DateTime get endDate => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
+  @JsonKey(name: "spot_id")
   int get spotId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,14 +48,14 @@ abstract class $RentalOfferModelCopyWith<$Res> {
       _$RentalOfferModelCopyWithImpl<$Res, RentalOfferModel>;
   @useResult
   $Res call(
-      {int offerId,
-      bool autoAccept,
+      {@JsonKey(name: "offer_id") int offerId,
+      @JsonKey(name: "auto_accept") bool autoAccept,
       double price,
-      DateTime createdAt,
-      DateTime startDate,
-      DateTime endDate,
+      @JsonKey(name: "created_at") DateTime createdAt,
+      @JsonKey(name: "start_date") DateTime startDate,
+      @JsonKey(name: "end_date") DateTime endDate,
       String status,
-      int spotId});
+      @JsonKey(name: "spot_id") int spotId});
 }
 
 /// @nodoc
@@ -120,14 +126,14 @@ abstract class _$$RentalOfferModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int offerId,
-      bool autoAccept,
+      {@JsonKey(name: "offer_id") int offerId,
+      @JsonKey(name: "auto_accept") bool autoAccept,
       double price,
-      DateTime createdAt,
-      DateTime startDate,
-      DateTime endDate,
+      @JsonKey(name: "created_at") DateTime createdAt,
+      @JsonKey(name: "start_date") DateTime startDate,
+      @JsonKey(name: "end_date") DateTime endDate,
       String status,
-      int spotId});
+      @JsonKey(name: "spot_id") int spotId});
 }
 
 /// @nodoc
@@ -191,33 +197,39 @@ class __$$RentalOfferModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$RentalOfferModelImpl implements _RentalOfferModel {
   const _$RentalOfferModelImpl(
-      {required this.offerId,
-      required this.autoAccept,
+      {@JsonKey(name: "offer_id") required this.offerId,
+      @JsonKey(name: "auto_accept") required this.autoAccept,
       required this.price,
-      required this.createdAt,
-      required this.startDate,
-      required this.endDate,
+      @JsonKey(name: "created_at") required this.createdAt,
+      @JsonKey(name: "start_date") required this.startDate,
+      @JsonKey(name: "end_date") required this.endDate,
       required this.status,
-      required this.spotId});
+      @JsonKey(name: "spot_id") required this.spotId});
 
   factory _$RentalOfferModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$RentalOfferModelImplFromJson(json);
 
   @override
+  @JsonKey(name: "offer_id")
   final int offerId;
   @override
+  @JsonKey(name: "auto_accept")
   final bool autoAccept;
   @override
   final double price;
   @override
+  @JsonKey(name: "created_at")
   final DateTime createdAt;
   @override
+  @JsonKey(name: "start_date")
   final DateTime startDate;
   @override
+  @JsonKey(name: "end_date")
   final DateTime endDate;
   @override
   final String status;
   @override
+  @JsonKey(name: "spot_id")
   final int spotId;
 
   @override
@@ -265,33 +277,40 @@ class _$RentalOfferModelImpl implements _RentalOfferModel {
 
 abstract class _RentalOfferModel implements RentalOfferModel {
   const factory _RentalOfferModel(
-      {required final int offerId,
-      required final bool autoAccept,
-      required final double price,
-      required final DateTime createdAt,
-      required final DateTime startDate,
-      required final DateTime endDate,
-      required final String status,
-      required final int spotId}) = _$RentalOfferModelImpl;
+          {@JsonKey(name: "offer_id") required final int offerId,
+          @JsonKey(name: "auto_accept") required final bool autoAccept,
+          required final double price,
+          @JsonKey(name: "created_at") required final DateTime createdAt,
+          @JsonKey(name: "start_date") required final DateTime startDate,
+          @JsonKey(name: "end_date") required final DateTime endDate,
+          required final String status,
+          @JsonKey(name: "spot_id") required final int spotId}) =
+      _$RentalOfferModelImpl;
 
   factory _RentalOfferModel.fromJson(Map<String, dynamic> json) =
       _$RentalOfferModelImpl.fromJson;
 
   @override
+  @JsonKey(name: "offer_id")
   int get offerId;
   @override
+  @JsonKey(name: "auto_accept")
   bool get autoAccept;
   @override
   double get price;
   @override
+  @JsonKey(name: "created_at")
   DateTime get createdAt;
   @override
+  @JsonKey(name: "start_date")
   DateTime get startDate;
   @override
+  @JsonKey(name: "end_date")
   DateTime get endDate;
   @override
   String get status;
   @override
+  @JsonKey(name: "spot_id")
   int get spotId;
   @override
   @JsonKey(ignore: true)

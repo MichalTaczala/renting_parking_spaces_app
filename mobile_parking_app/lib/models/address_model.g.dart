@@ -8,12 +8,12 @@ part of 'address_model.dart';
 
 _$AddressModelImpl _$$AddressModelImplFromJson(Map<String, dynamic> json) =>
     _$AddressModelImpl(
-      addressId: json['addressId'] as int?,
+      addressId: json['address_id'] as int?,
       lat: (json['lat'] as num?)?.toDouble(),
       long: (json['long'] as num?)?.toDouble(),
       street: json['street'] as String?,
-      houseNo: json['houseNo'] as String?,
-      postalCode: json['postalCode'] as String?,
+      houseNo: json['house_no'] as String?,
+      postalCode: json['postal_code'] as String?,
       city: json['city'] as String?,
       region: json['region'] as String?,
       district: json['district'] as String?,
@@ -22,12 +22,12 @@ _$AddressModelImpl _$$AddressModelImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$AddressModelImplToJson(_$AddressModelImpl instance) =>
     <String, dynamic>{
-      'addressId': instance.addressId,
+      'address_id': instance.addressId,
       'lat': instance.lat,
       'long': instance.long,
       'street': instance.street,
-      'houseNo': instance.houseNo,
-      'postalCode': instance.postalCode,
+      'house_no': instance.houseNo,
+      'postal_code': instance.postalCode,
       'city': instance.city,
       'region': instance.region,
       'district': instance.district,

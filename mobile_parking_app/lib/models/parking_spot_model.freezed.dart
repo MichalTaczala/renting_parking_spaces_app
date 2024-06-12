@@ -20,21 +20,27 @@ ParkingSpotModel _$ParkingSpotModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ParkingSpotModel {
-  String? get spotId => throw _privateConstructorUsedError;
+  @JsonKey(name: "spot_id")
+  int? get spotId => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
-  double? get height => throw _privateConstructorUsedError;
-  double? get width => throw _privateConstructorUsedError;
-  double? get length => throw _privateConstructorUsedError;
+  String? get height => throw _privateConstructorUsedError;
+  String? get width => throw _privateConstructorUsedError;
+  String? get length => throw _privateConstructorUsedError;
   bool? get internal => throw _privateConstructorUsedError;
+  String? get distance => throw _privateConstructorUsedError;
+  @JsonKey(name: "easy_access")
   bool? get easyAccess => throw _privateConstructorUsedError;
   bool? get security => throw _privateConstructorUsedError;
+  @JsonKey(name: "owner_id")
+  int? get ownerId => throw _privateConstructorUsedError;
   bool? get charging => throw _privateConstructorUsedError;
-  String? get ownerId => throw _privateConstructorUsedError;
+  @JsonKey(name: "images_url")
   List<String> get imagesUrls => throw _privateConstructorUsedError;
+  @JsonKey(name: "address_id")
   int? get addressId => throw _privateConstructorUsedError;
   AddressModel? get address => throw _privateConstructorUsedError;
-  double get price => throw _privateConstructorUsedError;
+  String get price => throw _privateConstructorUsedError;
   String get currency => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,21 +56,22 @@ abstract class $ParkingSpotModelCopyWith<$Res> {
       _$ParkingSpotModelCopyWithImpl<$Res, ParkingSpotModel>;
   @useResult
   $Res call(
-      {String? spotId,
+      {@JsonKey(name: "spot_id") int? spotId,
       String? name,
       String? description,
-      double? height,
-      double? width,
-      double? length,
+      String? height,
+      String? width,
+      String? length,
       bool? internal,
-      bool? easyAccess,
+      String? distance,
+      @JsonKey(name: "easy_access") bool? easyAccess,
       bool? security,
+      @JsonKey(name: "owner_id") int? ownerId,
       bool? charging,
-      String? ownerId,
-      List<String> imagesUrls,
-      int? addressId,
+      @JsonKey(name: "images_url") List<String> imagesUrls,
+      @JsonKey(name: "address_id") int? addressId,
       AddressModel? address,
-      double price,
+      String price,
       String currency});
 
   $AddressModelCopyWith<$Res>? get address;
@@ -90,10 +97,11 @@ class _$ParkingSpotModelCopyWithImpl<$Res, $Val extends ParkingSpotModel>
     Object? width = freezed,
     Object? length = freezed,
     Object? internal = freezed,
+    Object? distance = freezed,
     Object? easyAccess = freezed,
     Object? security = freezed,
-    Object? charging = freezed,
     Object? ownerId = freezed,
+    Object? charging = freezed,
     Object? imagesUrls = null,
     Object? addressId = freezed,
     Object? address = freezed,
@@ -104,7 +112,7 @@ class _$ParkingSpotModelCopyWithImpl<$Res, $Val extends ParkingSpotModel>
       spotId: freezed == spotId
           ? _value.spotId
           : spotId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -116,19 +124,23 @@ class _$ParkingSpotModelCopyWithImpl<$Res, $Val extends ParkingSpotModel>
       height: freezed == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       width: freezed == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       length: freezed == length
           ? _value.length
           : length // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       internal: freezed == internal
           ? _value.internal
           : internal // ignore: cast_nullable_to_non_nullable
               as bool?,
+      distance: freezed == distance
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as String?,
       easyAccess: freezed == easyAccess
           ? _value.easyAccess
           : easyAccess // ignore: cast_nullable_to_non_nullable
@@ -137,14 +149,14 @@ class _$ParkingSpotModelCopyWithImpl<$Res, $Val extends ParkingSpotModel>
           ? _value.security
           : security // ignore: cast_nullable_to_non_nullable
               as bool?,
+      ownerId: freezed == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
+              as int?,
       charging: freezed == charging
           ? _value.charging
           : charging // ignore: cast_nullable_to_non_nullable
               as bool?,
-      ownerId: freezed == ownerId
-          ? _value.ownerId
-          : ownerId // ignore: cast_nullable_to_non_nullable
-              as String?,
       imagesUrls: null == imagesUrls
           ? _value.imagesUrls
           : imagesUrls // ignore: cast_nullable_to_non_nullable
@@ -160,7 +172,7 @@ class _$ParkingSpotModelCopyWithImpl<$Res, $Val extends ParkingSpotModel>
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       currency: null == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
@@ -190,21 +202,22 @@ abstract class _$$ParkingSpotModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? spotId,
+      {@JsonKey(name: "spot_id") int? spotId,
       String? name,
       String? description,
-      double? height,
-      double? width,
-      double? length,
+      String? height,
+      String? width,
+      String? length,
       bool? internal,
-      bool? easyAccess,
+      String? distance,
+      @JsonKey(name: "easy_access") bool? easyAccess,
       bool? security,
+      @JsonKey(name: "owner_id") int? ownerId,
       bool? charging,
-      String? ownerId,
-      List<String> imagesUrls,
-      int? addressId,
+      @JsonKey(name: "images_url") List<String> imagesUrls,
+      @JsonKey(name: "address_id") int? addressId,
       AddressModel? address,
-      double price,
+      String price,
       String currency});
 
   @override
@@ -229,10 +242,11 @@ class __$$ParkingSpotModelImplCopyWithImpl<$Res>
     Object? width = freezed,
     Object? length = freezed,
     Object? internal = freezed,
+    Object? distance = freezed,
     Object? easyAccess = freezed,
     Object? security = freezed,
-    Object? charging = freezed,
     Object? ownerId = freezed,
+    Object? charging = freezed,
     Object? imagesUrls = null,
     Object? addressId = freezed,
     Object? address = freezed,
@@ -243,7 +257,7 @@ class __$$ParkingSpotModelImplCopyWithImpl<$Res>
       spotId: freezed == spotId
           ? _value.spotId
           : spotId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -255,19 +269,23 @@ class __$$ParkingSpotModelImplCopyWithImpl<$Res>
       height: freezed == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       width: freezed == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       length: freezed == length
           ? _value.length
           : length // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       internal: freezed == internal
           ? _value.internal
           : internal // ignore: cast_nullable_to_non_nullable
               as bool?,
+      distance: freezed == distance
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as String?,
       easyAccess: freezed == easyAccess
           ? _value.easyAccess
           : easyAccess // ignore: cast_nullable_to_non_nullable
@@ -276,14 +294,14 @@ class __$$ParkingSpotModelImplCopyWithImpl<$Res>
           ? _value.security
           : security // ignore: cast_nullable_to_non_nullable
               as bool?,
+      ownerId: freezed == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
+              as int?,
       charging: freezed == charging
           ? _value.charging
           : charging // ignore: cast_nullable_to_non_nullable
               as bool?,
-      ownerId: freezed == ownerId
-          ? _value.ownerId
-          : ownerId // ignore: cast_nullable_to_non_nullable
-              as String?,
       imagesUrls: null == imagesUrls
           ? _value._imagesUrls
           : imagesUrls // ignore: cast_nullable_to_non_nullable
@@ -299,7 +317,7 @@ class __$$ParkingSpotModelImplCopyWithImpl<$Res>
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       currency: null == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
@@ -312,19 +330,20 @@ class __$$ParkingSpotModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ParkingSpotModelImpl implements _ParkingSpotModel {
   const _$ParkingSpotModelImpl(
-      {this.spotId,
+      {@JsonKey(name: "spot_id") this.spotId,
       this.name,
       this.description,
       this.height,
       this.width,
       this.length,
       this.internal,
-      this.easyAccess,
+      this.distance,
+      @JsonKey(name: "easy_access") this.easyAccess,
       this.security,
+      @JsonKey(name: "owner_id") this.ownerId,
       this.charging,
-      this.ownerId,
-      final List<String> imagesUrls = const [],
-      this.addressId,
+      @JsonKey(name: "images_url") final List<String> imagesUrls = const [],
+      @JsonKey(name: "address_id") this.addressId,
       this.address,
       required this.price,
       this.currency = "USD"})
@@ -334,30 +353,35 @@ class _$ParkingSpotModelImpl implements _ParkingSpotModel {
       _$$ParkingSpotModelImplFromJson(json);
 
   @override
-  final String? spotId;
+  @JsonKey(name: "spot_id")
+  final int? spotId;
   @override
   final String? name;
   @override
   final String? description;
   @override
-  final double? height;
+  final String? height;
   @override
-  final double? width;
+  final String? width;
   @override
-  final double? length;
+  final String? length;
   @override
   final bool? internal;
   @override
+  final String? distance;
+  @override
+  @JsonKey(name: "easy_access")
   final bool? easyAccess;
   @override
   final bool? security;
   @override
-  final bool? charging;
+  @JsonKey(name: "owner_id")
+  final int? ownerId;
   @override
-  final String? ownerId;
+  final bool? charging;
   final List<String> _imagesUrls;
   @override
-  @JsonKey()
+  @JsonKey(name: "images_url")
   List<String> get imagesUrls {
     if (_imagesUrls is EqualUnmodifiableListView) return _imagesUrls;
     // ignore: implicit_dynamic_type
@@ -365,18 +389,19 @@ class _$ParkingSpotModelImpl implements _ParkingSpotModel {
   }
 
   @override
+  @JsonKey(name: "address_id")
   final int? addressId;
   @override
   final AddressModel? address;
   @override
-  final double price;
+  final String price;
   @override
   @JsonKey()
   final String currency;
 
   @override
   String toString() {
-    return 'ParkingSpotModel(spotId: $spotId, name: $name, description: $description, height: $height, width: $width, length: $length, internal: $internal, easyAccess: $easyAccess, security: $security, charging: $charging, ownerId: $ownerId, imagesUrls: $imagesUrls, addressId: $addressId, address: $address, price: $price, currency: $currency)';
+    return 'ParkingSpotModel(spotId: $spotId, name: $name, description: $description, height: $height, width: $width, length: $length, internal: $internal, distance: $distance, easyAccess: $easyAccess, security: $security, ownerId: $ownerId, charging: $charging, imagesUrls: $imagesUrls, addressId: $addressId, address: $address, price: $price, currency: $currency)';
   }
 
   @override
@@ -393,13 +418,15 @@ class _$ParkingSpotModelImpl implements _ParkingSpotModel {
             (identical(other.length, length) || other.length == length) &&
             (identical(other.internal, internal) ||
                 other.internal == internal) &&
+            (identical(other.distance, distance) ||
+                other.distance == distance) &&
             (identical(other.easyAccess, easyAccess) ||
                 other.easyAccess == easyAccess) &&
             (identical(other.security, security) ||
                 other.security == security) &&
+            (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
             (identical(other.charging, charging) ||
                 other.charging == charging) &&
-            (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
             const DeepCollectionEquality()
                 .equals(other._imagesUrls, _imagesUrls) &&
             (identical(other.addressId, addressId) ||
@@ -421,10 +448,11 @@ class _$ParkingSpotModelImpl implements _ParkingSpotModel {
       width,
       length,
       internal,
+      distance,
       easyAccess,
       security,
-      charging,
       ownerId,
+      charging,
       const DeepCollectionEquality().hash(_imagesUrls),
       addressId,
       address,
@@ -448,56 +476,64 @@ class _$ParkingSpotModelImpl implements _ParkingSpotModel {
 
 abstract class _ParkingSpotModel implements ParkingSpotModel {
   const factory _ParkingSpotModel(
-      {final String? spotId,
+      {@JsonKey(name: "spot_id") final int? spotId,
       final String? name,
       final String? description,
-      final double? height,
-      final double? width,
-      final double? length,
+      final String? height,
+      final String? width,
+      final String? length,
       final bool? internal,
-      final bool? easyAccess,
+      final String? distance,
+      @JsonKey(name: "easy_access") final bool? easyAccess,
       final bool? security,
+      @JsonKey(name: "owner_id") final int? ownerId,
       final bool? charging,
-      final String? ownerId,
-      final List<String> imagesUrls,
-      final int? addressId,
+      @JsonKey(name: "images_url") final List<String> imagesUrls,
+      @JsonKey(name: "address_id") final int? addressId,
       final AddressModel? address,
-      required final double price,
+      required final String price,
       final String currency}) = _$ParkingSpotModelImpl;
 
   factory _ParkingSpotModel.fromJson(Map<String, dynamic> json) =
       _$ParkingSpotModelImpl.fromJson;
 
   @override
-  String? get spotId;
+  @JsonKey(name: "spot_id")
+  int? get spotId;
   @override
   String? get name;
   @override
   String? get description;
   @override
-  double? get height;
+  String? get height;
   @override
-  double? get width;
+  String? get width;
   @override
-  double? get length;
+  String? get length;
   @override
   bool? get internal;
   @override
+  String? get distance;
+  @override
+  @JsonKey(name: "easy_access")
   bool? get easyAccess;
   @override
   bool? get security;
   @override
+  @JsonKey(name: "owner_id")
+  int? get ownerId;
+  @override
   bool? get charging;
   @override
-  String? get ownerId;
-  @override
+  @JsonKey(name: "images_url")
   List<String> get imagesUrls;
   @override
+  @JsonKey(name: "address_id")
   int? get addressId;
   @override
   AddressModel? get address;
   @override
-  double get price;
+  String get price;
   @override
   String get currency;
   @override

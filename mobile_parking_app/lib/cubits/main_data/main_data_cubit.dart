@@ -28,9 +28,7 @@ class MainDataCubit extends Cubit<MainDataState> {
         endDate: dateRange.endDate,
       ),
     );
-    if (state.choosenLocationForGarage != null) {
-      _fetchParkingSpots();
-    }
+    _fetchParkingSpots();
   }
 
   void setLocationAndFetchParkingSpots(LatLng location) async {
@@ -57,9 +55,7 @@ class MainDataCubit extends Cubit<MainDataState> {
         choosenLocationForGarageName: name,
       ),
     );
-    if (state.startDate != null && state.endDate != null) {
-      _fetchParkingSpots();
-    }
+    _fetchParkingSpots();
   }
 
   void _fetchParkingSpots() async {

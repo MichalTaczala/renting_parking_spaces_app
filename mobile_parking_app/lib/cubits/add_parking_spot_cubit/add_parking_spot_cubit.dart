@@ -39,19 +39,21 @@ class AddParkingSpotCubit extends Cubit<AddParkingSpotState> {
     final model = ParkingSpotModel(
       name: state.name!,
       description: state.description,
-      width: state.widthSize,
-      length: state.lengthSize,
-      height: state.height,
+      width: state.widthSize.toString(),
+      length: state.lengthSize.toString(),
+      height: state.height.toString(),
       internal: state.isInternal,
       easyAccess: state.isEasyAccess,
       security: state.isSecurity,
       charging: state.isCharger,
       address: state.address,
-      price: state.price!,
+      price: state.price!.toString(),
     );
     final response = await _flaskRepository.addParkingSpotNoImages(model);
-    final responseImages =
-        await _flaskRepository.addParkingSpotImages(state.imagesFiles);
+    if (response.parking_spot != null) {
+      final responseImages = await _flaskRepository.addParkingSpotImages(
+          state.imagesFiles, response.parking_spot!);
+    }
   }
 
   void widthChanged(double? width) {

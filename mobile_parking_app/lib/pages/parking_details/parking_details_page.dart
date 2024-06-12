@@ -20,10 +20,10 @@ class ParkingDetailsPage extends StatefulWidget {
 class _ParkingDetailsPageState extends State<ParkingDetailsPage> {
   Map<String, dynamic>? paymentIntent;
 
-  Future<void> makePayment() async {
+  Future<bool> makePayment() async {
     try {
       paymentIntent = await createPaymentIntent(
-        widget.parkingDetailsModel.price,
+        double.parse(widget.parkingDetailsModel.price),
         widget.parkingDetailsModel.currency,
       );
 
@@ -42,33 +42,37 @@ class _ParkingDetailsPageState extends State<ParkingDetailsPage> {
         ),
       );
       // Display payment sheet
-      displayPaymentSheet(paymentIntent);
+      final isOk = await displayPaymentSheet(paymentIntent);
+      return isOk;
     } catch (e) {
       print("exception $e");
-
-      if (e is StripeConfigException) {
-        print("Stripe exception ${e.message}");
-      } else {
-        print("exception $e");
-      }
+      return false;
+      // if (e is StripeConfigException) {
+      //   print("Stripe exception ${e.message}");
+      // } else {
+      //   print("exception $e");
+      // }
     }
   }
 
-  displayPaymentSheet(Map<String, dynamic>? paymentIntent) async {
+  Future<bool> displayPaymentSheet(Map<String, dynamic>? paymentIntent) async {
     try {
       await Stripe.instance.presentPaymentSheet();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Paid successfully")),
       );
       paymentIntent = null;
+      return true;
     } on StripeException catch (e) {
       print('Error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text(" Payment Cancelled")),
       );
+      return false;
     } catch (e) {
       print("Error in displaying");
       print('$e');
+      return false;
     }
   }
 
@@ -103,15 +107,18 @@ class _ParkingDetailsPageState extends State<ParkingDetailsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(30)),
-              child: Hero(
-                tag:
-                    "parking_main_image_${widget.parkingDetailsModel.imagesUrls[0]}",
+            Hero(
+              tag: "parking_main_image_${widget.parkingDetailsModel.spotId}",
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(30)),
                 child: CarouselSlider.builder(
-                  itemCount: widget.parkingDetailsModel.imagesUrls.length,
+                  itemCount: widget.parkingDetailsModel.imagesUrls.isNotEmpty
+                      ? widget.parkingDetailsModel.imagesUrls.length
+                      : 1,
                   itemBuilder: ((context, index, realIndex) => Image.network(
-                        widget.parkingDetailsModel.imagesUrls[index],
+                        widget.parkingDetailsModel.imagesUrls.isNotEmpty
+                            ? widget.parkingDetailsModel.imagesUrls[index]
+                            : "https://as2.ftcdn.net/v2/jpg/07/95/29/45/1000_F_795294547_gaBzWLhkAYBSz1ZUIZssHhvzGzstNmHK.jpg",
                         fit: BoxFit.fitWidth,
                       )),
                   options: CarouselOptions(
@@ -210,7 +217,15 @@ class _ParkingDetailsPageState extends State<ParkingDetailsPage> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () async {
-                      await makePayment();
+                      final isOk = await makePayment();
+                      if (isOk) {
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Payment failed"),
+                          ),
+                        );
+                      }
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(

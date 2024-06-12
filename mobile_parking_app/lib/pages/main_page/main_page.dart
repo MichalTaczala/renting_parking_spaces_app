@@ -4,6 +4,7 @@ import 'package:mobile_parking_app/cubits/add_parking_spot_cubit/add_parking_spo
 import 'package:mobile_parking_app/cubits/main_data/main_data_cubit.dart';
 import 'package:mobile_parking_app/pages/main_page/views/add_parking_spot_view.dart';
 import 'package:mobile_parking_app/pages/main_page/views/choose_parking_view.dart';
+import 'package:mobile_parking_app/pages/main_page/views/my_garages_view.dart';
 import 'package:mobile_parking_app/pages/main_page/views/my_offers_view.dart';
 import 'package:mobile_parking_app/pages/main_page/views/profile_view.dart';
 import 'package:mobile_parking_app/repositories/flask_repository.dart';
@@ -66,11 +67,12 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: PageView(
         controller: pageController,
-        children: [
-          const ChooseParkingView(),
-          const AddParkingSpotView(),
+        children: const [
+          ChooseParkingView(),
+          AddParkingSpotView(),
           MyOffersView(),
-          const ProfileView(),
+          MyGaragesView(),
+          ProfileView(),
         ],
         onPageChanged: (index) {
           setState(() {
@@ -100,6 +102,8 @@ class _MainPageState extends State<MainPage> {
             icon: Icon(Icons.add),
             label: "Add Garage",
           ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.local_offer), label: "My Offers"),
           BottomNavigationBarItem(
             icon: Icon(Icons.car_rental),
             label: "My Garages",

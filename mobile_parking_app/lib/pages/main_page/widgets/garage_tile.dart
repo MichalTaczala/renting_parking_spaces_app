@@ -13,11 +13,16 @@ class GarageTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(30),
-            child: Hero(
-                tag: "parking_main_image_${parkingDetailsModel.imagesUrls[0]}",
-                child: Image.network(parkingDetailsModel.imagesUrls[0])),
+          Hero(
+            tag: "parking_main_image_${parkingDetailsModel.spotId}",
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: Image.network(
+                parkingDetailsModel.imagesUrls.isNotEmpty
+                    ? parkingDetailsModel.imagesUrls[0]
+                    : "https://as2.ftcdn.net/v2/jpg/07/95/29/45/1000_F_795294547_gaBzWLhkAYBSz1ZUIZssHhvzGzstNmHK.jpg",
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 10.0),
@@ -29,10 +34,11 @@ class GarageTile extends StatelessWidget {
               ),
             ),
           ),
-          const Text(
-            "TODO 2,3 km away",
-            style: TextStyle(fontSize: 16),
-          ),
+          if (parkingDetailsModel.distance != null)
+            Text(
+              "${parkingDetailsModel.distance} km away",
+              style: const TextStyle(fontSize: 16),
+            ),
           Text(
             "${parkingDetailsModel.price} ${parkingDetailsModel.currency} per day",
             style: const TextStyle(

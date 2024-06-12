@@ -7,21 +7,22 @@ part 'parking_spot_model.g.dart';
 @freezed
 class ParkingSpotModel with _$ParkingSpotModel {
   const factory ParkingSpotModel({
-    String? spotId,
+    @JsonKey(name: "spot_id") int? spotId,
     String? name,
     String? description,
-    double? height,
-    double? width,
-    double? length,
+    String? height,
+    String? width,
+    String? length,
     bool? internal,
-    bool? easyAccess,
+    String? distance,
+    @JsonKey(name: "easy_access") bool? easyAccess,
     bool? security,
+    @JsonKey(name: "owner_id") int? ownerId,
     bool? charging,
-    String? ownerId,
-    @Default([]) List<String> imagesUrls,
-    int? addressId,
+    @JsonKey(name: "images_url") @Default([]) List<String> imagesUrls,
+    @JsonKey(name: "address_id") int? addressId,
     AddressModel? address,
-    required double price,
+    required String price,
     @Default("USD") String currency,
   }) = _ParkingSpotModel;
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MyOffersView extends StatelessWidget {
-  const MyOffersView({super.key});
+class MyGaragesView extends StatelessWidget {
+  const MyGaragesView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class MyOffersView extends StatelessWidget {
       child: Column(
         children: [
           const Text(
-            "Your offers",
+            "Your garages",
             style: TextStyle(
               fontSize: 40,
             ),

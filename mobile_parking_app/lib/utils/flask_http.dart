@@ -10,9 +10,9 @@ class FlaskHttp extends http.BaseClient {
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) {
-    if (userId != null) {
-      request.headers["userId"] = userId!;
-    }
+    // if (userId != null) {
+    //   request.headers["userId"] = userId!;
+    // }
     return request.send();
   }
 }

@@ -8,12 +8,13 @@ class UserModel with _$UserModel {
   const factory UserModel({
     int? id,
     String? username,
-    String? firstName,
-    String? lastName,
+    @JsonKey(name: "first_name") String? firstName,
+    @JsonKey(name: "last_name") String? lastName,
     required String email,
     String? type,
-    String? phonePrefix,
+    @JsonKey(name: "phone_prefix") String? phonePrefix,
     required String? phone,
+    @JsonKey(name: "firebase_token") String? firebaseToken,
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>

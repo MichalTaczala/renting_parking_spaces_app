@@ -9,45 +9,47 @@ part of 'parking_spot_model.dart';
 _$ParkingSpotModelImpl _$$ParkingSpotModelImplFromJson(
         Map<String, dynamic> json) =>
     _$ParkingSpotModelImpl(
-      spotId: json['spotId'] as String?,
+      spotId: json['spot_id'] as int?,
       name: json['name'] as String?,
       description: json['description'] as String?,
-      height: (json['height'] as num?)?.toDouble(),
-      width: (json['width'] as num?)?.toDouble(),
-      length: (json['length'] as num?)?.toDouble(),
+      height: json['height'] as String?,
+      width: json['width'] as String?,
+      length: json['length'] as String?,
       internal: json['internal'] as bool?,
-      easyAccess: json['easyAccess'] as bool?,
+      distance: json['distance'] as String?,
+      easyAccess: json['easy_access'] as bool?,
       security: json['security'] as bool?,
+      ownerId: json['owner_id'] as int?,
       charging: json['charging'] as bool?,
-      ownerId: json['ownerId'] as String?,
-      imagesUrls: (json['imagesUrls'] as List<dynamic>?)
+      imagesUrls: (json['images_url'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      addressId: json['addressId'] as int?,
+      addressId: json['address_id'] as int?,
       address: json['address'] == null
           ? null
           : AddressModel.fromJson(json['address'] as Map<String, dynamic>),
-      price: (json['price'] as num).toDouble(),
+      price: json['price'] as String,
       currency: json['currency'] as String? ?? "USD",
     );
 
 Map<String, dynamic> _$$ParkingSpotModelImplToJson(
         _$ParkingSpotModelImpl instance) =>
     <String, dynamic>{
-      'spotId': instance.spotId,
+      'spot_id': instance.spotId,
       'name': instance.name,
       'description': instance.description,
       'height': instance.height,
       'width': instance.width,
       'length': instance.length,
       'internal': instance.internal,
-      'easyAccess': instance.easyAccess,
+      'distance': instance.distance,
+      'easy_access': instance.easyAccess,
       'security': instance.security,
+      'owner_id': instance.ownerId,
       'charging': instance.charging,
-      'ownerId': instance.ownerId,
-      'imagesUrls': instance.imagesUrls,
-      'addressId': instance.addressId,
+      'images_url': instance.imagesUrls,
+      'address_id': instance.addressId,
       'address': instance.address,
       'price': instance.price,
       'currency': instance.currency,
