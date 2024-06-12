@@ -43,7 +43,8 @@ class RentalOffer(Base):
     # Define a relationship to access ParkingSpot from RentalOffer
     spot = relationship(ParkingSpot)
 
-    def to_dict(self):
+    @property
+    def dict(self):
         return {
             "offer_id": self.offer_id,
             "auto_accept": self.auto_accept,
@@ -55,5 +56,6 @@ class RentalOffer(Base):
             "spot_id": self.spot_id,
         }
 
-    def to_json(self):
+    @property
+    def json(self):
         return jsonify(self.to_dict())
