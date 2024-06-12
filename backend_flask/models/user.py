@@ -1,4 +1,3 @@
-# Description: This file contains the User model.
 from flask import jsonify
 import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
@@ -10,7 +9,7 @@ Base = declarative_base()
 
 class User(Base):
     """
-    Remove all except id, from Firebase
+    User model class.
     """
 
     __tablename__ = "users"
@@ -25,9 +24,19 @@ class User(Base):
     )
     phone_prefix = sqlalchemy.Column(sqlalchemy.String(3))
     phone = sqlalchemy.Column(sqlalchemy.String(15), nullable=False, unique=True)
-    password = sqlalchemy.Column(sqlalchemy.String(50), nullable=False)
 
-    def to_dict(self):
+    # other
+    required_fields = [
+        "firebase_token",
+        "username",
+        "first_name",
+        "last_name",
+        "email",
+        "phone",
+    ]
+
+    @property
+    def dict(self):
         """Return a JSON representation of the User object without password."""
         return {
             "id": self.id,
@@ -40,6 +49,7 @@ class User(Base):
             "phone": self.phone,
         }
 
-    def to_json(self):
+    @property
+    def json(self):
         """Return a JSON representation of the User object without password."""
-        return jsonify(self.to_dict())
+        return jsonify(self.dict)

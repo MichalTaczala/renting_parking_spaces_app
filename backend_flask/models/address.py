@@ -21,7 +21,8 @@ class Address(Base):
     district = Column(String(127))
     country = Column(String(100), nullable=False)
 
-    def to_dict(self):
+    @property
+    def dict(self):
         return {
             "address_id": self.address_id,
             "long": self.long,
@@ -35,5 +36,6 @@ class Address(Base):
             "country": self.country,
         }
 
-    def to_json(self):
-        return jsonify(self.to_dict())
+    @property
+    def json(self):
+        return jsonify(self.dict)
