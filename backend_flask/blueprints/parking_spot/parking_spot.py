@@ -16,10 +16,10 @@ from models import ParkingSpot, Address, Booking#, RentalOffer
 # Settings
 MAX_IMAGES_PER_PARKING_SPOT = 5
 MAX_SPOTS_PER_PAGE = 20
-USE_LOCAL_KEY = False
+USE_LOCAL_KEY = True
 
 if USE_LOCAL_KEY:
-    client = storage.Client.from_service_account_json("../terraform_conf/key_app.json")
+    client = storage.Client.from_service_account_json("key_app.json")
 else:
     client = storage.Client()
 
