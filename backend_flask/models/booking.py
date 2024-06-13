@@ -42,7 +42,8 @@ class Booking(Base):
     user = relationship(User)
     offer = relationship(RentalOffer)
 
-    def to_dict(self):
+    @property
+    def dict(self):
         """Return the booking information as a dictionary."""
         return {
             "booking_id": self.booking_id,
@@ -54,6 +55,7 @@ class Booking(Base):
             "offer_id": self.offer_id,
         }
 
-    def to_json(self):
+    @property
+    def json(self):
         """Return the booking information as a JSON object."""
         return jsonify(self.to_dict())

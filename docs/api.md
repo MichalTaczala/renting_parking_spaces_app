@@ -731,3 +731,68 @@ If there is an error:
     "message": "Error message describing the issue"
 }
 ```
+
+
+## Getting user's bookings (by user id)
+```shell
+GET /api/users/{user_id}/bookings
+```
+Retrieves a list of bookings made by a specific user.
+
+### Parameters
+- `user_id` (required): The ID of the user whose bookings are to be retrieved.
+
+### Examples
+Retrieve bookings made by user with `user_id=123`
+
+**Request**
+```shell
+curl -X GET "http://localhost:11434/api/users/123/bookings"
+```
+
+**Response**
+If successful, a list of bookings:
+```shell
+[
+    {
+        "booking_id": 1,
+        "offer_id": 2,
+        "user_id": 123,
+        "booking_start": "2024-06-01T12:00:00",
+        "booking_end": "2024-06-10T12:00:00",
+        "status": "confirmed",
+        "total_price": 1500.00,
+        "spot": {
+            "spot_id": 2,
+            "name": "Downtown Parking Spot",
+            "description": "A secure parking spot in the heart of the city.",
+            "height": 2.5,
+            "width": 2.0,
+            "length": 5.0,
+            "internal": true,
+            "easy_access": true,
+            "security": true,
+            "charging": true,
+            "owner_id": 123,
+            "price": 150.00,
+            "currency": "USD",
+            "images_url": [
+                "http://example.com/images/parking_spot_2_1.jpg",
+                "http://example.com/images/parking_spot_2_2.jpg"
+            ],
+            "address": {
+                "long": -123.456,
+                "lat": 49.2827,
+                "street": "Main St",
+                "house_no": "123",
+                "postal_code": "V6B 3K9",
+                "city": "Vancouver",
+                "region": "BC",
+                "district": "Downtown",
+                "country": "Canada"
+            }
+        }
+    },
+    ...
+]
+```

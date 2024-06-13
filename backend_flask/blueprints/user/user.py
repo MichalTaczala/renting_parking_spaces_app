@@ -5,7 +5,7 @@ from models import User
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from db_conn import get_session
-from models import User, ParkingSpot, Address, RentalOffer
+from models import User, ParkingSpot, Address, RentalOffer, Booking
 
 # import firebase_admin
 # from firebase_admin import auth, credentials
@@ -180,5 +180,31 @@ def get_user_rental_offers(user_id):
                 rental_offers = session.query(RentalOffer).filter(RentalOffer.spot_id == spot.spot_id).all()
                 rental_offers_list.extend([offer.dict for offer in rental_offers])
             return jsonify(rental_offers_list), 200
+        except SQLAlchemyError as e:
+            return jsonify({"message": str(e)}), 500
+
+
+@user_bp.route("/users/<int:user_id>/bookings", methods=["GET"])
+def get_user_bookings(user_id):
+    """Endpoint for retrieving the list of bookings for given user."""
+    with get_session() as session:
+        try:
+            # Retrieve the user to ensure the user exists
+            user = session.query(User).filter(User.id == user_id).first()
+            if not user:
+                return jsonify({"message": "User not found"}), 404
+            # Retrieve bookings for the user
+            bookings = session.query(Booking).filter(Booking.user_id == user_id).all()
+            response_list = []
+            # for each booking get the booking dict, add parking spot dict and address dict
+            for booking in bookings:
+                booking_dict = booking.dict
+                spot_id = booking.offer_id
+                spot = session.query(ParkingSpot).filter(ParkingSpot.spot_id == spot_id).first()
+                address = session.query(Address).filter(Address.address_id == spot.address_id).first()
+                booking_dict["spot"] = spot.to_dict()
+                booking_dict["spot"]["address"] = address.dict
+                response_list.append(booking_dict)
+            return jsonify(response_list), 200
         except SQLAlchemyError as e:
             return jsonify({"message": str(e)}), 500
