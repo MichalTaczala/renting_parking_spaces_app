@@ -14,7 +14,7 @@
 - [Getting multiple parking spots data (with filters)](#getting-multiple-parking-spots-with-optional-filters)
 - [Getting single parking spot data](#getting-single-parking-spot-data)
 - [Deleting a parking spot](#deleting-a-parking-spot)
-
+- [Getting parking spots by owner id](#getting-parking-spots-by-owner-id-user-id)
 
 ## Creating a new user
 ```shell
@@ -656,7 +656,7 @@ If an error occurs:
 }
 ```
 
-### Getting parking spots by owner id (user id)
+## Getting parking spots by owner id (user id)
 ```shell
 GET /users/{user_id}/parking_spots
 ```
