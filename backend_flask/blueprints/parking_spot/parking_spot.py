@@ -355,7 +355,7 @@ def get_parking_spots():
                 response_data = []
                 # add each parking spot dict with address dict
                 for spot, distance in sorted_parking_spots:
-                    data = spot[0].to_dict()
+                    data = spot.to_dict()
                     address_id = spot.address_id
                     # retrieve address data from the database
                     address = (
