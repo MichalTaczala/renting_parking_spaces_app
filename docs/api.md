@@ -513,14 +513,23 @@ If successful, a list of parking spot data:
         "security": true,
         "charging": true,
         "owner_id": 123,
-        "address_id": 45,
         "price": 150.00,
         "currency": "USD",
         "images_url": [
             "http://example.com/images/parking_spot_1_1.jpg",
             "http://example.com/images/parking_spot_1_2.jpg"
         ],
-        "distance": 0.5
+        "address": {
+            "long": -123.456,
+            "lat": 49.2827,
+            "street": "Main St",
+            "house_no": "123",
+            "postal_code": "V6B 3K9",
+            "city": "Vancouver",
+            "region": "BC",
+            "district": "Downtown",
+            "country": "Canada"
+        }
     },
     ...
 ]
