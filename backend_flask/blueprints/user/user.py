@@ -5,6 +5,7 @@ from models import User
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from db_conn import get_session
+from models import User, ParkingSpot, Address, RentalOffer
 
 # import firebase_admin
 # from firebase_admin import auth, credentials
@@ -132,5 +133,52 @@ def update_user_profile(user_id):
                 return jsonify({"message": "User profile updated successfully"}), 200
             else:
                 return jsonify({"message": "User not found"}), 404
+        except SQLAlchemyError as e:
+            return jsonify({"message": str(e)}), 500
+
+
+@user_bp.route("/users/<int:user_id>/parking_spots", methods=["GET"])
+def get_user_parking_spots(user_id):
+    """Endpoint for retrieving the list of parking spots for a given user ID."""
+    with get_session() as session:
+        try:
+            # Retrieve the user to ensure the user exists
+            user = session.query(User).filter(User.id == user_id).first()
+            if not user:
+                return jsonify({"message": "User not found"}), 404
+
+            # Retrieve parking spots for the user
+            parking_spots = session.query(ParkingSpot).filter(ParkingSpot.owner_id == user_id).all()
+            parking_spots_list = [spot.to_dict() for spot in parking_spots]
+
+            # For every spot in the list get 'address_id' and find the corresponding address dict
+            for spot in parking_spots_list:
+                address_id = spot['address_id']
+                address = session.query(Address).filter(Address.address_id == address_id).first()
+                spot['address'] = address.dict
+                del spot['address_id']
+
+            return jsonify(parking_spots_list), 200
+        except SQLAlchemyError as e:
+            return jsonify({"message": str(e)}), 500
+
+
+@user_bp.route("/users/<int:user_id>/rental_offers", methods=["GET"])
+def get_user_rental_offers(user_id):
+    """Endpoint for retrieving the list of rental offers for given user (parking spot owner)."""
+    with get_session() as session:
+        try:
+            # Retrieve the user to ensure the user exists
+            user = session.query(User).filter(User.id == user_id).first()
+            if not user:
+                return jsonify({"message": "User not found"}), 404
+            # Retrieve parking spots for the user
+            parking_spots = session.query(ParkingSpot).filter(ParkingSpot.owner_id == user_id).all()
+            # Retrieve rental offers for each parking spot
+            rental_offers_list = []
+            for spot in parking_spots:
+                rental_offers = session.query(RentalOffer).filter(RentalOffer.spot_id == spot.spot_id).all()
+                rental_offers_list.extend([offer.dict for offer in rental_offers])
+            return jsonify(rental_offers_list), 200
         except SQLAlchemyError as e:
             return jsonify({"message": str(e)}), 500
