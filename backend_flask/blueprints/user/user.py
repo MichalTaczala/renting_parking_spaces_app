@@ -72,15 +72,17 @@ def get_users():
 
 @user_bp.route("/users/id", methods=["GET"])
 def get_user_id():
-    """Endpoint for retrieving user id based on firebase token."""
-    if not request.is_json:
-        return jsonify({"message": "Missing JSON in request"}), 400
-    data = request.get_json()
+    """Endpoint for retrieving user id based on firebase token from query parameter."""
+    firebase_token = request.args.get('firebase_token')
+
+    if not firebase_token:
+        return jsonify({"message": "Missing 'firebase_token' query parameter"}), 400
+
     with get_session() as session:
         try:
             user = (
                 session.query(User)
-                .filter(User.firebase_token == data.get("firebase_token"))
+                .filter(User.firebase_token == firebase_token)
                 .first()
             )
             if user:

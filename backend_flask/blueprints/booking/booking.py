@@ -4,7 +4,7 @@ from flask import request, jsonify
 from flask import Blueprint
 from sqlalchemy.exc import SQLAlchemyError
 from db_conn import get_session
-from models import Booking
+from models import Booking, RentalOffer
 
 
 booking_bp = Blueprint("booking", __name__)
@@ -28,10 +28,23 @@ def create_booking():
         offer_id=data.get("offer_id"),
     )
 
+    # Create a new rental offer
+    new_rental_offer = RentalOffer(
+        offer_id=data.get("offer_id"),
+        auto_accept=True,
+        spot_id=data.get("offer_id"),
+        created_at=data.get("booking_start"),  # unused
+        price=data.get("price_total"),  # unused
+        start_date=data.get("booking_start"),  # unused
+        end_date=data.get("booking_end"),  # unused
+        status="active",  # unused
+    )
+
     # Add to the db
     with get_session() as session:
         try:
             session.add(new_booking)
+            session.add(new_rental_offer)
             session.commit()
             return jsonify({"message": "Successfully created new booking!"}), 200
         except Exception as e:
