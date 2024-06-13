@@ -16,9 +16,14 @@ from models import ParkingSpot, Address, Booking#, RentalOffer
 # Settings
 MAX_IMAGES_PER_PARKING_SPOT = 5
 MAX_SPOTS_PER_PAGE = 20
-client = storage.Client.from_service_account_json("../terraform_conf/key_app.json")
-bucket_name = "parking-images-test"
+USE_LOCAL_KEY = False
 
+if USE_LOCAL_KEY:
+    client = storage.Client.from_service_account_json("../terraform_conf/key_app.json")
+else:
+    client = storage.Client()
+
+bucket_name = "parking-images-test"
 parkingspot_bp = Blueprint("parking_spot", __name__)
 
 
