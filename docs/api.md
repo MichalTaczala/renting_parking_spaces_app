@@ -655,3 +655,70 @@ If an error occurs:
     "message": "Error message"
 }
 ```
+
+### Getting parking spots by owner id (user id)
+```shell
+GET /users/{user_id}/parking_spots
+```
+Retrieves a list of parking spots owned by a specific user.
+
+### Parameters
+- `user_id` (required): The ID of the user whose parking spots are to be retrieved
+
+### Examples
+Retrieve parking spots belonging to user with `user_id=123`
+
+**Request**
+```shell
+curl -X GET "http://localhost:11434/api/users/123/parking_spots"
+```
+
+**Response**
+If the user has parking spots:
+```shell
+[
+    {
+        "spot_id": 1,
+        "name": "Downtown Parking Spot",
+        "description": "A secure parking spot in the heart of the city.",
+        "height": 2.5,
+        "width": 2.0,
+        "length": 5.0,
+        "internal": true,
+        "easy_access": true,
+        "security": true,
+        "charging": true,
+        "owner_id": 123,
+        "price": 150.00,
+        "currency": "USD",
+        "images_url": [
+            "http://example.com/images/parking_spot_1_1.jpg",
+            "http://example.com/images/parking_spot_1_2.jpg"
+        ],
+        "address": {
+            "long": -123.456,
+            "lat": 49.2827,
+            "street": "Main St",
+            "house_no": "123",
+            "postal_code": "V6B 3K9",
+            "city": "Vancouver",
+            "region": "BC",
+            "district": "Downtown",
+            "country": "Canada"
+        }
+    },
+    ...
+]
+```
+If the user is not found:
+```shell
+{
+    "message": "User not found"
+}
+```
+If there is an error:
+```shell
+{
+    "message": "Error message describing the issue"
+}
+```
