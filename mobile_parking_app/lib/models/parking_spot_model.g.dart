@@ -16,12 +16,12 @@ _$ParkingSpotModelImpl _$$ParkingSpotModelImplFromJson(
       width: json['width'] as String?,
       length: json['length'] as String?,
       internal: json['internal'] as bool?,
-      distance: json['distance'] as String?,
+      distance: (json['distance'] as num?)?.toDouble(),
       easyAccess: json['easy_access'] as bool?,
       security: json['security'] as bool?,
       ownerId: json['owner_id'] as int?,
       charging: json['charging'] as bool?,
-      imagesUrls: (json['images_url'] as List<dynamic>?)
+      imagesUrls: (json['image_urls'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           const [],
@@ -48,7 +48,7 @@ Map<String, dynamic> _$$ParkingSpotModelImplToJson(
       'security': instance.security,
       'owner_id': instance.ownerId,
       'charging': instance.charging,
-      'images_url': instance.imagesUrls,
+      'image_urls': instance.imagesUrls,
       'address_id': instance.addressId,
       'address': instance.address,
       'price': instance.price,

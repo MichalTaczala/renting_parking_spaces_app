@@ -28,14 +28,14 @@ mixin _$ParkingSpotModel {
   String? get width => throw _privateConstructorUsedError;
   String? get length => throw _privateConstructorUsedError;
   bool? get internal => throw _privateConstructorUsedError;
-  String? get distance => throw _privateConstructorUsedError;
+  double? get distance => throw _privateConstructorUsedError;
   @JsonKey(name: "easy_access")
   bool? get easyAccess => throw _privateConstructorUsedError;
   bool? get security => throw _privateConstructorUsedError;
   @JsonKey(name: "owner_id")
   int? get ownerId => throw _privateConstructorUsedError;
   bool? get charging => throw _privateConstructorUsedError;
-  @JsonKey(name: "images_url")
+  @JsonKey(name: "image_urls")
   List<String> get imagesUrls => throw _privateConstructorUsedError;
   @JsonKey(name: "address_id")
   int? get addressId => throw _privateConstructorUsedError;
@@ -63,12 +63,12 @@ abstract class $ParkingSpotModelCopyWith<$Res> {
       String? width,
       String? length,
       bool? internal,
-      String? distance,
+      double? distance,
       @JsonKey(name: "easy_access") bool? easyAccess,
       bool? security,
       @JsonKey(name: "owner_id") int? ownerId,
       bool? charging,
-      @JsonKey(name: "images_url") List<String> imagesUrls,
+      @JsonKey(name: "image_urls") List<String> imagesUrls,
       @JsonKey(name: "address_id") int? addressId,
       AddressModel? address,
       String price,
@@ -140,7 +140,7 @@ class _$ParkingSpotModelCopyWithImpl<$Res, $Val extends ParkingSpotModel>
       distance: freezed == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       easyAccess: freezed == easyAccess
           ? _value.easyAccess
           : easyAccess // ignore: cast_nullable_to_non_nullable
@@ -209,12 +209,12 @@ abstract class _$$ParkingSpotModelImplCopyWith<$Res>
       String? width,
       String? length,
       bool? internal,
-      String? distance,
+      double? distance,
       @JsonKey(name: "easy_access") bool? easyAccess,
       bool? security,
       @JsonKey(name: "owner_id") int? ownerId,
       bool? charging,
-      @JsonKey(name: "images_url") List<String> imagesUrls,
+      @JsonKey(name: "image_urls") List<String> imagesUrls,
       @JsonKey(name: "address_id") int? addressId,
       AddressModel? address,
       String price,
@@ -285,7 +285,7 @@ class __$$ParkingSpotModelImplCopyWithImpl<$Res>
       distance: freezed == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       easyAccess: freezed == easyAccess
           ? _value.easyAccess
           : easyAccess // ignore: cast_nullable_to_non_nullable
@@ -342,7 +342,7 @@ class _$ParkingSpotModelImpl implements _ParkingSpotModel {
       this.security,
       @JsonKey(name: "owner_id") this.ownerId,
       this.charging,
-      @JsonKey(name: "images_url") final List<String> imagesUrls = const [],
+      @JsonKey(name: "image_urls") final List<String> imagesUrls = const [],
       @JsonKey(name: "address_id") this.addressId,
       this.address,
       required this.price,
@@ -368,7 +368,7 @@ class _$ParkingSpotModelImpl implements _ParkingSpotModel {
   @override
   final bool? internal;
   @override
-  final String? distance;
+  final double? distance;
   @override
   @JsonKey(name: "easy_access")
   final bool? easyAccess;
@@ -381,7 +381,7 @@ class _$ParkingSpotModelImpl implements _ParkingSpotModel {
   final bool? charging;
   final List<String> _imagesUrls;
   @override
-  @JsonKey(name: "images_url")
+  @JsonKey(name: "image_urls")
   List<String> get imagesUrls {
     if (_imagesUrls is EqualUnmodifiableListView) return _imagesUrls;
     // ignore: implicit_dynamic_type
@@ -483,12 +483,12 @@ abstract class _ParkingSpotModel implements ParkingSpotModel {
       final String? width,
       final String? length,
       final bool? internal,
-      final String? distance,
+      final double? distance,
       @JsonKey(name: "easy_access") final bool? easyAccess,
       final bool? security,
       @JsonKey(name: "owner_id") final int? ownerId,
       final bool? charging,
-      @JsonKey(name: "images_url") final List<String> imagesUrls,
+      @JsonKey(name: "image_urls") final List<String> imagesUrls,
       @JsonKey(name: "address_id") final int? addressId,
       final AddressModel? address,
       required final String price,
@@ -513,7 +513,7 @@ abstract class _ParkingSpotModel implements ParkingSpotModel {
   @override
   bool? get internal;
   @override
-  String? get distance;
+  double? get distance;
   @override
   @JsonKey(name: "easy_access")
   bool? get easyAccess;
@@ -525,7 +525,7 @@ abstract class _ParkingSpotModel implements ParkingSpotModel {
   @override
   bool? get charging;
   @override
-  @JsonKey(name: "images_url")
+  @JsonKey(name: "image_urls")
   List<String> get imagesUrls;
   @override
   @JsonKey(name: "address_id")

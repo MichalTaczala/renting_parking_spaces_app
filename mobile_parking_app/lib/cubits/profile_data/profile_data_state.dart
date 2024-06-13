@@ -7,5 +7,7 @@ class ProfileDataState with _$ProfileDataState {
   const factory ProfileDataState({
     String? name,
     String? surname,
+    String? email,
+    String? phone,
   }) = _ProfileDataState;
 }

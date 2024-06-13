@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_parking_app/models/parking_spot_model.dart';
+import 'package:mobile_parking_app/utils/helper_functions.dart';
 
 class GarageTile extends StatelessWidget {
   final ParkingSpotModel parkingDetailsModel;
@@ -24,19 +25,27 @@ class GarageTile extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: Text(
-              "${parkingDetailsModel.address?.street} ${parkingDetailsModel.address?.houseNo}, ${parkingDetailsModel.address?.country}",
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+          Text(
+            parkingDetailsModel.name ?? "",
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            getReadableAddress(parkingDetailsModel.address),
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
           ),
           if (parkingDetailsModel.distance != null)
             Text(
-              "${parkingDetailsModel.distance} km away",
+              "${double.parse(
+                parkingDetailsModel.distance!.toStringAsFixed(
+                  2,
+                ),
+              )} km away",
               style: const TextStyle(fontSize: 16),
             ),
           Text(

@@ -7,14 +7,14 @@ part 'address_model.g.dart';
 class AddressModel with _$AddressModel {
   const factory AddressModel({
     @JsonKey(name: "address_id") int? addressId,
-    required double? lat,
-    required double? long,
-    required String? street,
+    required String? lat,
+    required String? long,
+    @Default(".") String street,
     @JsonKey(name: "house_no") required String? houseNo,
     @JsonKey(name: "postal_code") required String? postalCode,
-    required String? city,
-    String? region,
-    String? district,
+    @Default(".") String? city,
+    @Default(".") String region,
+    @Default(".") String district,
     required String? country,
   }) = _AddressModel;
 

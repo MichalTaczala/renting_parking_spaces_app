@@ -22,16 +22,16 @@ AddressModel _$AddressModelFromJson(Map<String, dynamic> json) {
 mixin _$AddressModel {
   @JsonKey(name: "address_id")
   int? get addressId => throw _privateConstructorUsedError;
-  double? get lat => throw _privateConstructorUsedError;
-  double? get long => throw _privateConstructorUsedError;
-  String? get street => throw _privateConstructorUsedError;
+  String? get lat => throw _privateConstructorUsedError;
+  String? get long => throw _privateConstructorUsedError;
+  String get street => throw _privateConstructorUsedError;
   @JsonKey(name: "house_no")
   String? get houseNo => throw _privateConstructorUsedError;
   @JsonKey(name: "postal_code")
   String? get postalCode => throw _privateConstructorUsedError;
   String? get city => throw _privateConstructorUsedError;
-  String? get region => throw _privateConstructorUsedError;
-  String? get district => throw _privateConstructorUsedError;
+  String get region => throw _privateConstructorUsedError;
+  String get district => throw _privateConstructorUsedError;
   String? get country => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,14 +48,14 @@ abstract class $AddressModelCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: "address_id") int? addressId,
-      double? lat,
-      double? long,
-      String? street,
+      String? lat,
+      String? long,
+      String street,
       @JsonKey(name: "house_no") String? houseNo,
       @JsonKey(name: "postal_code") String? postalCode,
       String? city,
-      String? region,
-      String? district,
+      String region,
+      String district,
       String? country});
 }
 
@@ -75,12 +75,12 @@ class _$AddressModelCopyWithImpl<$Res, $Val extends AddressModel>
     Object? addressId = freezed,
     Object? lat = freezed,
     Object? long = freezed,
-    Object? street = freezed,
+    Object? street = null,
     Object? houseNo = freezed,
     Object? postalCode = freezed,
     Object? city = freezed,
-    Object? region = freezed,
-    Object? district = freezed,
+    Object? region = null,
+    Object? district = null,
     Object? country = freezed,
   }) {
     return _then(_value.copyWith(
@@ -91,15 +91,15 @@ class _$AddressModelCopyWithImpl<$Res, $Val extends AddressModel>
       lat: freezed == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       long: freezed == long
           ? _value.long
           : long // ignore: cast_nullable_to_non_nullable
-              as double?,
-      street: freezed == street
+              as String?,
+      street: null == street
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       houseNo: freezed == houseNo
           ? _value.houseNo
           : houseNo // ignore: cast_nullable_to_non_nullable
@@ -112,14 +112,14 @@ class _$AddressModelCopyWithImpl<$Res, $Val extends AddressModel>
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String?,
-      region: freezed == region
+      region: null == region
           ? _value.region
           : region // ignore: cast_nullable_to_non_nullable
-              as String?,
-      district: freezed == district
+              as String,
+      district: null == district
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       country: freezed == country
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
@@ -138,14 +138,14 @@ abstract class _$$AddressModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: "address_id") int? addressId,
-      double? lat,
-      double? long,
-      String? street,
+      String? lat,
+      String? long,
+      String street,
       @JsonKey(name: "house_no") String? houseNo,
       @JsonKey(name: "postal_code") String? postalCode,
       String? city,
-      String? region,
-      String? district,
+      String region,
+      String district,
       String? country});
 }
 
@@ -163,12 +163,12 @@ class __$$AddressModelImplCopyWithImpl<$Res>
     Object? addressId = freezed,
     Object? lat = freezed,
     Object? long = freezed,
-    Object? street = freezed,
+    Object? street = null,
     Object? houseNo = freezed,
     Object? postalCode = freezed,
     Object? city = freezed,
-    Object? region = freezed,
-    Object? district = freezed,
+    Object? region = null,
+    Object? district = null,
     Object? country = freezed,
   }) {
     return _then(_$AddressModelImpl(
@@ -179,15 +179,15 @@ class __$$AddressModelImplCopyWithImpl<$Res>
       lat: freezed == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       long: freezed == long
           ? _value.long
           : long // ignore: cast_nullable_to_non_nullable
-              as double?,
-      street: freezed == street
+              as String?,
+      street: null == street
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       houseNo: freezed == houseNo
           ? _value.houseNo
           : houseNo // ignore: cast_nullable_to_non_nullable
@@ -200,14 +200,14 @@ class __$$AddressModelImplCopyWithImpl<$Res>
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String?,
-      region: freezed == region
+      region: null == region
           ? _value.region
           : region // ignore: cast_nullable_to_non_nullable
-              as String?,
-      district: freezed == district
+              as String,
+      district: null == district
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       country: freezed == country
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
@@ -223,12 +223,12 @@ class _$AddressModelImpl implements _AddressModel {
       {@JsonKey(name: "address_id") this.addressId,
       required this.lat,
       required this.long,
-      required this.street,
+      this.street = ".",
       @JsonKey(name: "house_no") required this.houseNo,
       @JsonKey(name: "postal_code") required this.postalCode,
-      required this.city,
-      this.region,
-      this.district,
+      this.city = ".",
+      this.region = ".",
+      this.district = ".",
       required this.country});
 
   factory _$AddressModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -238,11 +238,12 @@ class _$AddressModelImpl implements _AddressModel {
   @JsonKey(name: "address_id")
   final int? addressId;
   @override
-  final double? lat;
+  final String? lat;
   @override
-  final double? long;
+  final String? long;
   @override
-  final String? street;
+  @JsonKey()
+  final String street;
   @override
   @JsonKey(name: "house_no")
   final String? houseNo;
@@ -250,11 +251,14 @@ class _$AddressModelImpl implements _AddressModel {
   @JsonKey(name: "postal_code")
   final String? postalCode;
   @override
+  @JsonKey()
   final String? city;
   @override
-  final String? region;
+  @JsonKey()
+  final String region;
   @override
-  final String? district;
+  @JsonKey()
+  final String district;
   @override
   final String? country;
 
@@ -305,14 +309,14 @@ class _$AddressModelImpl implements _AddressModel {
 abstract class _AddressModel implements AddressModel {
   const factory _AddressModel(
       {@JsonKey(name: "address_id") final int? addressId,
-      required final double? lat,
-      required final double? long,
-      required final String? street,
+      required final String? lat,
+      required final String? long,
+      final String street,
       @JsonKey(name: "house_no") required final String? houseNo,
       @JsonKey(name: "postal_code") required final String? postalCode,
-      required final String? city,
-      final String? region,
-      final String? district,
+      final String? city,
+      final String region,
+      final String district,
       required final String? country}) = _$AddressModelImpl;
 
   factory _AddressModel.fromJson(Map<String, dynamic> json) =
@@ -322,11 +326,11 @@ abstract class _AddressModel implements AddressModel {
   @JsonKey(name: "address_id")
   int? get addressId;
   @override
-  double? get lat;
+  String? get lat;
   @override
-  double? get long;
+  String? get long;
   @override
-  String? get street;
+  String get street;
   @override
   @JsonKey(name: "house_no")
   String? get houseNo;
@@ -336,9 +340,9 @@ abstract class _AddressModel implements AddressModel {
   @override
   String? get city;
   @override
-  String? get region;
+  String get region;
   @override
-  String? get district;
+  String get district;
   @override
   String? get country;
   @override

@@ -55,13 +55,13 @@ class GoogleMapsRepository {
       }
 
       return AddressModel(
-        street: street,
+        street: street ?? ".",
         houseNo: houseNumber,
         city: city,
         postalCode: postalCode,
         country: country,
-        lat: lat,
-        long: lng,
+        lat: lat.toString(),
+        long: lng.toString(),
       );
     } else {
       throw Exception('Failed to load address');

@@ -2,16 +2,27 @@ import 'dart:convert';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_parking_app/models/parking_spot_model.dart';
+import 'package:mobile_parking_app/pages/parking_details/parking_feature_widget.dart';
 import 'package:mobile_parking_app/pages/parking_details/show_parking_on_map_page.dart';
+import 'package:mobile_parking_app/repositories/flask_repository.dart';
+import 'package:mobile_parking_app/utils/helper_functions.dart';
+import 'package:mobile_parking_app/utils/scrollable_if_much_content_widget.dart';
 
 class ParkingDetailsPage extends StatefulWidget {
-  const ParkingDetailsPage({super.key, required this.parkingDetailsModel});
-  final ParkingSpotModel parkingDetailsModel;
+  ParkingDetailsPage({super.key, required this.data})
+      : parkingDetailsModel = data["parkingSpot"],
+        from = data["startDate"],
+        to = data["endDate"];
+  final Map<String, dynamic> data;
+  ParkingSpotModel parkingDetailsModel;
+  DateTime from;
+  DateTime to;
 
   @override
   State<ParkingDetailsPage> createState() => _ParkingDetailsPageState();
@@ -20,10 +31,19 @@ class ParkingDetailsPage extends StatefulWidget {
 class _ParkingDetailsPageState extends State<ParkingDetailsPage> {
   Map<String, dynamic>? paymentIntent;
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   widget.parkingDetailsModel = widget.data["parkingSpot"];
+  //   widget.from = widget.data["startDate"];
+  //   widget.to = widget.data["endDate"];
+  // }
+
   Future<bool> makePayment() async {
     try {
       paymentIntent = await createPaymentIntent(
-        double.parse(widget.parkingDetailsModel.price),
+        double.parse(widget.parkingDetailsModel.price) *
+            ((widget.from.difference(widget.to).inDays).abs() + 1),
         widget.parkingDetailsModel.currency,
       );
 
@@ -102,9 +122,8 @@ class _ParkingDetailsPageState extends State<ParkingDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
+      body: ScrollableIfMuchContentWidget(
+        upperWidget: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Hero(
@@ -132,7 +151,7 @@ class _ParkingDetailsPageState extends State<ParkingDetailsPage> {
             const SizedBox(
               height: 10,
             ),
-            Row(
+            Wrap(
               children: [
                 Column(
                   children: [
@@ -154,8 +173,10 @@ class _ParkingDetailsPageState extends State<ParkingDetailsPage> {
                       MaterialPageRoute(
                         builder: (context) => ShowParkingOnMap(
                           initialCameraPosition: LatLng(
-                            widget.parkingDetailsModel.address!.lat!,
-                            widget.parkingDetailsModel.address!.long!,
+                            double.parse(
+                                widget.parkingDetailsModel.address!.lat!),
+                            double.parse(
+                                widget.parkingDetailsModel.address!.long!),
                           ),
                         ),
                       ),
@@ -172,12 +193,16 @@ class _ParkingDetailsPageState extends State<ParkingDetailsPage> {
             ),
             Text(
               widget.parkingDetailsModel.description ?? "",
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
             ),
             const SizedBox(
               height: 30,
+            ),
+            Text(
+              getReadableAddress(widget.parkingDetailsModel.address),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 10,
             ),
             const Text(
               "Facilities",
@@ -186,65 +211,83 @@ class _ParkingDetailsPageState extends State<ParkingDetailsPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Row(
+            Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.abc),
-                Icon(
-                  Icons.access_time_filled,
+                ParkingFeatureWidget(
+                  option: widget.parkingDetailsModel.charging ?? false,
+                  text: "Is charging available",
+                ),
+                ParkingFeatureWidget(
+                  option: widget.parkingDetailsModel.easyAccess ?? false,
+                  text: "Is easy access",
+                ),
+                ParkingFeatureWidget(
+                  option: widget.parkingDetailsModel.internal ?? false,
+                  text: "Is internal?",
+                ),
+                ParkingFeatureWidget(
+                  option: widget.parkingDetailsModel.security ?? false,
+                  text: "Is secure?",
                 ),
               ],
             ),
-            const Spacer(),
-            Row(
+          ],
+        ),
+        lowerWidget: Row(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text("Price per day"),
-                    Text(
-                      "${widget.parkingDetailsModel.currency} ${widget.parkingDetailsModel.price}",
-                      style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.green[300],
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      final isOk = await makePayment();
-                      if (isOk) {
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("Payment failed"),
-                          ),
-                        );
-                      }
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                        Colors.blue[400],
-                      ),
-                    ),
-                    child: const Text(
-                      "Book now",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
-                    ),
+                const Text("Price per day"),
+                Text(
+                  "${widget.parkingDetailsModel.currency} ${widget.parkingDetailsModel.price}",
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.green[300],
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
-            )
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () async {
+                  final isOk = await makePayment();
+                  if (isOk) {
+                    context.read<FlaskRepository>().bookParkingSpot(
+                          widget.from,
+                          widget.to,
+                          widget.parkingDetailsModel,
+                        );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Payment failed"),
+                      ),
+                    );
+                  }
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(
+                    Colors.blue[400],
+                  ),
+                ),
+                child: const Text(
+                  "Book now",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
+        paddingValue: 16,
       ),
     );
   }

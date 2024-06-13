@@ -50,9 +50,9 @@ class AddParkingSpotCubit extends Cubit<AddParkingSpotState> {
       price: state.price!.toString(),
     );
     final response = await _flaskRepository.addParkingSpotNoImages(model);
-    if (response.parking_spot != null) {
+    if (response.parkingId != null) {
       final responseImages = await _flaskRepository.addParkingSpotImages(
-          state.imagesFiles, response.parking_spot!);
+          state.imagesFiles, response.parkingId!);
     }
   }
 

@@ -9,14 +9,14 @@ part of 'address_model.dart';
 _$AddressModelImpl _$$AddressModelImplFromJson(Map<String, dynamic> json) =>
     _$AddressModelImpl(
       addressId: json['address_id'] as int?,
-      lat: (json['lat'] as num?)?.toDouble(),
-      long: (json['long'] as num?)?.toDouble(),
-      street: json['street'] as String?,
+      lat: json['lat'] as String?,
+      long: json['long'] as String?,
+      street: json['street'] as String? ?? ".",
       houseNo: json['house_no'] as String?,
       postalCode: json['postal_code'] as String?,
-      city: json['city'] as String?,
-      region: json['region'] as String?,
-      district: json['district'] as String?,
+      city: json['city'] as String? ?? ".",
+      region: json['region'] as String? ?? ".",
+      district: json['district'] as String? ?? ".",
       country: json['country'] as String?,
     );
 

@@ -6,7 +6,6 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:mobile_parking_app/cubits/authentication_cubit/authentication_cubit.dart';
 import 'package:mobile_parking_app/cubits/authentication_cubit/authentication_state.dart';
 import 'package:mobile_parking_app/firebase_options.dart';
-import 'package:mobile_parking_app/models/parking_spot_model.dart';
 import 'package:mobile_parking_app/models/user_model.dart';
 import 'package:mobile_parking_app/pages/log_in/log_in_page.dart';
 import 'package:mobile_parking_app/pages/main_page/main_page.dart';
@@ -64,9 +63,8 @@ class _MainAppState extends State<MainApp> {
               context,
             ) =>
                 ParkingDetailsPage(
-                  parkingDetailsModel: ModalRoute.of(context)!
-                      .settings
-                      .arguments as ParkingSpotModel,
+                  data: ModalRoute.of(context)!.settings.arguments
+                      as Map<String, dynamic>,
                 ),
             "/payment": (context) => const StripePaymentPage(),
             "/maps": (context) => const MapsPage(),

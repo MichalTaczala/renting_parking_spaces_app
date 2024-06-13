@@ -7,7 +7,7 @@ part 'create_parking_spot_response_model.g.dart';
 class CreateParkingSpotResponseModel with _$CreateParkingSpotResponseModel {
   const factory CreateParkingSpotResponseModel({
     String? message,
-    int? parking_spot,
+    @JsonKey(name: "parking_id") int? parkingId,
   }) = _CreateParkingSpotResponseModel;
 
   factory CreateParkingSpotResponseModel.fromJson(Map<String, dynamic> json) =>

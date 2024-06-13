@@ -7,7 +7,15 @@ class ProfileDataCubit extends Cubit<ProfileDataState> {
   ProfileDataCubit(this.flaskRepo) : super(const ProfileDataState());
   final FlaskRepository flaskRepo;
 
-  void updateProfileData(String firebaseId) {
-    flaskRepo.getUserIdFromFirebaseToken(firebaseId);
+  void updateProfileData() async {
+    final userData = await flaskRepo.getUser();
+    emit(
+      ProfileDataState(
+        name: userData.firstName,
+        surname: userData.lastName,
+        email: userData.email,
+        phone: userData.phone,
+      ),
+    );
   }
 }

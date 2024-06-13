@@ -18,9 +18,6 @@ class MainScreen extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(
-          create: (context) => FlaskRepository(),
-        ),
-        RepositoryProvider(
           create: (context) => GoogleMapsRepository(),
         ),
       ],
@@ -103,7 +100,7 @@ class _MainPageState extends State<MainPage> {
             label: "Add Garage",
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.local_offer), label: "My Offers"),
+              icon: Icon(Icons.local_offer), label: "My Bookings"),
           BottomNavigationBarItem(
             icon: Icon(Icons.car_rental),
             label: "My Garages",

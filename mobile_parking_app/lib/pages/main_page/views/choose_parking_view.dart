@@ -145,7 +145,11 @@ class _ChooseParkingViewState extends State<ChooseParkingView> {
         return InkWell(
           onTap: () => Navigator.of(context).pushNamed(
             "/parkingDetails",
-            arguments: state.parkingSpots[index],
+            arguments: {
+              "parkingSpot": state.parkingSpots[index],
+              "startDate": state.startDate,
+              "endDate": state.endDate,
+            },
           ),
           child: GarageTile(
             parkingDetailsModel: state.parkingSpots[index],

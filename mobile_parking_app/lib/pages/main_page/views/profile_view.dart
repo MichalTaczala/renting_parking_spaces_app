@@ -10,12 +10,9 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => FlaskRepository(),
-      child: BlocProvider(
-        create: (context) => ProfileDataCubit(context.read<FlaskRepository>()),
-        child: const ProfileViewImpl(),
-      ),
+    return BlocProvider(
+      create: (context) => ProfileDataCubit(context.read<FlaskRepository>()),
+      child: const ProfileViewImpl(),
     );
   }
 }
@@ -68,7 +65,7 @@ class ProfileViewImpl extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<ProfileDataCubit>().updateProfileData("firebaseId");
+    context.read<ProfileDataCubit>().updateProfileData();
     return BlocBuilder<ProfileDataCubit, ProfileDataState>(
       builder: (context, state) {
         return Padding(
@@ -84,9 +81,10 @@ class ProfileViewImpl extends StatelessWidget {
                     ),
                   ),
                 ),
-                buildRow("Name: ", "John Doe"),
-                buildRow("Email: ", "abc@gmail.com"),
-                buildRow("Phone: ", "1234567890"),
+                const SizedBox(height: 24),
+                buildRow("Name: ", "${state.name} ${state.surname}"),
+                buildRow("Email: ", "${state.email}"),
+                buildRow("Phone: ", "${state.phone}"),
                 const Spacer(),
                 buildLogOutButton(context),
               ],

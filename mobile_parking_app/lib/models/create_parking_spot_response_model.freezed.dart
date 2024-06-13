@@ -22,7 +22,8 @@ CreateParkingSpotResponseModel _$CreateParkingSpotResponseModelFromJson(
 /// @nodoc
 mixin _$CreateParkingSpotResponseModel {
   String? get message => throw _privateConstructorUsedError;
-  int? get parking_spot => throw _privateConstructorUsedError;
+  @JsonKey(name: "parking_id")
+  int? get parkingId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,7 +39,7 @@ abstract class $CreateParkingSpotResponseModelCopyWith<$Res> {
       _$CreateParkingSpotResponseModelCopyWithImpl<$Res,
           CreateParkingSpotResponseModel>;
   @useResult
-  $Res call({String? message, int? parking_spot});
+  $Res call({String? message, @JsonKey(name: "parking_id") int? parkingId});
 }
 
 /// @nodoc
@@ -56,16 +57,16 @@ class _$CreateParkingSpotResponseModelCopyWithImpl<$Res,
   @override
   $Res call({
     Object? message = freezed,
-    Object? parking_spot = freezed,
+    Object? parkingId = freezed,
   }) {
     return _then(_value.copyWith(
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-      parking_spot: freezed == parking_spot
-          ? _value.parking_spot
-          : parking_spot // ignore: cast_nullable_to_non_nullable
+      parkingId: freezed == parkingId
+          ? _value.parkingId
+          : parkingId // ignore: cast_nullable_to_non_nullable
               as int?,
     ) as $Val);
   }
@@ -80,7 +81,7 @@ abstract class _$$CreateParkingSpotResponseModelImplCopyWith<$Res>
       __$$CreateParkingSpotResponseModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? message, int? parking_spot});
+  $Res call({String? message, @JsonKey(name: "parking_id") int? parkingId});
 }
 
 /// @nodoc
@@ -97,16 +98,16 @@ class __$$CreateParkingSpotResponseModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? message = freezed,
-    Object? parking_spot = freezed,
+    Object? parkingId = freezed,
   }) {
     return _then(_$CreateParkingSpotResponseModelImpl(
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-      parking_spot: freezed == parking_spot
-          ? _value.parking_spot
-          : parking_spot // ignore: cast_nullable_to_non_nullable
+      parkingId: freezed == parkingId
+          ? _value.parkingId
+          : parkingId // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
   }
@@ -116,7 +117,8 @@ class __$$CreateParkingSpotResponseModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CreateParkingSpotResponseModelImpl
     implements _CreateParkingSpotResponseModel {
-  const _$CreateParkingSpotResponseModelImpl({this.message, this.parking_spot});
+  const _$CreateParkingSpotResponseModelImpl(
+      {this.message, @JsonKey(name: "parking_id") this.parkingId});
 
   factory _$CreateParkingSpotResponseModelImpl.fromJson(
           Map<String, dynamic> json) =>
@@ -125,11 +127,12 @@ class _$CreateParkingSpotResponseModelImpl
   @override
   final String? message;
   @override
-  final int? parking_spot;
+  @JsonKey(name: "parking_id")
+  final int? parkingId;
 
   @override
   String toString() {
-    return 'CreateParkingSpotResponseModel(message: $message, parking_spot: $parking_spot)';
+    return 'CreateParkingSpotResponseModel(message: $message, parkingId: $parkingId)';
   }
 
   @override
@@ -138,13 +141,13 @@ class _$CreateParkingSpotResponseModelImpl
         (other.runtimeType == runtimeType &&
             other is _$CreateParkingSpotResponseModelImpl &&
             (identical(other.message, message) || other.message == message) &&
-            (identical(other.parking_spot, parking_spot) ||
-                other.parking_spot == parking_spot));
+            (identical(other.parkingId, parkingId) ||
+                other.parkingId == parkingId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, message, parking_spot);
+  int get hashCode => Object.hash(runtimeType, message, parkingId);
 
   @JsonKey(ignore: true)
   @override
@@ -165,8 +168,9 @@ class _$CreateParkingSpotResponseModelImpl
 abstract class _CreateParkingSpotResponseModel
     implements CreateParkingSpotResponseModel {
   const factory _CreateParkingSpotResponseModel(
-      {final String? message,
-      final int? parking_spot}) = _$CreateParkingSpotResponseModelImpl;
+          {final String? message,
+          @JsonKey(name: "parking_id") final int? parkingId}) =
+      _$CreateParkingSpotResponseModelImpl;
 
   factory _CreateParkingSpotResponseModel.fromJson(Map<String, dynamic> json) =
       _$CreateParkingSpotResponseModelImpl.fromJson;
@@ -174,7 +178,8 @@ abstract class _CreateParkingSpotResponseModel
   @override
   String? get message;
   @override
-  int? get parking_spot;
+  @JsonKey(name: "parking_id")
+  int? get parkingId;
   @override
   @JsonKey(ignore: true)
   _$$CreateParkingSpotResponseModelImplCopyWith<

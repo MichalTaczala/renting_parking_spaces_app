@@ -18,7 +18,7 @@ class MainDataCubit extends Cubit<MainDataState> {
       : super(const MainDataState());
 
   void init() {
-    _fetchParkingSpots();
+    // _fetchParkingSpots();
   }
 
   void setDateRangeAndFetchParkingSpots(PickerDateRange dateRange) {
@@ -55,7 +55,9 @@ class MainDataCubit extends Cubit<MainDataState> {
         choosenLocationForGarageName: name,
       ),
     );
-    _fetchParkingSpots();
+    if (state.startDate != null && state.endDate != null) {
+      _fetchParkingSpots();
+    }
   }
 
   void _fetchParkingSpots() async {

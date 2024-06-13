@@ -25,7 +25,7 @@ class _AddParkingSpotViewState extends State<AddParkingSpotView> {
     return const Padding(
       padding: EdgeInsets.only(bottom: 16.0),
       child: Text(
-        "Create new parking spot",
+        "Create new spot",
         style: TextStyle(
           fontSize: 32,
           fontWeight: FontWeight.bold,
@@ -234,23 +234,24 @@ class _AddParkingSpotViewState extends State<AddParkingSpotView> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Row(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Expanded(
-              flex: 3,
+              flex: 1,
               child: CheckboxWithText(
                 onChanged: context.read<AddParkingSpotCubit>().changeIsSecured,
                 value: state.isSecurity,
-                text: "Is parking spot secured",
+                text: "Is secured?",
               ),
             ),
             Expanded(
-              flex: 2,
+              flex: 1,
               child: CheckboxWithText(
                 onChanged:
                     context.read<AddParkingSpotCubit>().changeIsEasyAccess,
                 value: state.isEasyAccess,
-                text: "Is easy access",
+                text: "Is easy access?",
               ),
             )
           ],
@@ -258,19 +259,19 @@ class _AddParkingSpotViewState extends State<AddParkingSpotView> {
         Row(
           children: [
             Expanded(
-              flex: 3,
+              flex: 1,
               child: CheckboxWithText(
                 onChanged: context.read<AddParkingSpotCubit>().changeIsCharger,
                 value: state.isCharger,
-                text: "Is charging station",
+                text: "Has charger?",
               ),
             ),
             Expanded(
-              flex: 2,
+              flex: 1,
               child: CheckboxWithText(
                 onChanged: context.read<AddParkingSpotCubit>().changeIsInternal,
                 value: state.isInternal,
-                text: "Is internal",
+                text: "Is internal?",
               ),
             ),
           ],

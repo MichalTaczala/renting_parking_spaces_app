@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ProfileDataState {
   String? get name => throw _privateConstructorUsedError;
   String? get surname => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
+  String? get phone => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProfileDataStateCopyWith<ProfileDataState> get copyWith =>
@@ -30,7 +32,7 @@ abstract class $ProfileDataStateCopyWith<$Res> {
           ProfileDataState value, $Res Function(ProfileDataState) then) =
       _$ProfileDataStateCopyWithImpl<$Res, ProfileDataState>;
   @useResult
-  $Res call({String? name, String? surname});
+  $Res call({String? name, String? surname, String? email, String? phone});
 }
 
 /// @nodoc
@@ -48,6 +50,8 @@ class _$ProfileDataStateCopyWithImpl<$Res, $Val extends ProfileDataState>
   $Res call({
     Object? name = freezed,
     Object? surname = freezed,
+    Object? email = freezed,
+    Object? phone = freezed,
   }) {
     return _then(_value.copyWith(
       name: freezed == name
@@ -57,6 +61,14 @@ class _$ProfileDataStateCopyWithImpl<$Res, $Val extends ProfileDataState>
       surname: freezed == surname
           ? _value.surname
           : surname // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -70,7 +82,7 @@ abstract class _$$ProfileDataStateImplCopyWith<$Res>
       __$$ProfileDataStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? name, String? surname});
+  $Res call({String? name, String? surname, String? email, String? phone});
 }
 
 /// @nodoc
@@ -86,6 +98,8 @@ class __$$ProfileDataStateImplCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? surname = freezed,
+    Object? email = freezed,
+    Object? phone = freezed,
   }) {
     return _then(_$ProfileDataStateImpl(
       name: freezed == name
@@ -96,6 +110,14 @@ class __$$ProfileDataStateImplCopyWithImpl<$Res>
           ? _value.surname
           : surname // ignore: cast_nullable_to_non_nullable
               as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -103,16 +125,21 @@ class __$$ProfileDataStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ProfileDataStateImpl implements _ProfileDataState {
-  const _$ProfileDataStateImpl({this.name, this.surname});
+  const _$ProfileDataStateImpl(
+      {this.name, this.surname, this.email, this.phone});
 
   @override
   final String? name;
   @override
   final String? surname;
+  @override
+  final String? email;
+  @override
+  final String? phone;
 
   @override
   String toString() {
-    return 'ProfileDataState(name: $name, surname: $surname)';
+    return 'ProfileDataState(name: $name, surname: $surname, email: $email, phone: $phone)';
   }
 
   @override
@@ -121,11 +148,13 @@ class _$ProfileDataStateImpl implements _ProfileDataState {
         (other.runtimeType == runtimeType &&
             other is _$ProfileDataStateImpl &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.surname, surname) || other.surname == surname));
+            (identical(other.surname, surname) || other.surname == surname) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.phone, phone) || other.phone == phone));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, surname);
+  int get hashCode => Object.hash(runtimeType, name, surname, email, phone);
 
   @JsonKey(ignore: true)
   @override
@@ -136,13 +165,20 @@ class _$ProfileDataStateImpl implements _ProfileDataState {
 }
 
 abstract class _ProfileDataState implements ProfileDataState {
-  const factory _ProfileDataState({final String? name, final String? surname}) =
-      _$ProfileDataStateImpl;
+  const factory _ProfileDataState(
+      {final String? name,
+      final String? surname,
+      final String? email,
+      final String? phone}) = _$ProfileDataStateImpl;
 
   @override
   String? get name;
   @override
   String? get surname;
+  @override
+  String? get email;
+  @override
+  String? get phone;
   @override
   @JsonKey(ignore: true)
   _$$ProfileDataStateImplCopyWith<_$ProfileDataStateImpl> get copyWith =>
