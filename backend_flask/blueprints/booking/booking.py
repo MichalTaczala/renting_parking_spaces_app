@@ -48,7 +48,7 @@ def get_booking(booking_id):
             )
             if booking:
                 # Return booking information
-                return booking.json(), 200
+                return booking.json, 200
             return jsonify({"message": "Booking not found"}), 404
         except SQLAlchemyError as e:
             return jsonify({"message": str(e)}), 500
