@@ -11,7 +11,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from google.cloud import storage
 
 from db_conn import get_session
-from models import ParkingSpot, Address, Booking, RentalOffer
+from models import ParkingSpot, Address, Booking#, RentalOffer
 
 # Settings
 MAX_IMAGES_PER_PARKING_SPOT = 5
@@ -221,7 +221,6 @@ def get_parking_spot(spot_id):
     user_lat = float(user_lat) if user_lat else None
     user_long = float(user_long) if user_long else None
     image_urls = get_list_of_images(spot_id)
-
     # Retrieve parking spot from the database based on spot_id
     with get_session() as session:
         try:
@@ -298,25 +297,25 @@ def get_parking_spots():
         try:
             # Get the alias for the Booking and RentalOffer models
             booking_alias = aliased(Booking)
-            rental_offer_alias = aliased(RentalOffer)
+            # rental_offer_alias = aliased(RentalOffer)
             # Base query for available parking spots
             base_query = (
                 session.query(ParkingSpot)
-                .join(
-                    rental_offer_alias,
-                    ParkingSpot.spot_id == rental_offer_alias.spot_id,
-                )
-                .filter(rental_offer_alias.status == "active")
+                # .join(
+                #     rental_offer_alias,
+                #     ParkingSpot.spot_id == rental_offer_alias.spot_id,
+                # )
+                # .filter(rental_offer_alias.status == "active")
             )
             # Filter by date range if provided
             if start_date and end_date:
                 base_query = base_query.filter(
                     and_(
-                        rental_offer_alias.start_date <= end_date,
-                        rental_offer_alias.end_date >= start_date,
+                        # rental_offer_alias.start_date <= end_date,
+                        # rental_offer_alias.end_date >= start_date,
                         not_(
                             ParkingSpot.spot_id.in_(
-                                session.query(booking_alias.offer_id)
+                                session.query(booking_alias.offer_id)  # REMEMBER: offer_id is spot_id!!!
                                 .filter(
                                     and_(
                                         booking_alias.booking_start <= end_date,
